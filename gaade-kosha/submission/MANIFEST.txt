@@ -1,10 +1,10 @@
 # Gaade Kosha Submission Manifest
-# Generated: 2026-11-19T19:23:24.201663
+# Generated: 2026-11-19T20:58:37.017144
 # Total Files: 238
-# Total Size: 19.52 MB
+# Total Size: 19.53 MB
 # Format: SHA256  SIZE_BYTES  RELATIVE_PATH
 # ====================================================================
-6dde93d497105f0231c76f8a87f1c7f188c559e1808e1693703ea5b5e9d7b44a       11062  README.md
+8796d2b640d3bedc895b5e672ff75f57cb4b4716bc33caaf703146dc31542e5a       12432  README.md
 6653f6080621812b44a58186c10d2912b6ca183971219c54195dd3d431bb351c       77310  audio/G001.wav
 5410f2b87708af14bee2dc53993db3336018d179ef749638f7564936c3ee47e3      111870  audio/G002.wav
 23e9a7d76b8067815ede06b949763612af5000f71468aba89c5b5589f43abd84       76670  audio/G003.wav
@@ -229,8 +229,8 @@ f5897ba96f78b15040fa5da9a64e168b62a3c2608ff058c3533f108e32009ef5       66430  au
 67358627f49f320ba8265c0ae7638cb027cff7056b9f1abf582e0fc628e54d3e       81790  audio/G248.wav
 3cb4d7899adabad18646e3759a8407e1802ac9aaefa3b5d6ab96ef56e8fde797       52350  audio/G249.wav
 980bc894583906bdc93294e118d61d9c853f427ed6b73b8daffb21460d3f6afd       74110  audio/G250.wav
-cc9ebb2ea2640176ca10146263568a07b1353d38f47b38b9ba0f68e5d643e199       10562  consent/CONSENT_TEMPLATE.md
-fc215170598a46f5029563ff15e535477d9b0a30b098150b393140d07c2c84b7          83  consent/consent_register.csv
+d31922e7dd056e1573f85970cb17d2425dbaaefc0e1129ddd14c23c1bb64d1c6       15280  consent/CONSENT_TEMPLATE.md
+9a1d6434e5656ba0e3af15e9d4892891b6384aa8453e961fffc2a325a14db67c         690  consent/consent_register.csv
 eda75a945b82ea6688c6a364ed2493bea2fa9238af7b34001014357a7378fbd5       12021  docs/DEMO.md
 0ece0ef9754dbd20c43d6d806236b002d4f90e1343d9fc92aabc7941125e134b        3701  docs/SUBMISSION_CHECKLIST.md
 504a45cc4a40ec75c466a843eaa9a680f8cbb3a8cd66decf371d48c9a0ec5105       13726  docs/TEST_REPORT.md
@@ -238,7 +238,7 @@ eda75a945b82ea6688c6a364ed2493bea2fa9238af7b34001014357a7378fbd5       12021  do
 5b9c62acff0158990aa833a27aa3a4ca4283de33cc304e2b7e41c903e104a14c       29142  elder_review/elder_review_sheet.csv
 09d1f28e47ab38e07e7d0b7b28c15a9202c788264f91d2a60a0a913728e1d555      234462  elder_review/elder_review_sheet.html
 9a6fce3a7a9dadee9e933bb8d884499f25d4f1ecf3918bac8dc137d12c08525a     1616479  elder_review/elder_review_sheet.pdf
-a42b09dc31fb0e4b4d6eb3db4ba530deab71c35c839951e9924e739ef76d1ff4        2795  elder_review/returned/README.txt
+01c02fc911c1da184671d15c399e57ffa44e19fc94a75d338afc291929342982        2796  elder_review/returned/README.txt
 5bc126e92f9ca9df5d74d51e88cd6563003fe50de7a6334db904b4ffb050bd8d       40640  gaade_provenance.csv
 423ff5eb958b9d370998effb12e2166f0adb8c73cb33bad2ad5ece0c7eb51be4       83454  gaades.csv
 120f4b9b3869f95bb2ada657d0e5c6b88d931ef352c9ed02e14f802fa1c676ea      220384  situations.csv

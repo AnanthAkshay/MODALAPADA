@@ -1,7 +1,7 @@
 import React from 'react';
-import { BookOpen, CheckCircle2, AlertCircle, Volume2, VolumeX } from 'lucide-react';
+import { BookOpen, CheckCircle2, AlertCircle, Volume2, VolumeX, FileSignature } from 'lucide-react';
 
-export default function Header({ backendHealth, autoPlay = false, onToggleAutoPlay = null }) {
+export default function Header({ backendHealth, autoPlay = false, onToggleAutoPlay = null, onOpenConsent = null }) {
   const isHealthy = backendHealth?.status === 'healthy';
 
   return (
@@ -43,6 +43,18 @@ export default function Header({ backendHealth, autoPlay = false, onToggleAutoPl
               >
                 {autoPlay ? <Volume2 size={12} /> : <VolumeX size={12} />}
                 <span>Auto-play Gaade: {autoPlay ? 'ON' : 'OFF'}</span>
+              </button>
+            )}
+
+            {onOpenConsent && (
+              <button
+                type="button"
+                className="consent-toggle-btn"
+                onClick={onOpenConsent}
+                title="View Contributor & Developer Consent Declarations (19/11/2026)"
+              >
+                <FileSignature size={13} />
+                <span>ಒಪ್ಪಿಗೆ ಪತ್ರ · Consent</span>
               </button>
             )}
           </div>

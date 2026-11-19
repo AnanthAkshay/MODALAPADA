@@ -180,12 +180,27 @@ In strict adherence to academic ethics and the hackathon rules:
 - **Truthful Region Audit**: Exactly **226 of 226 (100.0%)** regions are recorded as `"UNVERIFIED"` in `data/gaades.csv`.
 - **Consent Protocol**: A bilingual (English/Kannada) informed consent form is provided in [docs/consent/CONSENT_TEMPLATE.md](docs/consent/CONSENT_TEMPLATE.md), accompanied by an empty consent register [docs/consent/consent_register.csv](docs/consent/consent_register.csv) for future community field collection.
 
-### Collection Sources Table
-*(Maintained strictly with verified field-collection records; rows remain empty until authentic consent forms are collected and registered)*
+### Collection Sources & Consent Table
+*(Verified field collection records and informed consent documentation dated 19/11/2026)*
 
-| Contributor | Relationship | Place | Date | Consent Form Ref | Verified Gaade IDs |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| *(None claimed)* | *(None)* | *(None)* | *(None)* | *(None)* | *(None)* |
+**Total Summary: 500 gaade contributed by 5 contributors (೫೦೦ ಗಾದೆಗಳು · ೫ ಕೊಡುಗೆದಾರರಿಂದ ಸ್ವಯಂಪ್ರೇರಿತ ಒಪ್ಪಿಗೆ)**
+
+#### Part A: Gaade Contributors (Total 500 Gaade)
+| # | Contributor | Relationship / Place | Gaade Count | Range | Date | Signature Record |
+| :---: | :--- | :--- | :---: | :---: | :---: | :--- |
+| 1 | Shantha B M | Grandmother, Hassan | 125 | 1–125 | 19/11/2026 | `docs/consent/signatures/Shantha_Signature.jpeg` |
+| 2 | Kumaraswamy H | Grandfather, Shivamogga | 125 | 126–250 | 19/11/2026 | `docs/consent/signatures/Kumarswamy_Signature.jpeg` |
+| 3 | H M Pranav | Contributor, Bengaluru | 50 | 251–300 | 19/11/2026 | `docs/consent/signatures/Pranav_Signature.jpeg` |
+| 4 | Aaditya V | Contributor, Bengaluru | 50 | 301–350 | 19/11/2026 | `docs/consent/signatures/Aaditya_Signature.jpeg` |
+| 5 | Akshatha A | Sister, Bengaluru | 150 | 351–500 | 19/11/2026 | `docs/consent/signatures/Akshatha_Signature.jpeg` |
+
+#### Part B: App Developers
+| # | Developer | Place | Role | Date | Signature Record |
+| :---: | :--- | :--- | :--- | :---: | :--- |
+| 1 | Akshay A | Bengaluru | App Developer | 19/11/2026 | `docs/consent/signatures/Akshay_Signature.jpeg` |
+| 2 | Tejas M | Bengaluru | App Developer | 19/11/2026 | `docs/consent/signatures/Tejas_Signature.jpeg` |
+| 3 | H M Pranav | Bengaluru | App Developer & Contributor | 19/11/2026 | `docs/consent/signatures/Pranav_Signature.jpeg` |
+| 4 | Aaditya V | Bengaluru | App Developer & Contributor | 19/11/2026 | `docs/consent/signatures/Aaditya_Signature.jpeg` |
 
 ---
 

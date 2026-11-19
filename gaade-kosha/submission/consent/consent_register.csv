@@ -1,2 +1,6 @@
-contributor_id,consent_form_file,gaade_ids_contributed,audio_recorded_yes_no,date
-
+contributor_id,contributor_name,relationship,place,consent_form_file,gaade_ids_contributed,gaade_range,audio_recorded_yes_no,date
+C01,Shantha B M,Grandmother,Hassan,docs/consent/signatures/Shantha_Signature.jpeg,125,1–125,yes,19/11/2026
+C02,Kumaraswamy H,Grandfather,Shivamogga,docs/consent/signatures/Kumarswamy_Signature.jpeg,125,126–250,yes,19/11/2026
+C03,H M Pranav,Contributor,Bengaluru,docs/consent/signatures/Pranav_Signature.jpeg,50,251–300,yes,19/11/2026
+C04,Aaditya V,Contributor,Bengaluru,docs/consent/signatures/Aaditya_Signature.jpeg,50,301–350,yes,19/11/2026
+C05,Akshatha A,Sister,Bengaluru,docs/consent/signatures/Akshatha_Signature.jpeg,150,351–500,yes,19/11/2026

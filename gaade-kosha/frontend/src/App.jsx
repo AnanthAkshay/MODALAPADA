@@ -5,11 +5,13 @@ import StarterChips from './components/StarterChips';
 import ChatMessage from './components/ChatMessage';
 import LoadingSkeleton from './components/LoadingSkeleton';
 import VoiceInput from './components/VoiceInput';
+import ConsentModal from './components/ConsentModal';
 
 export default function App() {
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isConsentOpen, setIsConsentOpen] = useState(false);
   const [backendHealth, setBackendHealth] = useState({ status: 'checking', gaades_count: 0 });
   const [lastQuery, setLastQuery] = useState(null);
   const [debugInfo, setDebugInfo] = useState({ backend: null, lang: null, latency: null, status: 'idle' });
@@ -185,11 +187,18 @@ export default function App() {
 
   return (
     <div className="app-container">
-      {/* Top Header with Auto-play Toggle */}
+      {/* Top Header with Auto-play Toggle and Consent Modal Trigger */}
       <Header
         backendHealth={backendHealth}
         autoPlay={autoPlay}
         onToggleAutoPlay={handleToggleAutoPlay}
+        onOpenConsent={() => setIsConsentOpen(true)}
+      />
+
+      {/* Contributor & Developer Consent Declarations Modal */}
+      <ConsentModal
+        isOpen={isConsentOpen}
+        onClose={() => setIsConsentOpen(false)}
       />
 
       {/* Main Chat Stream Container */}
