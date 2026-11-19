@@ -254,13 +254,26 @@ class LLMMatcher:
         if llm_key:
             if llm_key.startswith("gsk_") and not groq_key:
                 groq_key = llm_key
-            elif llm_key.startswith("AIza") and not gemini_key:
+            elif (llm_key.startswith("AIza") or llm_key.startswith("AQ.")) and not gemini_key:
                 gemini_key = llm_key
             elif not groq_key and not gemini_key:
                 if user_pref == "groq":
                     groq_key = llm_key
                 else:
                     gemini_key = llm_key
+
+        # Scan all environment variables for any other keys (e.g. ASR_API_KEY with gsk_)
+        if not groq_key:
+            for k, v in os.environ.items():
+                if v and str(v).strip().startswith("gsk_"):
+                    groq_key = str(v).strip()
+                    break
+
+        if not gemini_key:
+            for k, v in os.environ.items():
+                if v and (str(v).strip().startswith("AIza") or str(v).strip().startswith("AQ.")):
+                    gemini_key = str(v).strip()
+                    break
 
         # 2. Register Groq if key found
         if groq_key:
@@ -322,8 +335,14 @@ class LLMMatcher:
         """Call Google Gemini generateContent REST endpoint with multi-model fallback."""
         clean_model = model.replace("models/", "").strip()
         # Ensure modern active models are tried if older ones return 404
-        # Order candidate models: prioritize modern active models (gemini-2.5-flash) over deprecated 1.5
-        preferred_gemini = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-flash-latest"]
+        # Order candidate models: prioritize modern active models with abundant quota
+        preferred_gemini = [
+            "gemini-flash-lite-latest",
+            "gemini-3.1-flash-lite",
+            "gemini-2.5-flash",
+            "gemini-flash-latest",
+            "gemini-2.0-flash"
+        ]
         candidate_models = []
         if clean_model not in ("gemini-1.5-flash", "gemini-1.5-pro") and clean_model not in candidate_models:
             candidate_models.append(clean_model)
