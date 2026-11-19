@@ -262,3 +262,72 @@ def test_no_api_key_in_frontend_bundle():
                     for pattern in forbidden_patterns:
                         assert pattern not in content, f"Secret pattern '{pattern}' detected in frontend file: {filepath}"
 
+
+def test_llm_matcher_auto_detects_groq_and_gemini_keys(monkeypatch):
+    """
+    Test that LLMMatcher automatically identifies both GROQ_API_KEY and GEMINI_API_KEY
+    and orders them appropriately.
+    """
+    monkeypatch.delenv("LLM_API_KEY", raising=False)
+    monkeypatch.delenv("LLM_PROVIDER", raising=False)
+    monkeypatch.setenv("GROQ_API_KEY", "gsk_test123456789")
+    monkeypatch.setenv("GEMINI_API_KEY", "AIzaSyTest123456789")
+
+    providers = LLMMatcher.get_configured_providers()
+    assert len(providers) == 2
+    # Default order: groq first for ultra-fast latency, then gemini
+    assert providers[0]["name"] == "groq"
+    assert providers[0]["api_key"] == "gsk_test123456789"
+    assert providers[1]["name"] == "gemini"
+    assert providers[1]["api_key"] == "AIzaSyTest123456789"
+
+
+def test_llm_matcher_cross_provider_failover(mock_registry, monkeypatch):
+    """
+    Test seamless cross-provider failover:
+    Primary (Groq) fails with HTTP 500 / timeout -> secondary (Gemini) succeeds.
+    """
+    monkeypatch.delenv("LLM_API_KEY", raising=False)
+    monkeypatch.delenv("LLM_PROVIDER", raising=False)
+    monkeypatch.setenv("GROQ_API_KEY", "gsk_test_groq_key")
+    monkeypatch.setenv("GEMINI_API_KEY", "AIza_test_gemini_key")
+
+    mock_llm_json = {
+        "best_id": "G007",
+        "alternatives": ["G152"],
+        "confidence": 0.95,
+        "status": "ok",
+        "reason_en": "Living beyond your means by taking huge debts leads to ruin.",
+        "reason_kn": "ಸಾಮರ್ಥ್ಯಕ್ಕೆ ಮೀರಿ ಸಾಲ ಮಾಡಿ ಖರ್ಚು ಮಾಡಬಾರದು ಎಂಬುದು ಈ ಗಾದೆಯ ನೀತಿ."
+    }
+
+    # Simulate Groq failure (status 500) and Gemini success (status 200)
+    def fake_post(url, *args, **kwargs):
+        mock_resp = MagicMock()
+        if "groq.com" in url:
+            mock_resp.status_code = 500
+            mock_resp.text = "Internal Server Error from Groq"
+            return mock_resp
+        elif "generativelanguage.googleapis.com" in url:
+            mock_resp.status_code = 200
+            mock_resp.json.return_value = {
+                "candidates": [{
+                    "content": {"parts": [{"text": json.dumps(mock_llm_json)}]}
+                }],
+                "usageMetadata": {"totalTokenCount": 2100}
+            }
+            return mock_resp
+        mock_resp.status_code = 404
+        return mock_resp
+
+    with patch.object(mock_registry.session, "post", side_effect=fake_post):
+        query = "Meena took high EMI loans for a luxury phone and now can't pay her rent."
+        res = MatcherService.match(query, lang="en")
+
+        assert res["status"] == "ok"
+        assert res["matcher_backend"] == "llm"
+        assert res["best"] is not None
+        assert res["best"]["gaade_id"] == "G007"
+        assert res["best"]["gaade"] == "ಹಾಸಿಗೆ ಇದ್ದಷ್ಟು ಕಾಲು ಚಾಚು."
+
+

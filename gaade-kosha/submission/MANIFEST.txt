@@ -1,5 +1,5 @@
 # Gaade Kosha Submission Manifest
-# Generated: 2026-11-20T02:58:34.529083
+# Generated: 2026-11-20T03:11:56.818408
 # Total Files: 243
 # Total Size: 19.01 MB
 # Format: SHA256  SIZE_BYTES  RELATIVE_PATH
@@ -243,7 +243,7 @@ d536d81f3ce5634d005b97dd18229ddcf6f074ec195d4d26a718979afcce0015        1896  do
 d77568c9f94373dcdf20b64539938dfac4bbc6496f1334ddca241338151bbfbc       83227  docs/utf8_no_bom/gaades.csv
 7331c1e02c81c94c9159ab7ec4e3ea01998a49dbc4a3b1b21756f39d368bae9c      254777  docs/utf8_no_bom/situations.csv
 a2a5c57793276439c0f66cc1c51efd2e7dee212d653ca75e36f20813db8e5c50        6645  docs/verification_coverage.md
-03d0998e4e47b748c8757462f7f219f432911c048edde16f63256c67135f560e       44170  extras/gaades.xlsx
-b642ca221cfd70db30f22fe48d22547c5537e27aa1012f450ad862b6887a5236      105645  extras/situations.xlsx
+eb4f4c8b0473ad2e164ac045c76451823f4cd10f278d69f401b6d90ba6ab154e       44170  extras/gaades.xlsx
+e7a965139eb9f6653663f3b825d15f91f46764605f7eb107fa721d28658e89d7      105645  extras/situations.xlsx
 ac3514ad8370cf14f12fe118f2b68e8f964bcbaeeeaa4126520dae574c3858d3       83457  gaades.csv
 b407e4fb851d6c4213c9939c2ff517dc515222148e1b3a4a3bce443675aa0f7d      255233  situations.csv

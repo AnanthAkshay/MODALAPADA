@@ -213,32 +213,67 @@ class LLMMatcher:
         return cls._instance
 
     @staticmethod
-    def get_provider_config() -> Tuple[str, Optional[str], str, float]:
-        """Resolve LLM provider, API key, model, and timeout."""
-        provider = (os.getenv("LLM_PROVIDER") or settings.LLM_PROVIDER or "gemini").lower().strip()
-        
-        # Resolve key
-        if provider == "groq":
-            api_key = os.getenv("LLM_API_KEY") or os.getenv("GROQ_API_KEY") or settings.LLM_API_KEY
-            default_model = "llama-3.3-70b-versatile"
-        else:
-            provider = "gemini"
-            api_key = (
-                os.getenv("LLM_API_KEY")
-                or os.getenv("GEMINI_API_KEY")
-                or os.getenv("GOOGLE_API_KEY")
-                or settings.LLM_API_KEY
-            )
-            default_model = "gemini-1.5-flash"
-
-        model = os.getenv("LLM_MODEL") or settings.LLM_MODEL or default_model
+    def get_configured_providers() -> List[Dict[str, Any]]:
+        """
+        Detect and return all validly configured providers in order of priority.
+        Supports both GROQ_API_KEY and GEMINI_API_KEY / GOOGLE_API_KEY.
+        If both are present, defaults to Groq first for sub-second latency,
+        with seamless failover to Gemini if Groq encounters any issues.
+        """
+        providers = []
+        user_pref = (os.getenv("LLM_PROVIDER") or "").lower().strip()
         timeout = float(os.getenv("LLM_TIMEOUT_SECONDS") or settings.LLM_TIMEOUT_SECONDS or 15.0)
-        return provider, api_key, model, timeout
+
+        # 1. Inspect Groq
+        groq_key = (
+            os.getenv("GROQ_API_KEY")
+            or (os.getenv("LLM_API_KEY") if user_pref == "groq" or (os.getenv("LLM_API_KEY") or "").startswith("gsk_") else None)
+        )
+        if groq_key and groq_key.strip() and not groq_key.startswith("your_"):
+            groq_model = os.getenv("GROQ_MODEL") or (os.getenv("LLM_MODEL") if user_pref == "groq" else None) or "llama-3.3-70b-versatile"
+            providers.append({
+                "name": "groq",
+                "api_key": groq_key.strip(),
+                "model": groq_model,
+                "timeout": timeout
+            })
+
+        # 2. Inspect Gemini
+        gemini_key = (
+            os.getenv("GEMINI_API_KEY")
+            or os.getenv("GOOGLE_API_KEY")
+            or (os.getenv("LLM_API_KEY") if user_pref != "groq" and not (os.getenv("LLM_API_KEY") or "").startswith("gsk_") else None)
+        )
+        if gemini_key and gemini_key.strip() and not gemini_key.startswith("your_"):
+            gemini_model = os.getenv("GEMINI_MODEL") or (os.getenv("LLM_MODEL") if user_pref == "gemini" else None) or "gemini-1.5-flash"
+            providers.append({
+                "name": "gemini",
+                "api_key": gemini_key.strip(),
+                "model": gemini_model,
+                "timeout": timeout
+            })
+
+        # Priority resolution:
+        # If user explicitly set LLM_PROVIDER=gemini, prefer gemini first
+        if user_pref == "gemini":
+            providers.sort(key=lambda p: 0 if p["name"] == "gemini" else 1)
+        elif user_pref == "groq":
+            providers.sort(key=lambda p: 0 if p["name"] == "groq" else 1)
+        # Otherwise: default is groq first (ultra-fast 300ms, generous quotas, no datacenter IP blocks)
+        return providers
 
     def is_configured(self) -> bool:
-        """Check whether a valid API key is available for the configured provider."""
-        _, api_key, _, _ = self.get_provider_config()
-        return bool(api_key and api_key.strip() and not api_key.startswith("your_"))
+        """Check whether at least one valid LLM provider API key is available."""
+        return len(self.get_configured_providers()) > 0
+
+    @staticmethod
+    def get_provider_config() -> Tuple[str, Optional[str], str, float]:
+        """Backward-compatible helper returning the primary active provider."""
+        providers = LLMMatcher.get_configured_providers()
+        if not providers:
+            return "none", None, "default", 15.0
+        primary = providers[0]
+        return primary["name"], primary["api_key"], primary["model"], primary["timeout"]
 
     @staticmethod
     def _strip_code_fences(text: str) -> str:
@@ -256,8 +291,9 @@ class LLMMatcher:
         model: str,
         timeout: float
     ) -> Tuple[Optional[str], float, Optional[int]]:
-        """Call Google Gemini generateContent REST endpoint."""
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
+        """Call Google Gemini generateContent REST endpoint with auto-model resolution."""
+        clean_model = model.replace("models/", "")
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{clean_model}:generateContent?key={api_key}"
         payload = {
             "systemInstruction": {
                 "parts": [{"text": SYSTEM_INSTRUCTION}]
@@ -275,7 +311,23 @@ class LLMMatcher:
         lat_ms = (time.perf_counter() - t0) * 1000.0
 
         if resp.status_code != 200:
-            logger.error(f"Gemini API returned HTTP {resp.status_code}: {resp.text[:300]}")
+            logger.error(f"Gemini API ({clean_model}) returned HTTP {resp.status_code}: {resp.text[:300]}")
+            # If 404 on model name, try gemini-2.0-flash or gemini-1.5-flash
+            if resp.status_code == 404:
+                alt_model = "gemini-2.0-flash" if clean_model != "gemini-2.0-flash" else "gemini-1.5-flash"
+                logger.info(f"Retrying Gemini with alternate model '{alt_model}'...")
+                alt_url = f"https://generativelanguage.googleapis.com/v1beta/models/{alt_model}:generateContent?key={api_key}"
+                try:
+                    resp2 = self.session.post(alt_url, json=payload, timeout=timeout)
+                    if resp2.status_code == 200:
+                        data2 = resp2.json()
+                        candidates2 = data2.get("candidates", [])
+                        if candidates2:
+                            parts2 = candidates2[0].get("content", {}).get("parts", [])
+                            if parts2:
+                                return parts2[0].get("text"), (time.perf_counter() - t0) * 1000.0, None
+                except Exception as e:
+                    logger.warning(f"Gemini alternate model call failed: {e}")
             return None, lat_ms, None
 
         data = resp.json()
@@ -338,25 +390,41 @@ class LLMMatcher:
         self,
         user_prompt: str
     ) -> Tuple[Optional[str], str, float, Optional[int]]:
-        """Dispatch call to active LLM provider with latency and token logging."""
-        provider, api_key, model, timeout = self.get_provider_config()
-        if not api_key:
-            return None, provider, 0.0, None
+        """
+        Dispatch call with automatic cross-provider failover between Groq and Gemini.
+        Tries primary provider first; if it times out or errors, seamlessly fails over to the next provider.
+        """
+        providers = self.get_configured_providers()
+        if not providers:
+            return None, "none", 0.0, None
 
-        try:
-            if provider == "groq":
-                raw_text, lat_ms, tokens = self._call_groq(user_prompt, api_key, model, timeout)
-            else:
-                raw_text, lat_ms, tokens = self._call_gemini(user_prompt, api_key, model, timeout)
+        for idx, prov in enumerate(providers):
+            name = prov["name"]
+            api_key = prov["api_key"]
+            model = prov["model"]
+            timeout = prov["timeout"]
+            t_start = time.perf_counter()
 
-            logger.info(f"LLM Provider: {provider} | Model: {model} | Latency: {lat_ms:.1f}ms | Tokens: {tokens}")
-            return raw_text, provider, lat_ms, tokens
-        except requests.exceptions.Timeout:
-            logger.error(f"LLM request timed out after {timeout} seconds ({provider}).")
-            return None, provider, timeout * 1000.0, None
-        except Exception as e:
-            logger.error(f"LLM request failed ({provider}): {e}")
-            return None, provider, 0.0, None
+            try:
+                if name == "groq":
+                    raw_text, lat_ms, tokens = self._call_groq(user_prompt, api_key, model, timeout)
+                else:
+                    raw_text, lat_ms, tokens = self._call_gemini(user_prompt, api_key, model, timeout)
+
+                if raw_text:
+                    logger.info(f"LLM Provider: {name} | Model: {model} | Latency: {lat_ms:.1f}ms | Tokens: {tokens}")
+                    return raw_text, name, lat_ms, tokens
+
+                logger.warning(f"LLM provider '{name}' returned empty or non-200. Checking failover...")
+            except requests.exceptions.Timeout:
+                lat_ms = (time.perf_counter() - t_start) * 1000.0
+                logger.warning(f"LLM provider '{name}' timed out after {timeout}s. Checking failover...")
+            except Exception as e:
+                lat_ms = (time.perf_counter() - t_start) * 1000.0
+                logger.warning(f"LLM provider '{name}' error: {e}. Checking failover...")
+
+        logger.error("All configured LLM providers failed or returned unparseable responses.")
+        return None, "none", 0.0, None
 
     def _validate_response(self, raw_output: str) -> Optional[Dict[str, Any]]:
         """
