@@ -1,255 +1,162 @@
-import React, { useEffect } from 'react';
-import { X, ShieldCheck, Users, FileSignature, MapPin, Calendar, BookOpen, CheckCircle2 } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { X } from 'lucide-react';
 import { consentData } from '../data/consentData';
+import { useCopy } from '../i18n';
+
+function Signatory({ item, meta }) {
+  return (
+    <li className="border-b border-line py-4 last:border-b-0">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="min-w-0">
+          <p className="text-body font-medium text-ink">
+            {item.name}
+            <span lang="kn" className="kn ml-2 text-meta text-ink-soft">
+              {item.name_kn}
+            </span>
+          </p>
+          <p className="mt-0.5 text-meta text-ink-soft">{meta}</p>
+        </div>
+
+        <figure className="shrink-0">
+          <img
+            src={item.signatureImage}
+            alt={item.altText}
+            className="h-14 w-auto rounded-[6px] border border-line bg-white object-contain px-2 py-1"
+            loading="lazy"
+          />
+          <figcaption className="mt-1 text-center text-[12px] text-ink-soft">
+            {item.date}
+          </figcaption>
+        </figure>
+      </div>
+    </li>
+  );
+}
 
 export default function ConsentModal({ isOpen, onClose }) {
+  const { t, sub, other } = useCopy();
+  const closeRef = useRef(null);
+
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && isOpen) {
-        onClose();
-      }
+    if (!isOpen) return undefined;
+    const handleKey = (event) => {
+      if (event.key === 'Escape') onClose();
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKey);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeRef.current?.focus();
+
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+      document.body.style.overflow = previousOverflow;
+    };
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return (
     <div
-      className="modal-backdrop"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-overlay p-4"
       onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="consent-modal-title"
+      role="presentation"
     >
       <div
-        className="consent-modal-card"
-        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="consent-title"
+        onClick={(event) => event.stopPropagation()}
+        className="flex max-h-[92vh] w-full max-w-[760px] flex-col overflow-hidden rounded-surface border border-line bg-paper"
       >
-        {/* Modal Top Header */}
-        <div className="consent-modal-header">
-          <div className="consent-header-left">
-            <div className="consent-icon-badge">
-              <ShieldCheck size={24} />
-            </div>
-            <div>
-              <h2 id="consent-modal-title" className="consent-header-title">
-                {consentData.title.en}
-              </h2>
-              <p className="consent-header-subtitle kannada-text" lang="kn">
-                {consentData.title.kn}
-              </p>
-            </div>
+        <div className="flex items-start justify-between gap-4 border-b border-line px-5 py-4 sm:px-7">
+          <div>
+            <h2 id="consent-title" className="text-title text-indigo">
+              {consentData.title.en}
+            </h2>
+            <p lang="kn" className="kn mt-1 text-meta text-ink-soft">
+              {consentData.title.kn}
+            </p>
           </div>
           <button
+            ref={closeRef}
             type="button"
-            className="consent-close-btn"
             onClick={onClose}
-            aria-label="Close consent declaration modal"
-            title="Close (Esc)"
+            aria-label={t('consent.close')}
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control text-ink-soft transition-colors hover:bg-paper-deep hover:text-ink"
           >
-            <X size={20} />
+            <X size={20} strokeWidth={1.75} aria-hidden="true" />
           </button>
         </div>
 
-        {/* Modal Body */}
-        <div className="consent-modal-body">
-          {/* Summary Banner */}
-          <div className="consent-summary-banner">
-            <div className="summary-left">
-              <div className="summary-headline">
-                <CheckCircle2 size={20} className="summary-icon" />
-                <span className="summary-text-en">{consentData.summaryLine.en}</span>
-              </div>
-              <div className="summary-text-kn kannada-text" lang="kn">
-                {consentData.summaryLine.kn}
-              </div>
-            </div>
-            <div className="summary-meta">
-              <span className="summary-date-badge">
-                <Calendar size={13} />
-                <span>Date: {consentData.dateOfConsent}</span>
-              </span>
-              <span className="summary-inst-badge">
-                Modalapada 2.0 • RIT CSE&E
-              </span>
-            </div>
-          </div>
-
-          {/* Part A: Gaade Contributors */}
-          <section className="consent-section" aria-labelledby="contributors-heading">
-            <div className="consent-section-header">
-              <div className="section-title-wrap">
-                <BookOpen size={18} className="section-icon" />
-                <h3 id="contributors-heading" className="section-title">
-                  {consentData.contributorsGroup.title.en}
-                </h3>
-              </div>
-              <div className="section-title-kn kannada-text" lang="kn">
-                {consentData.contributorsGroup.title.kn}
-              </div>
-            </div>
-
-            {/* Formal Declaration Paragraph */}
-            <div className="consent-declaration-box">
-              <p className="declaration-text-en">
-                <strong>Declaration:</strong> {consentData.contributorsGroup.declaration.en}
-              </p>
-              <p className="declaration-text-kn kannada-text" lang="kn">
-                <strong>ಘೋಷಣೆ:</strong> {consentData.contributorsGroup.declaration.kn}
-              </p>
-            </div>
-
-            {/* Contributors Cards Grid */}
-            <div className="consent-cards-grid">
-              {consentData.contributorsGroup.items.map((contributor) => (
-                <div key={contributor.id} className="contributor-card">
-                  <div className="card-top-row">
-                    <div className="contributor-num">#{contributor.id}</div>
-                    <div className="gaade-count-badge">
-                      <strong>{contributor.gaadeCount}</strong> Gaades ({contributor.gaadeRange})
-                    </div>
-                  </div>
-
-                  <div className="card-identity">
-                    <h4 className="contributor-name">
-                      {contributor.name}
-                      <span className="contributor-name-kn kannada-text" lang="kn">
-                        ({contributor.name_kn})
-                      </span>
-                    </h4>
-                    <p className="contributor-role">
-                      <span>{contributor.relationship}</span> •{' '}
-                      <span className="kannada-text" lang="kn">{contributor.relationship_kn}</span>
-                    </p>
-                  </div>
-
-                  <div className="card-meta-row">
-                    <span className="meta-pill">
-                      <MapPin size={13} />
-                      <span>{contributor.place} ({contributor.place_kn})</span>
-                    </span>
-                    <span className="meta-pill">
-                      <Calendar size={13} />
-                      <span>{contributor.date}</span>
-                    </span>
-                  </div>
-
-                  {/* Signature Box */}
-                  <div className="signature-container">
-                    <div className="signature-label">
-                      <FileSignature size={12} />
-                      <span>Verified Signature</span>
-                    </div>
-                    <div className="signature-image-wrapper">
-                      <img
-                        src={contributor.signatureImage}
-                        alt={contributor.altText}
-                        className="signature-image"
-                        loading="lazy"
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Part B: App Developers */}
-          <section className="consent-section" aria-labelledby="developers-heading">
-            <div className="consent-section-header">
-              <div className="section-title-wrap">
-                <Users size={18} className="section-icon" />
-                <h3 id="developers-heading" className="section-title">
-                  {consentData.developersGroup.title.en}
-                </h3>
-              </div>
-              <div className="section-title-kn kannada-text" lang="kn">
-                {consentData.developersGroup.title.kn}
-              </div>
-            </div>
-
-            {/* Formal Declaration Paragraph */}
-            <div className="consent-declaration-box">
-              <p className="declaration-text-en">
-                <strong>Authorization:</strong> {consentData.developersGroup.declaration.en}
-              </p>
-              <p className="declaration-text-kn kannada-text" lang="kn">
-                <strong>ದೃಢೀಕರಣ:</strong> {consentData.developersGroup.declaration.kn}
-              </p>
-            </div>
-
-            {/* Developers Cards Grid */}
-            <div className="consent-cards-grid developers-grid">
-              {consentData.developersGroup.items.map((dev) => (
-                <div key={dev.id} className="contributor-card dev-card">
-                  <div className="card-top-row">
-                    <div className="contributor-num">#{dev.id}</div>
-                    <div className="dev-role-badge">
-                      <span>{dev.role}</span>
-                    </div>
-                  </div>
-
-                  <div className="card-identity">
-                    <h4 className="contributor-name">
-                      {dev.name}
-                      <span className="contributor-name-kn kannada-text" lang="kn">
-                        ({dev.name_kn})
-                      </span>
-                    </h4>
-                    <p className="contributor-role kannada-text" lang="kn">
-                      {dev.role_kn}
-                    </p>
-                  </div>
-
-                  <div className="card-meta-row">
-                    <span className="meta-pill">
-                      <MapPin size={13} />
-                      <span>{dev.place} ({dev.place === 'Bengaluru' ? 'ಬೆಂಗಳೂರು' : dev.place})</span>
-                    </span>
-                    <span className="meta-pill">
-                      <Calendar size={13} />
-                      <span>{dev.date}</span>
-                    </span>
-                  </div>
-
-                  {/* Signature Box */}
-                  <div className="signature-container">
-                    <div className="signature-label">
-                      <FileSignature size={12} />
-                      <span>Verified Signature</span>
-                    </div>
-                    <div className="signature-image-wrapper">
-                      <img
-                        src={dev.signatureImage}
-                        alt={dev.altText}
-                        className="signature-image"
-                        loading="lazy"
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        </div>
-
-        {/* Modal Footer */}
-        <div className="consent-modal-footer">
-          <p className="footer-inst-note kannada-text" lang="kn">
-            {consentData.institution.kn}
+        <div className="overflow-y-auto px-5 py-6 sm:px-7">
+          <p className="text-body text-ink">{consentData.summaryLine.en}</p>
+          <p lang="kn" className="kn mt-1 text-meta text-ink-soft">
+            {consentData.summaryLine.kn}
           </p>
-          <button
-            type="button"
-            className="consent-confirm-btn"
-            onClick={onClose}
-          >
-            Close / ಮುಚ್ಚಿರಿ
-          </button>
+          <p className="mt-3 text-meta text-ink-soft">
+            {consentData.institution.en} · {consentData.dateOfConsent}
+          </p>
+
+          <section className="mt-8">
+            <h3 className="text-body font-semibold text-ink">
+              {consentData.contributorsGroup.title.en}
+            </h3>
+            <p className="mt-2 border-l-2 border-turmeric pl-4 text-meta leading-[1.7] text-ink-soft">
+              {consentData.contributorsGroup.declaration.en}
+            </p>
+            <p
+              lang="kn"
+              className="kn mt-2 border-l-2 border-turmeric pl-4 text-meta text-ink-soft"
+            >
+              {consentData.contributorsGroup.declaration.kn}
+            </p>
+
+            <ul className="mt-4 border-t border-line">
+              {consentData.contributorsGroup.items.map((item) => (
+                <Signatory
+                  key={item.id}
+                  item={item}
+                  meta={`${item.relationship} · ${item.place} · ${item.gaadeCount} gaades (${item.gaadeRange})`}
+                />
+              ))}
+            </ul>
+          </section>
+
+          <section className="mt-10">
+            <h3 className="text-body font-semibold text-ink">
+              {consentData.developersGroup.title.en}
+            </h3>
+            <p className="mt-2 border-l-2 border-turmeric pl-4 text-meta leading-[1.7] text-ink-soft">
+              {consentData.developersGroup.declaration.en}
+            </p>
+            <p
+              lang="kn"
+              className="kn mt-2 border-l-2 border-turmeric pl-4 text-meta text-ink-soft"
+            >
+              {consentData.developersGroup.declaration.kn}
+            </p>
+
+            <ul className="mt-4 border-t border-line">
+              {consentData.developersGroup.items.map((item) => (
+                <Signatory
+                  key={item.id}
+                  item={item}
+                  meta={`${item.role} · ${item.place}`}
+                />
+              ))}
+            </ul>
+          </section>
+
+          <p className="mt-8 flex flex-col text-meta text-ink-soft">
+            <span lang="kn" className="kn leading-[1.7]">
+              {t('consent.note')}
+            </span>
+            <span lang={other} className="mt-1 text-[0.8em] leading-[1.6]">
+              {sub('consent.note')}
+            </span>
+          </p>
         </div>
       </div>
     </div>
   );
 }
-
