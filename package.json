@@ -1,0 +1,11 @@
+{
+  "name": "modalapada-gaade-kosha",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Proverbs for Every Situation - Modalapada 2.0 (Problem 2)",
+  "scripts": {
+    "dev": "npm --prefix gaade-kosha/frontend run dev",
+    "build": "npm --prefix gaade-kosha/frontend run build",
+    "preview": "npm --prefix gaade-kosha/frontend run preview"
+  }
+}

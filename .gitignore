@@ -1,0 +1,68 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Node / Frontend
+node_modules/
+.npm
+.vite/
+dist/
+dist-ssr/
+*.local
+
+# Large ML model checkpoints and caches
+.cache/
+huggingface/
+checkpoints/
+*.pt
+*.bin
+*.onnx
+*.safetensors
+*.gguf
+*.npy
+models/pretrained/
+
+# Logs & scratch
+*.log
+scratch/
+.tmp/
+
+# OS and Editor artifacts
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# DO NOT ignore dataset or converted audio files
+!data/
+!data/**
+!audio/
+!audio/wav/
+!audio/wav/**
+
+
+# Ignore root junctions pointing into gaade-kosha
+/backend
+/data
+/docs
+/frontend
+/scripts

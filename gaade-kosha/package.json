@@ -1,0 +1,15 @@
+{
+  "name": "gaade-kosha",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Proverbs for Every Situation - Modalapada 2.0 (Problem 2)",
+  "scripts": {
+    "start": "python -m uvicorn backend.app.main:app --port 8000",
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "preview": "npm --prefix frontend run preview",
+    "test": "python -m pytest backend/tests",
+    "validate": "python scripts/run_full_validation.py",
+    "submission": "python scripts/build_submission.py"
+  }
+}

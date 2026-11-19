@@ -1,0 +1,15 @@
+# Gaade Kosha - Backend Dependencies
+# Problem 2: Proverbs for Every Situation (Modalapada 2.0)
+# Department of CSE&E, Ramaiah Institute of Technology
+
+fastapi>=0.110.0
+uvicorn[standard]>=0.28.0
+pydantic>=2.0.0
+pandas>=2.0.0
+pytest>=8.0.0
+httpx>=0.27.0
+pymupdf>=1.24.0
+scikit-learn>=1.4.0
+joblib>=1.3.0
+numpy>=1.26.0
+rank-bm25>=0.2.2
