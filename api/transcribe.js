@@ -169,3 +169,4 @@ export default async function handler(req, res) {
     return res.status(502).json({ error: 'Bad Gateway', detail: `Failed connecting to ASR provider: ${err.message}`, code: 502 });
   }
 }
+
