@@ -319,9 +319,14 @@ class LLMMatcher:
         model: str,
         timeout: float
     ) -> Tuple[Optional[str], float, Optional[int]]:
-        """Call Google Gemini generateContent REST endpoint with auto-model resolution."""
-        clean_model = model.replace("models/", "")
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{clean_model}:generateContent?key={api_key}"
+        """Call Google Gemini generateContent REST endpoint with multi-model fallback."""
+        clean_model = model.replace("models/", "").strip()
+        # Ensure modern active models are tried if older ones return 404
+        candidate_models = [clean_model]
+        for fallback in ["gemini-2.5-flash", "gemini-flash-latest", "gemini-2.0-flash", "gemini-1.5-flash"]:
+            if fallback not in candidate_models:
+                candidate_models.append(fallback)
+
         payload = {
             "systemInstruction": {
                 "parts": [{"text": SYSTEM_INSTRUCTION}]
@@ -335,43 +340,33 @@ class LLMMatcher:
             }
         }
         t0 = time.perf_counter()
-        resp = self.session.post(url, json=payload, timeout=timeout)
-        lat_ms = (time.perf_counter() - t0) * 1000.0
 
-        if resp.status_code != 200:
-            logger.error(f"Gemini API ({clean_model}) returned HTTP {resp.status_code}: {resp.text[:300]}")
-            # If 404 on model name, try gemini-2.0-flash or gemini-1.5-flash
-            if resp.status_code == 404:
-                alt_model = "gemini-2.0-flash" if clean_model != "gemini-2.0-flash" else "gemini-1.5-flash"
-                logger.info(f"Retrying Gemini with alternate model '{alt_model}'...")
-                alt_url = f"https://generativelanguage.googleapis.com/v1beta/models/{alt_model}:generateContent?key={api_key}"
-                try:
-                    resp2 = self.session.post(alt_url, json=payload, timeout=timeout)
-                    if resp2.status_code == 200:
-                        data2 = resp2.json()
-                        candidates2 = data2.get("candidates", [])
-                        if candidates2:
-                            parts2 = candidates2[0].get("content", {}).get("parts", [])
-                            if parts2:
-                                return parts2[0].get("text"), (time.perf_counter() - t0) * 1000.0, None
-                except Exception as e:
-                    logger.warning(f"Gemini alternate model call failed: {e}")
-            return None, lat_ms, None
+        for curr_model in candidate_models:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{curr_model}:generateContent?key={api_key}"
+            try:
+                resp = self.session.post(url, json=payload, timeout=timeout)
+                lat_ms = (time.perf_counter() - t0) * 1000.0
 
-        data = resp.json()
-        token_count = None
-        if "usageMetadata" in data:
-            token_count = data["usageMetadata"].get("totalTokenCount")
+                if resp.status_code == 200:
+                    data = resp.json()
+                    token_count = data.get("usageMetadata", {}).get("totalTokenCount")
+                    candidates = data.get("candidates", [])
+                    if candidates:
+                        parts = candidates[0].get("content", {}).get("parts", [])
+                        if parts:
+                            logger.info(f"Gemini matched successfully using model '{curr_model}' in {lat_ms:.1f}ms")
+                            return parts[0].get("text"), lat_ms, token_count
+                elif resp.status_code == 404:
+                    logger.info(f"Gemini model '{curr_model}' returned 404. Trying next model...")
+                    continue
+                else:
+                    logger.error(f"Gemini API ({curr_model}) returned HTTP {resp.status_code}: {resp.text[:300]}")
+                    break
+            except Exception as e:
+                logger.warning(f"Gemini call exception on '{curr_model}': {e}")
+                break
 
-        candidates = data.get("candidates", [])
-        if not candidates:
-            return None, lat_ms, token_count
-
-        parts = candidates[0].get("content", {}).get("parts", [])
-        if not parts:
-            return None, lat_ms, token_count
-
-        return parts[0].get("text"), lat_ms, token_count
+        return None, (time.perf_counter() - t0) * 1000.0, None
 
     def _call_groq(
         self,
@@ -380,52 +375,53 @@ class LLMMatcher:
         model: str,
         timeout: float
     ) -> Tuple[Optional[str], float, Optional[int]]:
-        """Call Groq chat/completions REST endpoint."""
+        """Call Groq chat/completions REST endpoint with multi-model fallback."""
         url = "https://api.groq.com/openai/v1/chat/completions"
         headers = {
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json"
         }
-        payload = {
-            "model": model,
-            "messages": [
-                {"role": "system", "content": SYSTEM_INSTRUCTION},
-                {"role": "user", "content": user_prompt}
-            ],
-            "temperature": settings.LLM_TEMPERATURE,
-            "response_format": {"type": "json_object"}
-        }
+        candidate_models = [model]
+        for fallback in ["openai/gpt-oss-120b", "qwen/qwen3.8-27b", "llama-3.3-70b-versatile", "llama-3.1-8b-instant"]:
+            if fallback not in candidate_models:
+                candidate_models.append(fallback)
+
         t0 = time.perf_counter()
-        resp = self.session.post(url, headers=headers, json=payload, timeout=timeout)
-        lat_ms = (time.perf_counter() - t0) * 1000.0
 
-        if resp.status_code != 200:
-            logger.error(f"Groq API returned HTTP {resp.status_code}: {resp.text[:300]}")
-            # If 429 rate limit (TPM), immediately try fallback to high-throughput llama-3.1-8b-instant
-            if resp.status_code == 429 and model != "llama-3.1-8b-instant":
-                logger.info("Retrying Groq with high-throughput model 'llama-3.1-8b-instant'...")
-                payload["model"] = "llama-3.1-8b-instant"
-                try:
-                    resp2 = self.session.post(url, headers=headers, json=payload, timeout=timeout)
-                    if resp2.status_code == 200:
-                        data2 = resp2.json()
-                        choices2 = data2.get("choices", [])
-                        if choices2:
-                            return choices2[0].get("message", {}).get("content"), (time.perf_counter() - t0) * 1000.0, None
-                except Exception as e:
-                    logger.warning(f"Groq alternate model call failed: {e}")
-            return None, lat_ms, None
+        for curr_model in candidate_models:
+            payload = {
+                "model": curr_model,
+                "messages": [
+                    {"role": "system", "content": SYSTEM_INSTRUCTION},
+                    {"role": "user", "content": user_prompt}
+                ],
+                "temperature": settings.LLM_TEMPERATURE,
+                "response_format": {"type": "json_object"}
+            }
 
-        data = resp.json()
-        token_count = None
-        if "usage" in data:
-            token_count = data["usage"].get("total_tokens")
+            try:
+                resp = self.session.post(url, headers=headers, json=payload, timeout=timeout)
+                lat_ms = (time.perf_counter() - t0) * 1000.0
 
-        choices = data.get("choices", [])
-        if not choices:
-            return None, lat_ms, token_count
+                if resp.status_code == 200:
+                    data = resp.json()
+                    token_count = data.get("usage", {}).get("total_tokens")
+                    choices = data.get("choices", [])
+                    if choices:
+                        content = choices[0].get("message", {}).get("content")
+                        logger.info(f"Groq matched successfully using model '{curr_model}' in {lat_ms:.1f}ms")
+                        return content, lat_ms, token_count
+                elif resp.status_code in (404, 429):
+                    logger.info(f"Groq model '{curr_model}' returned {resp.status_code}. Trying next model...")
+                    continue
+                else:
+                    logger.error(f"Groq API returned HTTP {resp.status_code}: {resp.text[:300]}")
+                    break
+            except Exception as e:
+                logger.warning(f"Groq call exception on '{curr_model}': {e}")
+                break
 
-        return choices[0].get("message", {}).get("content"), lat_ms, token_count
+        return None, (time.perf_counter() - t0) * 1000.0, None
 
     def _dispatch_call(
         self,

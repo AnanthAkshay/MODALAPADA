@@ -2,9 +2,9 @@
   "project": "Gaade Kosha (ಗಾದೆ ಕೋಶ)",
   "hackathon": "Modalapada 2.0 (Problem 2)",
   "department": "Dept of CSE&E, Ramaiah Institute of Technology",
-  "generated_at": "2026-11-20T03:36:55.342350",
+  "generated_at": "2026-11-20T03:46:32.143658",
   "total_files": 245,
-  "total_size_bytes": 20099251,
+  "total_size_bytes": 20099245,
   "total_size_mb": 19.17,
   "canonical_gaades": 226,
   "canonical_audio_wavs": 226,
@@ -1216,13 +1216,13 @@
     },
     {
       "path": "extras/gaades.xlsx",
-      "size_bytes": 44163,
-      "sha256": "420001eab472a8c826f15709bb6484f2ba80e70dfd32573877b96c1714a31ca5"
+      "size_bytes": 44162,
+      "sha256": "4b0273ab88a6bed8cef15a557d2d46fb2bc33af7e8fcf514ccce18a1b93aeb39"
     },
     {
       "path": "extras/situations.xlsx",
-      "size_bytes": 105649,
-      "sha256": "a0e79e8e48e7c9222a20d76475f841ef08aab0fa31b83197f8d31d0a5ab0b3a0"
+      "size_bytes": 105644,
+      "sha256": "49eb849acc10b5fbe13eb5c59c5b8aa94b46dbf417b67d98bff4834fee6fea7e"
     },
     {
       "path": "gaades.csv",
