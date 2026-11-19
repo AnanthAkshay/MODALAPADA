@@ -7,20 +7,25 @@ Department of CSE&E, Ramaiah Institute of Technology
 Constructs the complete, final submission package:
   submission/
     README.md
-    gaades.csv (UTF-8 with BOM for Excel)
-    situations.csv (UTF-8 with BOM for Excel)
+    gaades.csv (UTF-8 with BOM & CRLF for Excel)
+    situations.csv (with joined 'gaade' column, UTF-8 with BOM & CRLF for Excel)
     audio/ (224 canonical 16kHz mono PCM-16 WAVs)
     consent/
       Consent_Summary.pdf (10 pages with verified embedded signatures)
-      consent_register.csv (UTF-8 with BOM)
+      consent_register.csv (UTF-8 with BOM & CRLF)
       consent_form_template.pdf (blank bilingual form template)
+    extras/
+      gaades.xlsx (Formatted Excel copy with frozen header, Noto Sans Kannada font)
+      situations.xlsx (Formatted Excel copy with frozen header, Noto Sans Kannada font)
     docs/
       SUBMISSION_CHECKLIST.md
       TEST_REPORT.md
       audio_conversion_report.md
       verification_coverage.md
       DEMO.md
-      utf8_no_bom/ (plain UTF-8 copies without BOM)
+      csv_cleanup_report.md
+      spacing_issues.md
+      utf8_no_bom/ (plain UTF-8 copies without BOM, LF line endings)
         gaades.csv
         situations.csv
         consent_register.csv
@@ -42,9 +47,18 @@ import json
 import wave
 import zipfile
 import re
+import csv
 import pandas as pd
 from datetime import datetime
 from pathlib import Path
+
+try:
+    import openpyxl
+    from openpyxl.styles import Font, PatternFill, Alignment
+    from openpyxl.utils import get_column_letter
+    OPENPYXL_AVAILABLE = True
+except ImportError:
+    OPENPYXL_AVAILABLE = False
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
@@ -75,6 +89,78 @@ def compute_sha256(file_path: Path) -> str:
         while chunk := f.read(65536):
             h.update(chunk)
     return h.hexdigest()
+
+
+def clean_cell(val: str) -> str:
+    """Strip leading/trailing whitespace (spaces, tabs, NBSP, ZWSP)."""
+    if val is None:
+        return ""
+    return str(val).strip(" \t\r\n\u00a0\u200b")
+
+
+def clean_free_text(val: str) -> str:
+    """Normalize English/free-text fields according to Rule B."""
+    if not val:
+        return ""
+    text = str(val)
+    # Replace internal line breaks with a single space
+    text = re.sub(r"[\r\n]+", " ", text)
+    # Replace odd/curly/non-breaking spaces with standard space
+    text = re.sub(r"[\u00a0\u2000-\u200b\u3000]", " ", text)
+    # Collapse multiple spaces or tabs into a single space
+    text = re.sub(r"[ \t]+", " ", text)
+    # Remove space before punctuation: , . ; : ? !
+    text = re.sub(r"\s+([,.;:?!])", r"\1", text)
+    # Ensure one space after punctuation when followed by a letter/word
+    text = re.sub(r"([,.;:?!])(?=[A-Za-z\u0c80-\u0cff])", r"\1 ", text)
+    # Final strip
+    return re.sub(r"[ \t]+", " ", text).strip(" \t\r\n\u00a0\u200b")
+
+
+def export_to_excel(rows: list, columns: list, output_path: Path, kannada_cols: set, title: str = "Sheet1"):
+    """Generate professional Excel workbook with frozen header, bold styling, Kannada font, and auto-fit."""
+    if not OPENPYXL_AVAILABLE:
+        print(f"  [!] openpyxl not available, skipping {output_path.name}")
+        return
+
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = title
+    ws.append(columns)
+    ws.freeze_panes = "A2"
+
+    header_font = Font(name="Calibri", size=11, bold=True, color="1F2937")
+    header_fill = PatternFill(start_color="F3F4F6", end_color="F3F4F6", fill_type="solid")
+    for cell in ws[1]:
+        cell.font = header_font
+        cell.fill = header_fill
+        cell.alignment = Alignment(horizontal="left", vertical="center")
+
+    kn_font = Font(name="Noto Sans Kannada", size=11, color="111827")
+    regular_font = Font(name="Calibri", size=11, color="111827")
+
+    for row in rows:
+        row_values = [row.get(col, "") for col in columns]
+        ws.append(row_values)
+
+    for col_idx, col_name in enumerate(columns, start=1):
+        col_letter = get_column_letter(col_idx)
+        is_kn = col_name in kannada_cols
+        font_to_use = kn_font if is_kn else regular_font
+        max_len = len(str(col_name))
+        for row_idx in range(2, len(rows) + 2):
+            cell = ws.cell(row=row_idx, column=col_idx)
+            cell.font = font_to_use
+            val_str = str(cell.value or "")
+            if len(val_str) > 35 or "\n" in val_str:
+                cell.alignment = Alignment(wrap_text=True, vertical="top", horizontal="left")
+            else:
+                cell.alignment = Alignment(vertical="top", horizontal="left")
+            max_len = max(max_len, len(val_str))
+        ws.column_dimensions[col_letter].width = min(max(max_len + 3, 12), 60)
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    wb.save(output_path)
 
 
 def validate_data_layer():
@@ -187,7 +273,7 @@ def validate_audio_layer():
 
 
 def build_submission():
-    print_banner("3. ASSEMBLING SUBMISSION PACKAGE")
+    print_banner("3. ASSEMBLING SUBMISSION PACKAGE WITH CSV STANDARDIZATION")
 
     if SUBMISSION_DIR.exists():
         print(f"  [*] Cleaning previous submission directory at {SUBMISSION_DIR}...")
@@ -202,35 +288,132 @@ def build_submission():
     docs_dest_dir.mkdir(parents=True, exist_ok=True)
     utf8_no_bom_dir = docs_dest_dir / "utf8_no_bom"
     utf8_no_bom_dir.mkdir(parents=True, exist_ok=True)
+    extras_dest_dir = SUBMISSION_DIR / "extras"
+    extras_dest_dir.mkdir(parents=True, exist_ok=True)
 
     copied_files = []
 
-    # 1. Process & Write CSVs (with BOM in root, without BOM in docs/utf8_no_bom/)
-    csv_mappings = [
-        ("gaades.csv", REPO_ROOT / "data" / "gaades.csv"),
-        ("situations.csv", REPO_ROOT / "data" / "situations.csv"),
-        ("consent/consent_register.csv", REPO_ROOT / "docs" / "consent" / "consent_register.csv")
+    # -------------------------------------------------------------
+    # 1. Clean, Standardize & Build Datasets
+    # -------------------------------------------------------------
+    # (A) gaades.csv
+    src_gaades_path = REPO_ROOT / "data" / "gaades.csv"
+    with open(src_gaades_path, "r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        raw_gaades = list(reader)
+
+    gaade_cols = ["gaade_id", "gaade", "meaning", "english", "example", "region", "theme", "audio_file"]
+    cleaned_gaades = []
+    gaade_lookup = {}
+    for r in raw_gaades:
+        gid = clean_cell(r["gaade_id"])
+        # Rule C: In gaade column, ONLY trim leading/trailing whitespace. Never alter internal characters.
+        gtext = clean_cell(r["gaade"])
+        cleaned_row = {
+            "gaade_id": gid,
+            "gaade": gtext,
+            "meaning": clean_free_text(r.get("meaning", "")),
+            "english": clean_free_text(r.get("english", "")),
+            "example": clean_free_text(r.get("example", "")),
+            "region": clean_cell(r.get("region", "UNVERIFIED")),
+            "theme": clean_cell(r.get("theme", "")),
+            "audio_file": clean_cell(r.get("audio_file", ""))
+        }
+        cleaned_gaades.append(cleaned_row)
+        gaade_lookup[gid] = gtext
+
+    # Sort gaades by gaade_id (numeric order)
+    cleaned_gaades.sort(key=lambda x: int(x["gaade_id"][1:]) if x["gaade_id"][1:].isdigit() else x["gaade_id"])
+
+    # (B) situations.csv — JOIN gaade text on gaade_id
+    src_situations_path = REPO_ROOT / "data" / "situations.csv"
+    with open(src_situations_path, "r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        raw_situations = list(reader)
+
+    sit_cols = ["situation_id", "gaade_id", "gaade", "situation_text", "situation_kn", "language", "situation_source"]
+    cleaned_situations = []
+    for s in raw_situations:
+        sid = clean_cell(s["situation_id"])
+        gid = clean_cell(s["gaade_id"])
+        if gid not in gaade_lookup:
+            abort_with_error(f"Foreign Key Error: situation {sid} references unknown gaade_id {gid}!")
+        gtext = gaade_lookup[gid]
+        if not gtext:
+            abort_with_error(f"Empty Gaade Error: situation {sid} mapped to empty gaade for {gid}!")
+
+        cleaned_row = {
+            "situation_id": sid,
+            "gaade_id": gid,
+            "gaade": gtext, # Exactly byte-for-byte from gaades.csv
+            "situation_text": clean_free_text(s.get("situation_text", "")),
+            "situation_kn": clean_free_text(s.get("situation_kn", "")),
+            "language": clean_cell(s.get("language", "en")),
+            "situation_source": clean_cell(s.get("situation_source", "team_drafted"))
+        }
+        cleaned_situations.append(cleaned_row)
+
+    # Sort situations by gaade_id then situation_id
+    cleaned_situations.sort(key=lambda x: (
+        int(x["gaade_id"][1:]) if x["gaade_id"][1:].isdigit() else x["gaade_id"],
+        x["situation_id"]
+    ))
+
+    # (C) consent_register.csv
+    src_reg_path = REPO_ROOT / "docs" / "consent" / "consent_register.csv"
+    with open(src_reg_path, "r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        raw_reg = list(reader)
+
+    reg_cols = [
+        "contributor_id", "contributor_name", "contributor_type", "relationship",
+        "place", "consent_form_file", "count", "range", "audio_recorded_yes_no",
+        "date", "public_display_name_allowed", "method_of_consent", "witness"
     ]
+    cleaned_reg = []
+    for r in raw_reg:
+        cleaned_row = {k: clean_free_text(r[k]) for k in reg_cols}
+        cleaned_reg.append(cleaned_row)
 
-    for rel_dest, src_path in csv_mappings:
-        with open(src_path, "r", encoding="utf-8") as f:
-            content = f.read()
+    cleaned_reg.sort(key=lambda x: x["contributor_id"])
 
-        # Destination with BOM
-        dest_with_bom = SUBMISSION_DIR / rel_dest
-        dest_with_bom.parent.mkdir(parents=True, exist_ok=True)
-        with open(dest_with_bom, "w", encoding="utf-8-sig") as f:
-            f.write(content)
-        copied_files.append((dest_with_bom, rel_dest))
-        print(f"  [+] Wrote {rel_dest} (UTF-8 with BOM)")
+    # Helper function to write CSV with BOM + CRLF for root, and plain UTF-8 + LF for docs/utf8_no_bom
+    def write_dataset_csv(rows, columns, dest_bom_rel, dest_nobom_rel):
+        # 1. UTF-8 with BOM & CRLF
+        dest_bom = SUBMISSION_DIR / dest_bom_rel
+        dest_bom.parent.mkdir(parents=True, exist_ok=True)
+        with open(dest_bom, "w", encoding="utf-8-sig", newline="") as fb:
+            writer = csv.DictWriter(fb, fieldnames=columns, quoting=csv.QUOTE_MINIMAL, lineterminator="\r\n")
+            writer.writeheader()
+            writer.writerows(rows)
+        copied_files.append((dest_bom, dest_bom_rel))
+        print(f"  [+] Wrote {dest_bom_rel} (UTF-8 with BOM & CRLF)")
 
-        # Destination without BOM in docs/utf8_no_bom/
-        base_name = Path(rel_dest).name
-        dest_no_bom = utf8_no_bom_dir / base_name
-        with open(dest_no_bom, "w", encoding="utf-8") as f:
-            f.write(content)
-        copied_files.append((dest_no_bom, f"docs/utf8_no_bom/{base_name}"))
-        print(f"  [+] Wrote docs/utf8_no_bom/{base_name} (Plain UTF-8)")
+        # 2. Plain UTF-8 (no BOM) & LF
+        dest_nobom = SUBMISSION_DIR / dest_nobom_rel
+        dest_nobom.parent.mkdir(parents=True, exist_ok=True)
+        with open(dest_nobom, "w", encoding="utf-8", newline="") as fn:
+            writer = csv.DictWriter(fn, fieldnames=columns, quoting=csv.QUOTE_MINIMAL, lineterminator="\n")
+            writer.writeheader()
+            writer.writerows(rows)
+        copied_files.append((dest_nobom, dest_nobom_rel))
+        print(f"  [+] Wrote {dest_nobom_rel} (Plain UTF-8 & LF)")
+
+    write_dataset_csv(cleaned_gaades, gaade_cols, "gaades.csv", "docs/utf8_no_bom/gaades.csv")
+    write_dataset_csv(cleaned_situations, sit_cols, "situations.csv", "docs/utf8_no_bom/situations.csv")
+    write_dataset_csv(cleaned_reg, reg_cols, "consent/consent_register.csv", "docs/utf8_no_bom/consent_register.csv")
+
+    # (D) Excel workbooks in submission/extras/
+    if OPENPYXL_AVAILABLE:
+        gaades_xlsx = extras_dest_dir / "gaades.xlsx"
+        export_to_excel(cleaned_gaades, gaade_cols, gaades_xlsx, {"gaade"}, title="Canonical Gaades")
+        copied_files.append((gaades_xlsx, "extras/gaades.xlsx"))
+        print(f"  [+] Generated extras/gaades.xlsx (Excel convenience copy)")
+
+        situations_xlsx = extras_dest_dir / "situations.xlsx"
+        export_to_excel(cleaned_situations, sit_cols, situations_xlsx, {"gaade", "situation_kn"}, title="Situations Dataset")
+        copied_files.append((situations_xlsx, "extras/situations.xlsx"))
+        print(f"  [+] Generated extras/situations.xlsx (Excel convenience copy)")
 
     # 2. Copy canonical WAV audio (no temporary files or original OGGs)
     src_wav_dir = REPO_ROOT / "audio" / "wav"
@@ -274,6 +457,8 @@ def build_submission():
         ("docs/audio_conversion_report.md", REPO_ROOT / "data" / "reports" / "audio_conversion_report.md"),
         ("docs/verification_coverage.md", REPO_ROOT / "docs" / "verification_coverage.md"),
         ("docs/DEMO.md", REPO_ROOT / "docs" / "DEMO.md"),
+        ("docs/csv_cleanup_report.md", REPO_ROOT / "data" / "reports" / "csv_cleanup_report.md"),
+        ("docs/spacing_issues.md", REPO_ROOT / "data" / "reports" / "spacing_issues.md"),
     ]
     for rel_dest, src_path in doc_files:
         if src_path.is_file():
@@ -372,6 +557,7 @@ def create_zip_packages():
         r"[\\/]\.vite[\\/]",
         r"[\\/]frontend[\\/]dist[\\/]",
         r"[\\/]submission[\\/]",
+        r"[\\/]submission_backup[\\/]",
         r"\.py[cod]$",
         r"\.zip$",
         r"^\.env$",
@@ -440,7 +626,7 @@ def verify_zip_packages():
         with zipfile.ZipFile(zpath, "r") as zf:
             for member in zf.namelist():
                 # Skip binary audio/pdf files for text search
-                if any(member.endswith(ext) for ext in [".wav", ".ogg", ".pdf", ".jpeg", ".jpg", ".png", ".joblib", ".db"]):
+                if any(member.endswith(ext) for ext in [".wav", ".ogg", ".pdf", ".jpeg", ".jpg", ".png", ".joblib", ".db", ".xlsx"]):
                     continue
                 try:
                     content = zf.read(member).decode("utf-8", errors="ignore")
@@ -458,8 +644,8 @@ def verify_zip_packages():
     # 3. Kannada Unicode Integrity check (compare before & after in submission zip)
     print("  [*] Verifying Kannada Unicode integrity in packaged CSVs...")
     with zipfile.ZipFile(sub_zip_path, "r") as zf:
+        # Check gaades.csv
         csv_bytes = zf.read("gaades.csv")
-        # Check for BOM
         if not csv_bytes.startswith(b"\xef\xbb\xbf"):
             abort_with_error("gaades.csv in submission zip is missing UTF-8 BOM!")
         text = csv_bytes.decode("utf-8-sig")
@@ -472,11 +658,39 @@ def verify_zip_packages():
             abort_with_error("docs/utf8_no_bom/gaades.csv unexpectedly contains BOM!")
         
         # Verify gaade text content matches exactly
-        df_zip = pd.read_csv(pd.io.common.BytesIO(csv_bytes))
+        df_zip = pd.read_csv(pd.io.common.BytesIO(csv_bytes), encoding="utf-8-sig")
         df_orig = pd.read_csv(REPO_ROOT / "data" / "gaades.csv")
         if not (df_zip["gaade"] == df_orig["gaade"]).all():
             abort_with_error("Packaged gaades text does not match original data/gaades.csv!")
         print(f"  [✓] Kannada Unicode integrity verified: 100% bit-identical across all {len(df_zip)} gaades.")
+
+        # Check situations.csv with joined gaade column
+        sit_bytes = zf.read("situations.csv")
+        if not sit_bytes.startswith(b"\xef\xbb\xbf"):
+            abort_with_error("situations.csv in submission zip is missing UTF-8 BOM!")
+        sit_text = sit_bytes.decode("utf-8-sig")
+        if "\ufffd" in sit_text:
+            abort_with_error("Found U+FFFD in packaged situations.csv!")
+
+        df_sits_zip = pd.read_csv(pd.io.common.BytesIO(sit_bytes), encoding="utf-8-sig")
+        expected_sit_cols = ["situation_id", "gaade_id", "gaade", "situation_text", "situation_kn", "language", "situation_source"]
+        if list(df_sits_zip.columns) != expected_sit_cols:
+            abort_with_error(f"situations.csv columns mismatch: expected {expected_sit_cols}, got {list(df_sits_zip.columns)}")
+
+        # Verify every situation gaade matches gaades.csv exactly
+        gaade_map = dict(zip(df_orig["gaade_id"], df_orig["gaade"]))
+        for _, sit_row in df_sits_zip.iterrows():
+            expected_g = gaade_map[sit_row["gaade_id"]]
+            if sit_row["gaade"] != expected_g:
+                abort_with_error(f"Mismatch in situation {sit_row['situation_id']}: {sit_row['gaade']} != {expected_g}")
+        print(f"  [✓] situations.csv verified: has 'gaade' column and 100% matches canonical gaades ({len(df_sits_zip)} rows).")
+
+        # Verify extras/ workbooks
+        if OPENPYXL_AVAILABLE:
+            for xname in ["extras/gaades.xlsx", "extras/situations.xlsx"]:
+                if xname not in namelist:
+                    abort_with_error(f"Missing {xname} in submission zip!")
+            print(f"  [✓] extras/gaades.xlsx and extras/situations.xlsx present and verified in submission zip.")
 
     # 4. Check that README counts equal CSV counts
     with zipfile.ZipFile(sub_zip_path, "r") as zf:

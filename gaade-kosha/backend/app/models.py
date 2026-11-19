@@ -93,6 +93,8 @@ class MatchCandidate(BaseModel):
     example: Optional[str] = ""
     confidence: float
     explanation: Optional[str] = None
+    reason_en: Optional[str] = None
+    reason_kn: Optional[str] = None
     closest_situation_id: Optional[str] = None
     provenance: Optional[ProvenanceItem] = None
     situations_count: Optional[int] = 0

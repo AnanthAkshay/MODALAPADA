@@ -12,6 +12,10 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.env
+.env.local
+.env.*.local
+!.env.example
 
 # Testing & Coverage
 .pytest_cache/
@@ -72,3 +76,5 @@ desktop.ini
 *.npy
 *.bak
 *raw_gaades_dump.json
+submission_backup/
+

@@ -1,6 +1,6 @@
 # Gaade Kosha (ಗಾದೆ ಕೋಶ) – Official Submission Checklist
 
-**Generated**: 2026-11-20 00:37:17
+**Generated**: 2026-11-20 01:26:20
 **Hackathon**: Modalapada 2.0 (Problem 2 – Proverbs for Every Situation)
 **Department**: Department of CSE&E, Ramaiah Institute of Technology
 
@@ -19,7 +19,7 @@
 | **Starter Examples Benchmark** | `scripts/run_full_validation.py, docs/TEST_REPORT.md` | **Done** | 3/3 (100.0%) Top-1 match for official starter examples (G007, G251, G252) |
 | **Adversarial Stress Suite** | `scripts/run_full_validation.py, docs/TEST_REPORT.md` | **Done** | 30 adversarial test cases across 7 categories evaluated with zero crashes or 500 errors |
 | **Interactive Web UI** | `frontend/src/App.jsx, frontend/src/index.css` | **Done** | Mobile responsive (360px), Noto Sans Kannada font, 1.65 line-height, zero hardcoded gaades |
-| **Voice Input & Audio Playback UI** | `VoiceInput.jsx, AudioPlayer.jsx, ExplanationTTS.jsx` | **Done** | Web Speech API (kn-IN/en-IN), editable transcript, authentic human player, 'machine voice' attribution |
+| **Voice Input & Audio Playback UI** | `useSpeechRecognition.js, AudioPlayer.jsx, ExplanationTTS.jsx` | **Done** | Web Speech API (kn-IN/en-IN), editable transcript, authentic human player, 'machine voice' attribution |
 | **Precomputed Search Index** | `data/index/tfidf/, scripts/build_index.py` | **Done** | Committed precomputed TF-IDF and BM25 index (starts instantly with 0 downloads) |
 | **Run Instructions & Packaging** | `Dockerfile, Makefile, package.json` | **Done** | Documented start: 'make run', 'npm start', Docker multi-stage container, and reload dev modes |
 | **Bilingual Consent Framework** | `docs/consent/CONSENT_TEMPLATE.md, consent_register.csv` | **Done** | Bilingual (English/Kannada) consent template (6 sections) + empty consent_register.csv |

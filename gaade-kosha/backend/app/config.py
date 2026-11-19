@@ -57,4 +57,19 @@ class Settings:
     ASR_RATE_LIMIT_PER_MINUTE: int = int(os.getenv("ASR_RATE_LIMIT_PER_MINUTE", "20"))
     ENABLE_BACKEND_ASR: bool = os.getenv("ENABLE_BACKEND_ASR", "false").lower() in ("true", "1", "t")
 
+    # LLM Matcher Configuration
+    LLM_PROVIDER: str = os.getenv("LLM_PROVIDER", "gemini").lower().strip()
+    LLM_API_KEY: Optional[str] = (
+        os.getenv("LLM_API_KEY")
+        or (os.getenv("GROQ_API_KEY") if os.getenv("LLM_PROVIDER", "").lower().strip() == "groq" else None)
+        or os.getenv("GEMINI_API_KEY")
+        or os.getenv("GOOGLE_API_KEY")
+        or os.getenv("GROQ_API_KEY")
+    )
+    LLM_MODEL: Optional[str] = os.getenv("LLM_MODEL")
+    LLM_TIMEOUT_SECONDS: float = float(os.getenv("LLM_TIMEOUT_SECONDS", "15.0"))
+    LLM_RATE_LIMIT_PER_MINUTE: int = int(os.getenv("LLM_RATE_LIMIT_PER_MINUTE", "20"))
+    LLM_TEMPERATURE: float = float(os.getenv("LLM_TEMPERATURE", "0.0"))
+
+
 settings = Settings()

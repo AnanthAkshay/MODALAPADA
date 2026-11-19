@@ -48,11 +48,15 @@ def verify_extracted_package():
             "consent/Consent_Summary.pdf",
             "consent/consent_register.csv",
             "consent/consent_form_template.pdf",
+            "extras/gaades.xlsx",
+            "extras/situations.xlsx",
             "docs/SUBMISSION_CHECKLIST.md",
             "docs/TEST_REPORT.md",
             "docs/audio_conversion_report.md",
             "docs/verification_coverage.md",
             "docs/DEMO.md",
+            "docs/csv_cleanup_report.md",
+            "docs/spacing_issues.md",
             "docs/utf8_no_bom/gaades.csv",
             "docs/utf8_no_bom/situations.csv",
             "docs/utf8_no_bom/consent_register.csv",
@@ -82,7 +86,20 @@ def verify_extracted_package():
             print("[FAIL] situations.csv does not have UTF-8 BOM!")
             sys.exit(1)
         df_sits = pd.read_csv(tmp_path / "situations.csv", encoding="utf-8-sig")
-        print(f"[PASS] situations.csv loaded with BOM: {len(df_sits)} situations.")
+        expected_sit_cols = ["situation_id", "gaade_id", "gaade", "situation_text", "situation_kn", "language", "situation_source"]
+        if list(df_sits.columns) != expected_sit_cols:
+            print(f"[FAIL] situations.csv columns mismatch: expected {expected_sit_cols}, got {list(df_sits.columns)}")
+            sys.exit(1)
+        print(f"[PASS] situations.csv loaded with BOM: {len(df_sits)} situations with joined 'gaade' column.")
+
+        # Verify situations gaade matches gaades.csv 100%
+        gaade_map = dict(zip(df_gaades["gaade_id"], df_gaades["gaade"]))
+        for _, sit_row in df_sits.iterrows():
+            expected_g = gaade_map.get(sit_row["gaade_id"])
+            if sit_row["gaade"] != expected_g:
+                print(f"[FAIL] Mismatch in situation {sit_row['situation_id']}: {sit_row['gaade']} != {expected_g}")
+                sys.exit(1)
+        print(f"[PASS] 100% of situations 'gaade' strings match canonical gaades verbatim.")
 
         # consent_register.csv
         df_reg = pd.read_csv(tmp_path / "consent" / "consent_register.csv", encoding="utf-8-sig")

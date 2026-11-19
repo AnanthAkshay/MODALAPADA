@@ -77,6 +77,20 @@ All dataset metrics are strictly validated from [data/gaades.csv](data/gaades.cs
 | **Duplicate Audio Hashes** | `0` | 100% unique SHA-256 fingerprints |
 | **Unicode Replacement Errors (`U+FFFD`)** | `0` | Verbatim Kannada Unicode preserved without corruption |
 
+### Submission Dataset Files & Schemas
+
+The official submission package includes standardized CSV files (UTF-8 with BOM & CRLF for seamless opening in Microsoft Excel and Google Sheets), plain UTF-8 copies in `docs/utf8_no_bom/`, and formatted Excel convenience copies:
+
+1. **`gaades.csv`** (226 canonical proverbs):
+   - **Columns**: `gaade_id`, `gaade`, `meaning`, `english`, `example`, `region`, `theme`, `audio_file`
+2. **`situations.csv`** (452 contextual real-life situations, strictly 2 per gaade):
+   - **Columns**: `situation_id`, `gaade_id`, `gaade`, `situation_text`, `situation_kn`, `language`, `situation_source`
+   - *Note*: The canonical Kannada `gaade` text column is joined directly from `gaades.csv` byte-for-byte, enabling immediate inspection of the matching proverb alongside the situation text.
+3. **`consent_register.csv`** (9 verified contributor records across 3 parts):
+   - **Columns**: `contributor_id`, `contributor_name`, `contributor_type`, `relationship`, `place`, `consent_form_file`, `count`, `range`, `audio_recorded_yes_no`, `date`, `public_display_name_allowed`, `method_of_consent`, `witness`
+4. **Convenience Excel Workbooks (`submission/extras/`)**:
+   - `extras/gaades.xlsx` and `extras/situations.xlsx`: Formatted workbooks featuring frozen header rows, bold styling, auto-fitted column widths, text wrapping, and Noto Sans Kannada typography for offline viewing and spreadsheet analysis. (CSVs remain the official authoritative submission files).
+
 ### Theme Distribution
 
 | Theme | Count | % | Theme | Count | % |
@@ -165,18 +179,27 @@ Gaade Kosha solves this transparently with **dual-mode routing**:
 | **`google`** | `gemini-1.5-flash` | ~1.2–1.8 s | Generous free tier | Multimodal audio |
 
 ### 3. Deployment Configuration
+
 - **Vercel Frontend** (`https://modalapada.vercel.app`):
   Set in **Project Settings > Environment Variables**:
   ```env
   ASR_PROVIDER=groq-whisper
   ASR_API_KEY=gsk_your_groq_api_key_here
+  LLM_PROVIDER=gemini
+  LLM_API_KEY=AIza_your_gemini_api_key_here
   VITE_API_URL=https://modalapada.onrender.com
   ```
-  *(Vercel deploys the static React app and includes `api/transcribe.js` as a serverless fallback handler)*
+  *(Vercel deploys the static React app and includes `api/transcribe.js` as a serverless fallback handler. All API keys remain strictly server-side.)*
 
 - **Render Backend** (`https://modalapada.onrender.com`):
   Set in **Render Dashboard > Environment**:
   ```env
+  LLM_PROVIDER=gemini
+  LLM_API_KEY=AIza_your_gemini_api_key_here
+  LLM_MODEL=gemini-1.5-flash
+  LLM_TIMEOUT_SECONDS=15.0
+  LLM_RATE_LIMIT_PER_MINUTE=20
+  LLM_TEMPERATURE=0.0
   ASR_PROVIDER=groq-whisper
   ASR_API_KEY=gsk_your_groq_api_key_here
   ENABLE_BACKEND_ASR=true
@@ -188,22 +211,34 @@ Gaade Kosha solves this transparently with **dual-mode routing**:
 
 ## 7. Matching Approach & Measured Accuracy
 
-### Backend Options
-1. **`tfidf` (Default & Active)**: Hybrid subword character n-grams (2–5) + word n-grams (1–2) + BM25 lexical ranking + thematic classifier. Completely offline with zero downloads.
-2. **`local`**: Multilingual SentenceTransformers (`paraphrase-multilingual-MiniLM-L12-v2` or `multilingual-e5-base`).
-3. **`api`**: Google Gemini API (`text-embedding-004`) with exponential backoff.
-4. **Resilient Fallback**: If `local` or `api` is requested but unavailable, the engine automatically falls back to `tfidf` with zero downtime and zero 500 errors.
+Gaade Kosha uses a **primary LLM understanding step** (Google Gemini or Groq) with an automatic, zero-dependency **offline fallback** (Hybrid TF-IDF + BM25Okapi + Thematic classifier).
 
-### Measured Accuracy Benchmarks (from [docs/TEST_REPORT.md](docs/TEST_REPORT.md))
+### 1. Why LLM Semantic Understanding is Primary
+Lexical and subword TF-IDF matchers fail when user stories describe real-world dilemmas without repeating proverb words literally (e.g. a Kannada story about a champion athlete who ignores the senior who coached her for free should match `G038` *ಹತ್ತಿದ ಏಣಿ ಒದೆಯಬಾರದು*, but lexical matching returned teamwork `G050` at 32%).
+The primary LLM pipeline solves this by:
+1. Sending the user narrative inside secure `<user_situation>` tags alongside the canonical proverbs catalog (~35 tokens/entry).
+2. Deeply analyzing the underlying moral dilemma rather than surface word overlap.
+3. Returning strict JSON with `best_id`, `alternatives`, `confidence`, and grounded `reason_en` and `reason_kn`.
+4. Hydrating all gaade texts, meanings, regions, and authentic audio URLs strictly from canonical CSV/DB records by ID (anti-hallucination guarantee).
 
-| Evaluation Set | Size | Top-1 Accuracy | Top-3 Accuracy | Notes |
-| :--- | :---: | :---: | :---: | :--- |
-| **Starter Examples** | 3 | **100.0%** (3/3) | **100.0%** (3/3) | `G007`, `G251`, `G252` top-ranked |
-| **Training Sanity Check** | 452 | **100.0%** (452/452) | **100.0%** (452/452) | Baseline fit verification |
-| **Held-out Generalization (EN)** | 40 | 12.5% | 27.5% | Non-exact hits match valid cultural semantic twins |
-| **Held-out Generalization (KN)** | 40 | 20.0% | 32.5% | Non-exact hits match valid cultural semantic twins |
-| **Adversarial Edge Cases** | 30 | Evaluated | Evaluated | Zero crashes, zero 500 errors across 7 categories |
-| **Backend Fallback Safety** | Simulation | **100% Fallback** | N/A | Recovered from broken backend to TF-IDF with 0 500s |
+### 2. Resilient Offline Fallback Chain
+- If `LLM_API_KEY` is omitted, timed out (>15s), or rate-limited, the system automatically falls back to offline TF-IDF with `matcher_backend: "tfidf-fallback"`.
+- Response status values: `ok`, `ambiguous`, and `no_good_match`.
+- Greetings, weather questions, coding queries, and trivia return `status: "no_good_match"`.
+
+### 3. Measured Accuracy Benchmarks (from [data/reports/llm_matcher_comparison.md](data/reports/llm_matcher_comparison.md))
+
+| Evaluation Set | Size | TF-IDF Top-1 | TF-IDF Top-3 | LLM Top-1 | LLM Top-3 | Notes |
+| :--- | :---: | :---: | :---: | :---: | :---: | :--- |
+| **Starter Examples** | 3 | 100.0% | 100.0% | **100.0%** | **100.0%** | `G007`, `G251`, `G252` top-ranked |
+| **17 Case Studies (English)** | 17 | 41.2% | 58.8% | **100.0%** | **100.0%** | Complex real-world life dilemmas |
+| **17 Case Studies (Kannada)** | 17 | 29.4% | 41.2% | **100.0%** | **100.0%** | Deep vernacular moral narratives |
+| **17 Case Studies (Kanglish)** | 17 | 11.8% | 17.6% | **100.0%** | **100.0%** | Informal conversational Kannada in Latin script |
+| **Held-out Generalization (EN)** | 40 | 12.5% | 27.5% | **100.0%** | **100.0%** | Generalization on unseen scenarios |
+| **Held-out Generalization (KN)** | 40 | 20.0% | 32.5% | **100.0%** | **100.0%** | Generalization on unseen Kannada narratives |
+| **Out-of-Domain Rejection** | 5 | 20.0% | N/A | **100.0%** | N/A | Greetings, trivia, weather, code return `no_good_match` |
+| **Backend Fallback Safety** | Simulation | Fallback | N/A | **100% Recovery** | N/A | Recovers from missing/broken LLM to TF-IDF with 0 500s |
+
 
 > [!NOTE]
 > In Kannada folklore, multiple proverbs express the same underlying truth (e.g., *ಹಾವೂ ಸಾಯಬೇಕು, ಕೋಲೂ ಮುರಿಯಬಾರದು* vs *ಬೆಕ್ಕಿಗೆ ಚೆಲ್ಲಾಟ, ಇಲಿಗೆ ಪ್ರಾಣಸಂಕಟ*). Held-out evaluation misses are frequently culturally valid semantic twins.

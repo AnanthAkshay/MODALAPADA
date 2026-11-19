@@ -2,22 +2,22 @@
   "project": "Gaade Kosha (ಗಾದೆ ಕೋಶ)",
   "hackathon": "Modalapada 2.0 (Problem 2)",
   "department": "Dept of CSE&E, Ramaiah Institute of Technology",
-  "generated_at": "2026-11-20T00:37:25.972329",
-  "total_files": 239,
-  "total_size_bytes": 19697993,
-  "total_size_mb": 18.79,
+  "generated_at": "2026-11-20T01:29:10.805289",
+  "total_files": 243,
+  "total_size_bytes": 19931286,
+  "total_size_mb": 19.01,
   "canonical_gaades": 226,
   "canonical_audio_wavs": 224,
   "entries": [
     {
       "path": "MISSING_ITEMS.md",
-      "size_bytes": 4421,
-      "sha256": "62eefd1d60c1fd729caaec7352566d666a2011d8b1fb57af1a3491fc95fcc2c9"
+      "size_bytes": 4422,
+      "sha256": "c17ce08a9ad68547169b58e2441a02e68d2cfacb84f22a0b27bb90ebd52566ae"
     },
     {
       "path": "README.md",
-      "size_bytes": 16700,
-      "sha256": "667871997d93437cb77a37cc8238de24727f2d9fd2c811a61b2a0c4d11eadf01"
+      "size_bytes": 19783,
+      "sha256": "67295099afa866cd46df644cb0e1548b1199104d72b5271315bb2d5582c2f857"
     },
     {
       "path": "audio/G001.wav",
@@ -1151,8 +1151,8 @@
     },
     {
       "path": "consent/consent_register.csv",
-      "size_bytes": 1900,
-      "sha256": "b952743d837be411d163b3b934900ae8c975a2cae3de6e05c897e2bdd189cb7a"
+      "size_bytes": 1909,
+      "sha256": "69f8e346073cee853410920e8758883ceaab46f3813661b2aace09537b580cdc"
     },
     {
       "path": "docs/DEMO.md",
@@ -1161,13 +1161,13 @@
     },
     {
       "path": "docs/SUBMISSION_CHECKLIST.md",
-      "size_bytes": 3701,
-      "sha256": "c5152bbd29484d2ae4aeda5bc5f24da566c7bc11678b0566f5b8069e5e14f87d"
+      "size_bytes": 3710,
+      "sha256": "ddefc1b8458e66c5dc68c2e3470760e34eee71b02b2046afbfc6abec1fbce62d"
     },
     {
       "path": "docs/TEST_REPORT.md",
-      "size_bytes": 13726,
-      "sha256": "c198081364be03546e0425ea462a98130fc940a09518fed082427f65d8728603"
+      "size_bytes": 13633,
+      "sha256": "0402a4a33faff3dadae283ad69f007b48a768c6b0dc64abe26af7ef6e3e12ee0"
     },
     {
       "path": "docs/audio_conversion_report.md",
@@ -1175,24 +1175,44 @@
       "sha256": "a27a8acf4f6bbf61a5eeb74128a76fb25ad5fecdea01609ac73e80ce40744e69"
     },
     {
+      "path": "docs/csv_cleanup_report.md",
+      "size_bytes": 9121,
+      "sha256": "f37bf65bd6b70c76feee28758f3df2b813c6695ce6f2de110f2ddc75ffaa3ccc"
+    },
+    {
+      "path": "docs/spacing_issues.md",
+      "size_bytes": 2336,
+      "sha256": "9ea65bb6e42eb1f5d6d66d42afbd9d48d3c582f80638925961d4d32f26e49dda"
+    },
+    {
       "path": "docs/utf8_no_bom/consent_register.csv",
-      "size_bytes": 1897,
-      "sha256": "d1ac41a3798451362c714f0e6b47d5446c651a5a5102678e5063ac74025c63e6"
+      "size_bytes": 1896,
+      "sha256": "d536d81f3ce5634d005b97dd18229ddcf6f074ec195d4d26a718979afcce0015"
     },
     {
       "path": "docs/utf8_no_bom/gaades.csv",
-      "size_bytes": 83454,
-      "sha256": "423ff5eb958b9d370998effb12e2166f0adb8c73cb33bad2ad5ece0c7eb51be4"
+      "size_bytes": 83227,
+      "sha256": "d77568c9f94373dcdf20b64539938dfac4bbc6496f1334ddca241338151bbfbc"
     },
     {
       "path": "docs/utf8_no_bom/situations.csv",
-      "size_bytes": 220384,
-      "sha256": "120f4b9b3869f95bb2ada657d0e5c6b88d931ef352c9ed02e14f802fa1c676ea"
+      "size_bytes": 254777,
+      "sha256": "7331c1e02c81c94c9159ab7ec4e3ea01998a49dbc4a3b1b21756f39d368bae9c"
     },
     {
       "path": "docs/verification_coverage.md",
-      "size_bytes": 6644,
-      "sha256": "815eb929c084381f757c45b954083f4a110a850390b57e12edd8d020ecdf241d"
+      "size_bytes": 6645,
+      "sha256": "a2a5c57793276439c0f66cc1c51efd2e7dee212d653ca75e36f20813db8e5c50"
+    },
+    {
+      "path": "extras/gaades.xlsx",
+      "size_bytes": 44170,
+      "sha256": "ce921aa268fac7734b1c8d432749e55135dcfb8e15ee4cca4984415ce05ee884"
+    },
+    {
+      "path": "extras/situations.xlsx",
+      "size_bytes": 105645,
+      "sha256": "e331b0509e8c3cb58151bc07502525107f4f653ce257beeea49169bd6519427a"
     },
     {
       "path": "gaades.csv",
@@ -1201,8 +1221,8 @@
     },
     {
       "path": "situations.csv",
-      "size_bytes": 220387,
-      "sha256": "e04290431a9691a717693e458db908217001bc955e701041a98ac3c268f63560"
+      "size_bytes": 255233,
+      "sha256": "b407e4fb851d6c4213c9939c2ff517dc515222148e1b3a4a3bce443675aa0f7d"
     }
   ]
 }

@@ -305,13 +305,17 @@ def get_audio(
         500: {"model": ErrorResponse, "description": "Server internal error"}
     }
 )
-def match_proverb(request: MatchRequest):
+def match_proverb(request: MatchRequest, raw_req: Request):
     """
     Semantic proverb matcher endpoint.
     Accepts user situation narrative (English, Kannada, or Kanglish) and returns the best matching proverb,
     ranked alternatives, confidence score, and grounded explanation.
     """
-    result = MatcherService.match(text=request.text, lang=request.lang)
+    client_ip = (
+        raw_req.headers.get("x-forwarded-for", "").split(",")[0].strip()
+        or (raw_req.client.host if raw_req.client else "127.0.0.1")
+    )
+    result = MatcherService.match(text=request.text, lang=request.lang, client_ip=client_ip)
     return result
 
 

@@ -104,7 +104,8 @@ export const COPY = {
     newSituation: { kn: 'ಹೊಸ ಸಂದರ್ಭ', en: 'New situation' },
     backToBrowse: { kn: 'ಎಲ್ಲಾ ಗಾದೆಗಳಿಗೆ ಹಿಂತಿರುಗಿ', en: 'Browse all gaades' },
     othersFit: { kn: 'ಬೇರೆ ಹೊಂದುವ ಗಾದೆಗಳು', en: 'The other gaades that fit' },
-    ambiguous: { kn: 'ಹಲವು ಗಾದೆಗಳು ಹೊಂದುತ್ತವೆ.', en: 'A few gaades fit this situation.' },
+    ambiguous: { kn: 'ಹಲವು ಗಾದೆಗಳು ಹೊಂದುತ್ತವೆ.', en: 'Multiple proverbs could fit this situation.' },
+    lowConfidence: { kn: 'ನನಗೆ ಖಚಿತವಿಲ್ಲ; ಹತ್ತಿರದ ಗಾದೆಗಳು ಇಲ್ಲಿವೆ.', en: "I'm not sure; here are the closest ideas." },
     explanationForFirst: {
       kn: 'ವಿವರಣೆ ಹತ್ತಿರದ ಹೊಂದಿಕೆಗೆ ಮಾತ್ರ ಬರೆಯಲಾಗಿದೆ. ಮೊದಲ ಗಾದೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ.',
       en: 'An explanation is written for the closest match only. Choose the first gaade to read it.',

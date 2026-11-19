@@ -1,6 +1,6 @@
 # Gaade Kosha (ಗಾದೆ ಕೋಶ) - System Test & Validation Report
 
-**Date**: 2026-11-20 00:27:04
+**Date**: 2026-11-20 01:27:17
 **Project**: Gaade Kosha (Problem 2, Modalapada 2.0 Hackathon)
 **Department**: Department of CSE&E, Ramaiah Institute of Technology
 **Primary Evaluated Engine**: `tfidf`
@@ -22,7 +22,7 @@ This document provides comprehensive verification across all subsystems of Gaade
 | **Training Sanity Check** | 452 situations | Top-1: 100.0%, Top-3: 100.0% | Train fit baseline | **PASS** |
 | **Held-out Generalization (EN)** | 40 situations | Top-1: 12.5%, Top-3: 27.5% | Semantic twin near-misses | **ANALYZED** |
 | **Held-out Generalization (KN)** | 40 situations | Top-1: 20.0%, Top-3: 32.5% | Semantic twin near-misses | **ANALYZED** |
-| **Adversarial Edge Cases** | 30 cases | 11/30 (36.7%) | Zero crashes / 500s | **PASS** |
+| **Adversarial Edge Cases** | 30 cases | 7/30 (23.3%) | Zero crashes / 500s | **PASS** |
 | **Backend Fallback Safety** | Failure simulation | Fallback to TF-IDF | Zero HTTP 500s | **PASS** |
 
 ---
@@ -116,39 +116,39 @@ Every endpoint in `backend/app/main.py` was exercised via `fastapi.testclient.Te
 
 ## 6. Adversarial Test Suite Analysis (30 Cases)
 
-Tested 30 hand-written adversarial queries across 8 stress-test categories. Passed: **11/30 (36.7%)**.
+Tested 30 hand-written adversarial queries across 8 stress-test categories. Passed: **7/30 (23.3%)**.
 
 | Case ID | Category | Query Snippet | Expected | Predicted Status | Predicted Gaade | Score | Result |
 | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| Adv-01 | Negation | Ravi did not borrow any money from anyone, avoided taking loans for luxurie... | `correct` | `success` | `G152` | 0.3456 | ⚠️ INSPECT |
-| Adv-02 | Negation | The project manager was never hasty, never rushed the engineering team, and... | `correct` | `success` | `G011` | 0.3345 | ⚠️ INSPECT |
+| Adv-01 | Negation | Ravi did not borrow any money from anyone, avoided taking loans for luxurie... | `correct` | `ok` | `G152` | 0.3456 | ⚠️ INSPECT |
+| Adv-02 | Negation | The project manager was never hasty, never rushed the engineering team, and... | `correct` | `ok` | `G011` | 0.3345 | ⚠️ INSPECT |
 | Adv-03 | Negation | The farmer didn't put any sweat or effort into the dry fields, didn't plow,... | `correct` | `ambiguous` | `G140` | 0.2371 | ⚠️ INSPECT |
-| Adv-04 | Sarcasm | Oh what a brilliant plan, let's totally wait until the entire apartment com... | `correct` | `success` | `G251` | 0.2968 | ✅ PASS |
-| Adv-05 | Sarcasm | Sure, taking an eighty thousand rupee loan on heavy interest to buy the lat... | `correct` | `success` | `G152` | 0.3968 | ⚠️ INSPECT |
-| Adv-06 | Sarcasm | Yeah right, looking at Instagram stories where everyone is an effortless mi... | `correct` | `success` | `G212` | 0.2507 | ⚠️ INSPECT |
-| Adv-07 | Sarcasm | Of course, let's blame the stone on the road when you were driving with you... | `ambiguous` | `success` | `G115` | 0.2595 | ✅ PASS |
+| Adv-04 | Sarcasm | Oh what a brilliant plan, let's totally wait until the entire apartment com... | `correct` | `ok` | `G251` | 0.2968 | ✅ PASS |
+| Adv-05 | Sarcasm | Sure, taking an eighty thousand rupee loan on heavy interest to buy the lat... | `correct` | `ok` | `G152` | 0.3968 | ⚠️ INSPECT |
+| Adv-06 | Sarcasm | Yeah right, looking at Instagram stories where everyone is an effortless mi... | `correct` | `ok` | `G212` | 0.2507 | ⚠️ INSPECT |
+| Adv-07 | Sarcasm | Of course, let's blame the stone on the road when you were driving with you... | `ambiguous` | `ok` | `G115` | 0.2595 | ⚠️ INSPECT |
 | Adv-08 | Dual Dilemma | A farmer worked day and night in the scorching heat to raise a crop, but hi... | `ambiguous` | `ambiguous` | `G207` | 0.2705 | ✅ PASS |
-| Adv-09 | Dual Dilemma | She hurried in a panic to catch the departing express train and accidentall... | `ambiguous` | `success` | `G007` | 0.2797 | ✅ PASS |
-| Adv-10 | Dual Dilemma | A kind teacher lent money without interest to help a neighbor in crisis, bu... | `ambiguous` | `success` | `G159` | 0.321 | ✅ PASS |
-| Adv-11 | Dual Dilemma | The lead engineer was extraordinarily talented at designing engines, but wa... | `ambiguous` | `success` | `G013` | 0.27 | ✅ PASS |
+| Adv-09 | Dual Dilemma | She hurried in a panic to catch the departing express train and accidentall... | `ambiguous` | `ok` | `G007` | 0.2797 | ⚠️ INSPECT |
+| Adv-10 | Dual Dilemma | A kind teacher lent money without interest to help a neighbor in crisis, bu... | `ambiguous` | `ok` | `G159` | 0.321 | ⚠️ INSPECT |
+| Adv-11 | Dual Dilemma | The lead engineer was extraordinarily talented at designing engines, but wa... | `ambiguous` | `ok` | `G013` | 0.27 | ⚠️ INSPECT |
 | Adv-12 | Very Short | money | `no_good_match` | `ambiguous` | `G178` | 0.3545 | ⚠️ INSPECT |
-| Adv-13 | Very Short | loan | `no_good_match` | `success` | `G171` | 0.3406 | ⚠️ INSPECT |
-| Adv-14 | Very Short | flood water | `no_good_match` | `success` | `G215` | 0.3635 | ⚠️ INSPECT |
+| Adv-13 | Very Short | loan | `no_good_match` | `ok` | `G171` | 0.3406 | ⚠️ INSPECT |
+| Adv-14 | Very Short | flood water | `no_good_match` | `ok` | `G215` | 0.3635 | ⚠️ INSPECT |
 | Adv-15 | Very Short | abc | `no_good_match` | `invalid_input` | None | 0.0 | ✅ PASS |
-| Adv-16 | Slang | bro blew his entire monthly paycheck in one weekend flexing at luxury pubs ... | `correct` | `success` | `G007` | 0.2754 | ✅ PASS |
-| Adv-17 | Slang | dude did zero exam prep all semester, crammed the whole textbook at 3 AM on... | `correct` | `success` | `G207` | 0.2588 | ⚠️ INSPECT |
-| Adv-18 | Slang | full show-off outside with rented sportscar and designer shades, but back h... | `correct` | `success` | `G155` | 0.3091 | ✅ PASS |
-| Adv-19 | Slang | homie trusted an anonymous online crypto guru promising ten times returns i... | `correct` | `success` | `G011` | 0.3421 | ⚠️ INSPECT |
-| Adv-20 | Kanglish | nanna friend salary tumba kammi idru costly mobile loan EMI alli togondidal... | `correct` | `success` | `G007` | 0.3222 | ✅ PASS |
-| Adv-21 | Kanglish | ooralli tumba male bantu adikke drainage clear madoke eega benki bandaga pu... | `correct` | `success` | `G065` | 0.2528 | ⚠️ INSPECT |
+| Adv-16 | Slang | bro blew his entire monthly paycheck in one weekend flexing at luxury pubs ... | `correct` | `ok` | `G007` | 0.2754 | ✅ PASS |
+| Adv-17 | Slang | dude did zero exam prep all semester, crammed the whole textbook at 3 AM on... | `correct` | `ok` | `G207` | 0.2588 | ⚠️ INSPECT |
+| Adv-18 | Slang | full show-off outside with rented sportscar and designer shades, but back h... | `correct` | `ok` | `G155` | 0.3091 | ✅ PASS |
+| Adv-19 | Slang | homie trusted an anonymous online crypto guru promising ten times returns i... | `correct` | `ok` | `G011` | 0.3421 | ⚠️ INSPECT |
+| Adv-20 | Kanglish | nanna friend salary tumba kammi idru costly mobile loan EMI alli togondidal... | `correct` | `ok` | `G007` | 0.3222 | ✅ PASS |
+| Adv-21 | Kanglish | ooralli tumba male bantu adikke drainage clear madoke eega benki bandaga pu... | `correct` | `ok` | `G065` | 0.2528 | ⚠️ INSPECT |
 | Adv-22 | Kanglish | bereyavara life social media photo nodi tumba effortless ankoltivi aadre el... | `correct` | `ambiguous` | `G229` | 0.2504 | ⚠️ INSPECT |
-| Adv-23 | Kanglish | kelasa madalla sumne build-up kodtane but pocket alli kase illa jamba matra... | `correct` | `success` | `G224` | 0.2535 | ⚠️ INSPECT |
-| Adv-24 | Out-of-Domain | Who won the cricket world cup tournament in 2011? | `no_good_match` | `success` | `G141` | 0.2701 | ⚠️ INSPECT |
-| Adv-25 | Out-of-Domain | What is the capital city of France? | `no_good_match` | `success` | `G061` | 0.267 | ⚠️ INSPECT |
-| Adv-26 | Out-of-Domain | Write a Python script for quicksort sorting algorithm with time complexity ... | `no_good_match` | `success` | `G242` | 0.2671 | ⚠️ INSPECT |
-| Adv-27 | Out-of-Domain | Tell me a funny joke about flying penguins and polar bears. | `no_good_match` | `success` | `G110` | 0.2965 | ⚠️ INSPECT |
+| Adv-23 | Kanglish | kelasa madalla sumne build-up kodtane but pocket alli kase illa jamba matra... | `correct` | `ok` | `G224` | 0.2535 | ⚠️ INSPECT |
+| Adv-24 | Out-of-Domain | Who won the cricket world cup tournament in 2011? | `no_good_match` | `ok` | `G141` | 0.2701 | ⚠️ INSPECT |
+| Adv-25 | Out-of-Domain | What is the capital city of France? | `no_good_match` | `ok` | `G061` | 0.267 | ⚠️ INSPECT |
+| Adv-26 | Out-of-Domain | Write a Python script for quicksort sorting algorithm with time complexity ... | `no_good_match` | `ok` | `G242` | 0.2671 | ⚠️ INSPECT |
+| Adv-27 | Out-of-Domain | Tell me a funny joke about flying penguins and polar bears. | `no_good_match` | `ok` | `G110` | 0.2965 | ⚠️ INSPECT |
 | Adv-28 | Out-of-Domain | Explain quantum entanglement, superposition, and wave function collapse in ... | `no_good_match` | `ambiguous` | `G010` | 0.2441 | ⚠️ INSPECT |
-| Adv-29 | Greeting | Namaskara! Good morning! How are you doing today? | `greeting` | `success` | `G016` | 0.3332 | ⚠️ INSPECT |
+| Adv-29 | Greeting | Namaskara! Good morning! How are you doing today? | `greeting` | `ok` | `G016` | 0.3332 | ⚠️ INSPECT |
 | Adv-30 | Gibberish | qwertyuiop asdfghjkl zxcvbnm 1234567890 | `no_good_match` | `no_good_match` | None | 0.0 | ✅ PASS |
 
 ### Adversarial Observations:

@@ -85,7 +85,7 @@ function ActionLabel({ k, vars }) {
 }
 
 function ReadyView({ data, query, altIndex, onPromote, onSelect, onNewSituation, fromBrowse, onBackToBrowse }) {
-  const { t, sub, other, digits, themeName, themeSub } = useCopy();
+  const { t, sub, other, digits, themeName, themeSub, locale } = useCopy();
   const pool = data.best ? [data.best, ...(data.alternatives || [])] : [];
   const index = Math.min(altIndex, Math.max(pool.length - 1, 0));
   const item = pool[index] || null;
@@ -104,8 +104,17 @@ function ReadyView({ data, query, altIndex, onPromote, onSelect, onNewSituation,
 
   const hasMore = index < pool.length - 1;
   const isAmbiguous = data.status === 'ambiguous';
+  const confidenceVal = typeof item.confidence === 'number' ? item.confidence : null;
+  const isLowConfidence = !isAmbiguous && confidenceVal !== null && confidenceVal > 0 && confidenceVal < 0.60;
   const alternatives = pool.slice(1);
   const regionKnown = item.region && item.region !== 'UNVERIFIED' && item.region.trim() !== '';
+
+  const queryHasKannada = Boolean(query && /[\u0C80-\u0CFF]/.test(query));
+  const preferKannadaReason = locale === 'kn' || data.detected_lang === 'kn' || queryHasKannada;
+  const reasonText = preferKannadaReason
+    ? (item.reason_kn || item.explanation)
+    : (item.reason_en || item.explanation);
+  const reasonLang = preferKannadaReason && item.reason_kn ? 'kn' : 'en';
 
   return (
     <div className="animate-fade-in motion-reduce:animate-none">
@@ -116,6 +125,15 @@ function ReadyView({ data, query, altIndex, onPromote, onSelect, onNewSituation,
           </span>
           <span lang={other} className="text-[0.8em] text-ink-soft">
             {sub('result.ambiguous')}
+          </span>
+        </p>
+      ) : isLowConfidence ? (
+        <p className="mb-6 flex flex-col border-l-2 border-turmeric pl-4 text-meta">
+          <span lang="kn" className="kn leading-[1.7] text-ink">
+            {t('result.lowConfidence')}
+          </span>
+          <span lang={other} className="text-[0.8em] text-ink-soft">
+            {sub('result.lowConfidence')}
           </span>
         </p>
       ) : null}
@@ -138,7 +156,7 @@ function ReadyView({ data, query, altIndex, onPromote, onSelect, onNewSituation,
 
       <div className="mt-8 flex flex-wrap items-start justify-center gap-x-4 gap-y-3">
         <AudioPlayer audioUrl={item.audio_url} gaadeId={item.gaade_id} />
-        <ExplanationTTS text={item.explanation || ''} />
+        <ExplanationTTS text={reasonText || item.explanation || ''} />
       </div>
 
       <KasutiBorder className="mt-9" />
@@ -154,9 +172,12 @@ function ReadyView({ data, query, altIndex, onPromote, onSelect, onNewSituation,
 
         <section className="sm:pl-8">
           <SectionTitle k="result.whyItFits" />
-          {item.explanation ? (
-            <p lang="en" className="mt-2 text-body-lg leading-[1.7] text-ink">
-              {item.explanation}
+          {reasonText ? (
+            <p
+              lang={reasonLang}
+              className={`mt-2 text-body-lg leading-[1.7] text-ink ${reasonLang === 'kn' ? 'kn leading-[1.8]' : ''}`}
+            >
+              {reasonText}
             </p>
           ) : (
             <p className="mt-2 flex flex-col text-body leading-[1.7] text-ink-soft">
@@ -189,6 +210,17 @@ function ReadyView({ data, query, altIndex, onPromote, onSelect, onNewSituation,
             {regionKnown ? `${sub('result.region')}: ${item.region}` : sub('result.regionUnverified')}
           </span>
         </span>
+
+        {confidenceVal !== null && confidenceVal > 0 ? (
+          <span className="flex flex-col">
+            <span lang="kn" className="kn text-meta leading-[1.7] text-ink-soft">
+              ವಿಶ್ವಾಸಾರ್ಹತೆ: {digits(Math.round(confidenceVal * 100))}%
+            </span>
+            <span lang={other} className="text-[12px] leading-tight text-ink-soft">
+              confidence: {Math.round(confidenceVal * 100)}%
+            </span>
+          </span>
+        ) : null}
 
         <span className="flex flex-col">
           <span lang="kn" className="kn text-meta leading-[1.7] text-ink-soft">
