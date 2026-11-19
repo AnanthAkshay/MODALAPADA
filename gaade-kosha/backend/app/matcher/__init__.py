@@ -251,13 +251,10 @@ class MatcherService:
         if llm_matcher.is_configured():
             llm_attempted = True
             try:
-                # Pre-rank top 35 candidates to keep LLM prompt under 1,000 tokens (preventing Groq 429 TPM limits)
-                candidate_snippet = self.get_top_candidate_prompt_text(text, top_k=35)
                 llm_result = llm_matcher.match(
                     text=text,
                     lang=detected_lang,
-                    client_ip=client_ip,
-                    candidate_prompt_text=candidate_snippet
+                    client_ip=client_ip
                 )
                 if llm_result is not None:
                     return llm_result

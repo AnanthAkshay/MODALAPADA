@@ -96,11 +96,11 @@ def test_audio_dataset():
     for row in reader:
         gid = row['gaade_id']
         audio_file = row['audio_file']
-        if int(gid[1:]) <= 250:
+        if gid in ("G251", "G252"):
+            assert audio_file == "MISSING"
+        else:
             assert audio_file == f"audio/wav/{gid}.wav"
             full_path = os.path.join(base_dir, audio_file)
             assert os.path.isfile(full_path), f"Audio file not found: {full_path}"
-        else:
-            assert audio_file == "MISSING", f"Expected MISSING for {gid}, found {audio_file}"
 
 

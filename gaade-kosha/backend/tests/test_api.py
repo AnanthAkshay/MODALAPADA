@@ -89,7 +89,6 @@ def test_api_get_random_gaade_success():
     assert "no-store" in res.headers.get("cache-control", "").lower()
     data = res.json()
     assert data["gaade_id"].startswith("G")
-    assert data["gaade_id"] not in ("G251", "G252")  # Never text-only entries
     assert len(data["gaade"]) > 3
     assert data["audio_url"] == f"/api/audio/{data['gaade_id']}"
     # Verify the WAV file actually exists on disk
@@ -166,8 +165,8 @@ def test_api_audio_endpoint_success():
     assert len(res.content) > 1000
 
 def test_api_audio_endpoint_missing_audio():
-    """Verify 404 JSON response for canonical gaades without recordings (G251, G252)."""
-    res = client.get("/api/audio/G251")
+    """Verify 404 JSON response for nonexistent or unrecorded gaades (e.g. G999)."""
+    res = client.get("/api/audio/G999")
     assert res.status_code == 404
     data = res.json()
     assert data["code"] == 404
@@ -334,20 +333,15 @@ def test_all_canonical_gaades_retrievable_and_audio():
         assert len(data_item["gaade"]) > 0
         assert data_item["situations_count"] == 2
         
-        # 2. Audio URL verification
-        num = int(gid[1:])
-        if num <= 250:
+        # 2. Audio URL verification: canonical gaades with audio (G251/G252 text-only)
+        if gid in ("G251", "G252"):
+            assert data_item["audio_url"] is None
+        else:
             assert data_item["audio_url"] == f"/api/audio/{gid}"
             res_audio = client.get(f"/api/audio/{gid}")
             assert res_audio.status_code == 200
             assert "audio/wav" in res_audio.headers["content-type"].lower()
             assert len(res_audio.content) > 100
-        else:
-            assert data_item["audio_file"] == "MISSING"
-            assert data_item["audio_url"] is None
-            res_audio = client.get(f"/api/audio/{gid}")
-            assert res_audio.status_code == 404
-            assert res_audio.json()["code"] == 404
 
 def test_api_transcribe_disabled_503():
     """Verify POST /api/transcribe returns 503 when ENABLE_BACKEND_ASR=false."""

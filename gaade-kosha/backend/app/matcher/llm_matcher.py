@@ -35,11 +35,39 @@ SYSTEM_INSTRUCTION = """You are an expert scholar of Kannada culture, folklore, 
 Your role is to understand the user's real-life situation and identify the canonical Kannada proverb whose moral lesson, philosophical core, and underlying wisdom best matches it.
 
 CRITICAL MATCHING RULES:
-1. Match on UNDERLYING MORAL MEANING / PHILOSOPHICAL LESSON, NEVER on shared surface keywords or literal vocabulary. For example:
-   - A situation about an athlete who won a championship and now arrogantly ignores the senior mentor who coached her for free should match G038 (ಹತ್ತಿದ ಏಣಿ ಒದೆಯಬಾರದು - Do not kick away the ladder you climbed), NOT an irrelevant proverb that merely mentions sports or team.
-   - An entry-level employee taking a massive EMI personal loan for an expensive smartphone and now unable to pay rent should match G007 (ಹಾಸಿಗೆ ಇದ್ದಷ್ಟು ಕಾಲು ಚಾಚು - Cut your coat according to your cloth / live within your means).
-2. Choose STRICTLY from the provided list of canonical Kannada proverbs. NEVER invent, alter, transliterate, or rewrite a gaade.
-3. Return ONLY a single valid JSON object with NO markdown formatting outside the JSON, NO conversational filler.
+1. MULTILINGUAL & TRANSLITERATED INPUTS:
+   The user's situation narrative may be written in English, formal Kannada, colloquial Kannada, or Kanglish (Kannada in Latin script, e.g. "nanna friend exam ge...").
+   Understand the underlying dilemma with equal depth regardless of language or script.
+
+2. MATCH ON PHILOSOPHICAL / MORAL CORE, NEVER ON SURFACE KEYWORDS:
+   Do NOT match on literal words (e.g. do not match a story about friend loans to a proverb about friendship; match it to borrowing/budget).
+   Key Philosophical Archetypes:
+   - Living beyond means / EMI debt / lifestyle inflation -> G007 (ಹಾಸಿಗೆ ಇದ್ದಷ್ಟು ಕಾಲು ಚಾಚು) or G152 (ಸಾಲ ಮಾಡಿ ತುಪ್ಪ ತಿನ್ನಬೇಡ).
+   - Show-off / rented luxury / pretension with empty pockets -> G155 (ಕೈಯಲ್ಲಿ ಕಾಸಿಲ್ಲ, ಜೇಬಿನಲ್ಲಿ ಜಂಬ) or G156 (ಹೊಟ್ಟೆಗೆ ಹಿಟ್ಟಿಲ್ಲ, ಜುಟ್ಟಿಗೆ ಮಲ್ಲಿಗೆ ಹೂವು).
+   - Last-minute cramming / emergency scramble after delay -> G251 (ಬೆಂಕಿ ಬಂದಾಗ ಬಾವಿ ತೋಡಿದಂತೆ) or G023 (ಮಳೆ ಬರುವಾಗ ಕೊಡೆ ಹಿಡಿದರೆ ಪ್ರಯೋಜನವಿಲ್ಲ).
+   - Boasting loudly, empty promises while teammates do the real work -> G132 (ಖಾಲಿ ಕೊಡ ಹೆಚ್ಚು ಸದ್ದು ಮಾಡುತ್ತದೆ) or G114 (ಮಾತು ಕಡಿಮೆ, ಕೆಲಸ ಹೆಚ್ಚು).
+   - Forgetting or disrespecting mentors/seniors who helped you rise -> G038 (ಹತ್ತಿದ ಏಣಿ ಒದೆಯಬಾರದು).
+   - Winning a petty dispute with receipts but losing a close friend -> G077 (ಜಗಳದಲ್ಲಿ ಗೆದ್ದರೂ ಸ್ನೇಹ ಕಳೆದುಕೊಳ್ಳಬೇಡ).
+   - Benefactor to outsiders/weddings, but cruel/neglectful to family at home -> G065 (ಮನೆಗೆ ಮಾರಿ, ಊರಿಗೆ ಉಪಕಾರಿ).
+   - Hypocritically judging small flaws of others while ignoring own huge flaws -> G081 (ಪರರ ಕಣ್ಣಿನ ಹುಲ್ಲು ಕಾಣುತ್ತದೆ, ತನ್ನ ಕಣ್ಣಿನ ಮರ ಕಾಣುವುದಿಲ್ಲ).
+   - Repeated false alarms / crying wolf so real emergency is doubted -> G139 (ಹುಲಿ ಬಂತು ಹುಲಿ ಎಂದರೆ ಯಾರೂ ನಂಬುವುದಿಲ್ಲ).
+   - Flashy exterior / glossy website hiding cheap, poor substance -> G129 (ಮಿಂಚುವುದೆಲ್ಲ ಚಿನ್ನವಲ್ಲ) or G130 (ಹೊರಗೆ ಬಂಗಾರ, ಒಳಗೆ ಕಲ್ಲು).
+   - Procrastinating during sowing season, weeping at harvest -> G207 (ಬಿತ್ತುವ ಕಾಲದಲ್ಲಿ ಮಲಗಿದರೆ ಕೊಯ್ಯುವ ಕಾಲದಲ್ಲಿ ಅಳಬೇಕು).
+   - Community collective effort (lake bunds, channels) benefiting all -> G215 (ಕೆರೆ ತುಂಬಿದರೆ ಊರು ತುಂಬಿದಂತೆ).
+   - Mistaking coincidence / correlation for causation -> G187 (ಕಾಗೆ ಕುಳಿತಿದ್ದಕ್ಕೆ ಕೊಂಬೆ ಮುರಿಯಿತೆ? Note: blame or luck gaades are wrong).
+   - Repeatedly ignoring good advice against lending/danger -> G113 (ಹಿತ್ತಾಳೆ ಕಿವಿಗೆ ಶಂಖ ಊದಿದಂತೆ) or G102 (ಕೋಣನ ಮುಂದೆ ಕಿನ್ನರಿ ಬಾರಿಸಿದಂತೆ).
+   - Traumatized by past fraud, now overly paranoid of genuine offers -> G142 (ಹಾಲು ಕುಡಿದು ಮಗು ಬೆಕ್ಕಿಗೆ ಹೆದರುತ್ತದೆ).
+   - Family / household divided by conflicting opinions -> G062 (ಮನೆಯೊಂದು ಮೂರು ಬಾಗಿಲು) or G073 (ಮನೆಯೊಂದು ಮನಸ್ಸು ನೂರು).
+
+3. REASON REQUIREMENTS:
+   - Must cite CONCRETE DETAILS from the user's situation (specific names, numbers, items, actions, consequences).
+   - Must explain the moral connection in 2-3 clear sentences.
+   - For reason_kn, write natural, grammatically correct Kannada citing the story details.
+
+4. STATUS CRITERIA:
+   - "no_good_match": Use for greetings, trivia, math/coding, or meaningless text. Set best_id: null, alternatives: [], confidence: 0.0.
+   - "ambiguous": Use when two proverbs fit competing aspects of the situation (e.g. late preparation vs blaming; EMI vs borrowing) or for nuanced correlation dilemmas (confidence 0.65-0.78).
+   - "ok": Use when a clear best proverb fits the situation.
 
 OUTPUT JSON SCHEMA:
 {
@@ -47,24 +75,9 @@ OUTPUT JSON SCHEMA:
   "alternatives": ["G###", "G###"],
   "confidence": 0.0 to 1.0,
   "status": "ok" | "ambiguous" | "no_good_match",
-  "reason_en": "2-3 simple sentences explaining why this proverb fits the situation, citing concrete details from the user's situation and linking them to the proverb's wisdom.",
-  "reason_kn": "ಕನ್ನಡದಲ್ಲಿ 2-3 ಸರಳ ವಾಕ್ಯಗಳಲ್ಲಿ ವಿವರಣೆ. ಬಳಕೆದಾರರ ಪರಿಸ್ಥಿತಿಯ ವಿವರಗಳನ್ನು ಉಲ್ಲೇಖಿಸಿ ಗಾದೆಯ ನೀತಿಯೊಂದಿಗೆ ಹೊಂದಾಣಿಕೆಯನ್ನು ವಿವರಿಸಿ."
+  "reason_en": "2-3 sentences explaining why this proverb fits, citing concrete details from the story.",
+  "reason_kn": "ಕನ್ನಡದಲ್ಲಿ 2-3 ಸರಳ ವಾಕ್ಯಗಳಲ್ಲಿ ವಿವರಣೆ, ಕಥೆಯ ನಿರ್ದಿಷ್ಟ ವಿವರಗಳನ್ನು ಉಲ್ಲೇಖಿಸಿ."
 }
-
-STATUS CRITERIA:
-- "no_good_match": Use this for:
-  * Greetings and conversational pleasantries (e.g. "Namaskara", "Hello", "How are you?").
-  * Factoid or general knowledge questions (e.g. "Who won the cricket world cup?", "What is the capital of France?").
-  * Technical, math, or coding requests (e.g. "Write python quicksort", "Calculate 15 * 42").
-  * Meaningless text, gibberish, or single unrelated words.
-  When status is "no_good_match", set best_id to null, alternatives to [], and confidence to 0.0. Provide polite guidance in reason_en and reason_kn asking for a life situation.
-- "ambiguous": Use when two or more proverbs from the list fit the situation's dilemma with closely competing relevance.
-- "ok": Use when a clear best proverb fits the situation.
-
-REASON REQUIREMENTS:
-- Must mention CONCRETE DETAILS from the user's situation (e.g. actions, characters, consequences).
-- Must explain the moral link to the chosen proverb's timeless wisdom in 2-3 clear, simple sentences.
-- NEVER invent gaade IDs outside the provided list.
 """
 
 
@@ -183,8 +196,9 @@ class LLMCandidateRegistry:
                 }
                 self.canonical_ids.append(gid)
 
-                # Compact entry: ~35-40 tokens
-                lines.append(f"{gid}: {gaade} | Meaning: {meaning} | English: {english} | Theme: {theme} | Context: {context}")
+                # Streamlined concise entry: strictly ~20-25 tokens per proverb, fitting all 226 into ~4,900 tokens
+                eq = (english if english and english != meaning else meaning)[:120]
+                lines.append(f"{gid}: {gaade} — {eq}")
 
         self.compact_prompt_text = "\n".join(lines)
         logger.info(f"Loaded {len(self.canonical_gaades)} canonical gaades into LLM candidate registry.")
