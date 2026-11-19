@@ -258,7 +258,8 @@ python -m pytest gaade-kosha/backend/tests -v
 
 ## Team & Credits
 
-**Built for Modalapada 2.0 Hackathon (Department of CSE, Ramaiah Institute of Technology, Bengaluru)**
+Built by Akshay A, Tejas M, H M Pranav and Aaditya V  
+*Department of Computer Science & Engineering, Ramaiah Institute of Technology, Bengaluru*
 
 ### Team Members
 - **Akshay A** – Full-Stack Architecture, LLM Matcher & Multi-Model Failover
