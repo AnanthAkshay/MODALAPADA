@@ -1,0 +1,2045 @@
+{
+  "backend": "tfidf",
+  "num_gaades": 226,
+  "num_situations": 452,
+  "dimension": 122329,
+  "gaade_ids": [
+    "G001",
+    "G002",
+    "G003",
+    "G004",
+    "G005",
+    "G006",
+    "G007",
+    "G008",
+    "G009",
+    "G010",
+    "G011",
+    "G012",
+    "G013",
+    "G014",
+    "G015",
+    "G016",
+    "G017",
+    "G018",
+    "G019",
+    "G020",
+    "G021",
+    "G022",
+    "G023",
+    "G024",
+    "G025",
+    "G026",
+    "G027",
+    "G028",
+    "G029",
+    "G030",
+    "G031",
+    "G032",
+    "G033",
+    "G034",
+    "G035",
+    "G036",
+    "G037",
+    "G038",
+    "G039",
+    "G040",
+    "G041",
+    "G042",
+    "G043",
+    "G044",
+    "G045",
+    "G046",
+    "G047",
+    "G048",
+    "G049",
+    "G050",
+    "G051",
+    "G052",
+    "G053",
+    "G054",
+    "G055",
+    "G056",
+    "G057",
+    "G058",
+    "G059",
+    "G060",
+    "G061",
+    "G062",
+    "G063",
+    "G064",
+    "G065",
+    "G066",
+    "G067",
+    "G068",
+    "G069",
+    "G070",
+    "G071",
+    "G072",
+    "G073",
+    "G074",
+    "G075",
+    "G076",
+    "G077",
+    "G078",
+    "G079",
+    "G080",
+    "G081",
+    "G082",
+    "G083",
+    "G084",
+    "G085",
+    "G087",
+    "G088",
+    "G089",
+    "G090",
+    "G091",
+    "G092",
+    "G093",
+    "G094",
+    "G095",
+    "G096",
+    "G097",
+    "G098",
+    "G099",
+    "G100",
+    "G101",
+    "G102",
+    "G103",
+    "G104",
+    "G105",
+    "G106",
+    "G107",
+    "G108",
+    "G109",
+    "G110",
+    "G111",
+    "G112",
+    "G113",
+    "G114",
+    "G115",
+    "G116",
+    "G118",
+    "G119",
+    "G120",
+    "G121",
+    "G122",
+    "G123",
+    "G124",
+    "G126",
+    "G127",
+    "G128",
+    "G129",
+    "G130",
+    "G132",
+    "G133",
+    "G134",
+    "G136",
+    "G137",
+    "G138",
+    "G139",
+    "G140",
+    "G141",
+    "G142",
+    "G143",
+    "G144",
+    "G145",
+    "G146",
+    "G147",
+    "G148",
+    "G149",
+    "G150",
+    "G151",
+    "G152",
+    "G153",
+    "G154",
+    "G155",
+    "G156",
+    "G157",
+    "G158",
+    "G159",
+    "G160",
+    "G161",
+    "G162",
+    "G165",
+    "G166",
+    "G167",
+    "G171",
+    "G172",
+    "G173",
+    "G175",
+    "G176",
+    "G178",
+    "G185",
+    "G186",
+    "G187",
+    "G188",
+    "G189",
+    "G191",
+    "G192",
+    "G194",
+    "G201",
+    "G202",
+    "G203",
+    "G204",
+    "G205",
+    "G206",
+    "G207",
+    "G208",
+    "G209",
+    "G210",
+    "G211",
+    "G212",
+    "G213",
+    "G214",
+    "G215",
+    "G216",
+    "G217",
+    "G218",
+    "G219",
+    "G220",
+    "G221",
+    "G222",
+    "G223",
+    "G224",
+    "G225",
+    "G226",
+    "G227",
+    "G228",
+    "G229",
+    "G230",
+    "G231",
+    "G232",
+    "G233",
+    "G234",
+    "G235",
+    "G236",
+    "G237",
+    "G238",
+    "G239",
+    "G240",
+    "G241",
+    "G242",
+    "G243",
+    "G244",
+    "G245",
+    "G246",
+    "G247",
+    "G248",
+    "G249",
+    "G250",
+    "G251",
+    "G252"
+  ],
+  "situations": [
+    {
+      "situation_id": "S001_1",
+      "gaade_id": "G001"
+    },
+    {
+      "situation_id": "S001_2",
+      "gaade_id": "G001"
+    },
+    {
+      "situation_id": "S002_1",
+      "gaade_id": "G002"
+    },
+    {
+      "situation_id": "S002_2",
+      "gaade_id": "G002"
+    },
+    {
+      "situation_id": "S003_1",
+      "gaade_id": "G003"
+    },
+    {
+      "situation_id": "S003_2",
+      "gaade_id": "G003"
+    },
+    {
+      "situation_id": "S004_1",
+      "gaade_id": "G004"
+    },
+    {
+      "situation_id": "S004_2",
+      "gaade_id": "G004"
+    },
+    {
+      "situation_id": "S005_1",
+      "gaade_id": "G005"
+    },
+    {
+      "situation_id": "S005_2",
+      "gaade_id": "G005"
+    },
+    {
+      "situation_id": "S006_1",
+      "gaade_id": "G006"
+    },
+    {
+      "situation_id": "S006_2",
+      "gaade_id": "G006"
+    },
+    {
+      "situation_id": "S007_1",
+      "gaade_id": "G007"
+    },
+    {
+      "situation_id": "S007_2",
+      "gaade_id": "G007"
+    },
+    {
+      "situation_id": "S008_1",
+      "gaade_id": "G008"
+    },
+    {
+      "situation_id": "S008_2",
+      "gaade_id": "G008"
+    },
+    {
+      "situation_id": "S009_1",
+      "gaade_id": "G009"
+    },
+    {
+      "situation_id": "S009_2",
+      "gaade_id": "G009"
+    },
+    {
+      "situation_id": "S010_1",
+      "gaade_id": "G010"
+    },
+    {
+      "situation_id": "S010_2",
+      "gaade_id": "G010"
+    },
+    {
+      "situation_id": "S011_1",
+      "gaade_id": "G011"
+    },
+    {
+      "situation_id": "S011_2",
+      "gaade_id": "G011"
+    },
+    {
+      "situation_id": "S012_1",
+      "gaade_id": "G012"
+    },
+    {
+      "situation_id": "S012_2",
+      "gaade_id": "G012"
+    },
+    {
+      "situation_id": "S013_1",
+      "gaade_id": "G013"
+    },
+    {
+      "situation_id": "S013_2",
+      "gaade_id": "G013"
+    },
+    {
+      "situation_id": "S014_1",
+      "gaade_id": "G014"
+    },
+    {
+      "situation_id": "S014_2",
+      "gaade_id": "G014"
+    },
+    {
+      "situation_id": "S015_1",
+      "gaade_id": "G015"
+    },
+    {
+      "situation_id": "S015_2",
+      "gaade_id": "G015"
+    },
+    {
+      "situation_id": "S016_1",
+      "gaade_id": "G016"
+    },
+    {
+      "situation_id": "S016_2",
+      "gaade_id": "G016"
+    },
+    {
+      "situation_id": "S017_1",
+      "gaade_id": "G017"
+    },
+    {
+      "situation_id": "S017_2",
+      "gaade_id": "G017"
+    },
+    {
+      "situation_id": "S018_1",
+      "gaade_id": "G018"
+    },
+    {
+      "situation_id": "S018_2",
+      "gaade_id": "G018"
+    },
+    {
+      "situation_id": "S019_1",
+      "gaade_id": "G019"
+    },
+    {
+      "situation_id": "S019_2",
+      "gaade_id": "G019"
+    },
+    {
+      "situation_id": "S020_1",
+      "gaade_id": "G020"
+    },
+    {
+      "situation_id": "S020_2",
+      "gaade_id": "G020"
+    },
+    {
+      "situation_id": "S021_1",
+      "gaade_id": "G021"
+    },
+    {
+      "situation_id": "S021_2",
+      "gaade_id": "G021"
+    },
+    {
+      "situation_id": "S022_1",
+      "gaade_id": "G022"
+    },
+    {
+      "situation_id": "S022_2",
+      "gaade_id": "G022"
+    },
+    {
+      "situation_id": "S023_1",
+      "gaade_id": "G023"
+    },
+    {
+      "situation_id": "S023_2",
+      "gaade_id": "G023"
+    },
+    {
+      "situation_id": "S024_1",
+      "gaade_id": "G024"
+    },
+    {
+      "situation_id": "S024_2",
+      "gaade_id": "G024"
+    },
+    {
+      "situation_id": "S025_1",
+      "gaade_id": "G025"
+    },
+    {
+      "situation_id": "S025_2",
+      "gaade_id": "G025"
+    },
+    {
+      "situation_id": "S026_1",
+      "gaade_id": "G026"
+    },
+    {
+      "situation_id": "S026_2",
+      "gaade_id": "G026"
+    },
+    {
+      "situation_id": "S027_1",
+      "gaade_id": "G027"
+    },
+    {
+      "situation_id": "S027_2",
+      "gaade_id": "G027"
+    },
+    {
+      "situation_id": "S028_1",
+      "gaade_id": "G028"
+    },
+    {
+      "situation_id": "S028_2",
+      "gaade_id": "G028"
+    },
+    {
+      "situation_id": "S029_1",
+      "gaade_id": "G029"
+    },
+    {
+      "situation_id": "S029_2",
+      "gaade_id": "G029"
+    },
+    {
+      "situation_id": "S030_1",
+      "gaade_id": "G030"
+    },
+    {
+      "situation_id": "S030_2",
+      "gaade_id": "G030"
+    },
+    {
+      "situation_id": "S031_1",
+      "gaade_id": "G031"
+    },
+    {
+      "situation_id": "S031_2",
+      "gaade_id": "G031"
+    },
+    {
+      "situation_id": "S032_1",
+      "gaade_id": "G032"
+    },
+    {
+      "situation_id": "S032_2",
+      "gaade_id": "G032"
+    },
+    {
+      "situation_id": "S033_1",
+      "gaade_id": "G033"
+    },
+    {
+      "situation_id": "S033_2",
+      "gaade_id": "G033"
+    },
+    {
+      "situation_id": "S034_1",
+      "gaade_id": "G034"
+    },
+    {
+      "situation_id": "S034_2",
+      "gaade_id": "G034"
+    },
+    {
+      "situation_id": "S035_1",
+      "gaade_id": "G035"
+    },
+    {
+      "situation_id": "S035_2",
+      "gaade_id": "G035"
+    },
+    {
+      "situation_id": "S036_1",
+      "gaade_id": "G036"
+    },
+    {
+      "situation_id": "S036_2",
+      "gaade_id": "G036"
+    },
+    {
+      "situation_id": "S037_1",
+      "gaade_id": "G037"
+    },
+    {
+      "situation_id": "S037_2",
+      "gaade_id": "G037"
+    },
+    {
+      "situation_id": "S038_1",
+      "gaade_id": "G038"
+    },
+    {
+      "situation_id": "S038_2",
+      "gaade_id": "G038"
+    },
+    {
+      "situation_id": "S039_1",
+      "gaade_id": "G039"
+    },
+    {
+      "situation_id": "S039_2",
+      "gaade_id": "G039"
+    },
+    {
+      "situation_id": "S040_1",
+      "gaade_id": "G040"
+    },
+    {
+      "situation_id": "S040_2",
+      "gaade_id": "G040"
+    },
+    {
+      "situation_id": "S041_1",
+      "gaade_id": "G041"
+    },
+    {
+      "situation_id": "S041_2",
+      "gaade_id": "G041"
+    },
+    {
+      "situation_id": "S042_1",
+      "gaade_id": "G042"
+    },
+    {
+      "situation_id": "S042_2",
+      "gaade_id": "G042"
+    },
+    {
+      "situation_id": "S043_1",
+      "gaade_id": "G043"
+    },
+    {
+      "situation_id": "S043_2",
+      "gaade_id": "G043"
+    },
+    {
+      "situation_id": "S044_1",
+      "gaade_id": "G044"
+    },
+    {
+      "situation_id": "S044_2",
+      "gaade_id": "G044"
+    },
+    {
+      "situation_id": "S045_1",
+      "gaade_id": "G045"
+    },
+    {
+      "situation_id": "S045_2",
+      "gaade_id": "G045"
+    },
+    {
+      "situation_id": "S046_1",
+      "gaade_id": "G046"
+    },
+    {
+      "situation_id": "S046_2",
+      "gaade_id": "G046"
+    },
+    {
+      "situation_id": "S047_1",
+      "gaade_id": "G047"
+    },
+    {
+      "situation_id": "S047_2",
+      "gaade_id": "G047"
+    },
+    {
+      "situation_id": "S048_1",
+      "gaade_id": "G048"
+    },
+    {
+      "situation_id": "S048_2",
+      "gaade_id": "G048"
+    },
+    {
+      "situation_id": "S049_1",
+      "gaade_id": "G049"
+    },
+    {
+      "situation_id": "S049_2",
+      "gaade_id": "G049"
+    },
+    {
+      "situation_id": "S050_1",
+      "gaade_id": "G050"
+    },
+    {
+      "situation_id": "S050_2",
+      "gaade_id": "G050"
+    },
+    {
+      "situation_id": "S051_1",
+      "gaade_id": "G051"
+    },
+    {
+      "situation_id": "S051_2",
+      "gaade_id": "G051"
+    },
+    {
+      "situation_id": "S052_1",
+      "gaade_id": "G052"
+    },
+    {
+      "situation_id": "S052_2",
+      "gaade_id": "G052"
+    },
+    {
+      "situation_id": "S053_1",
+      "gaade_id": "G053"
+    },
+    {
+      "situation_id": "S053_2",
+      "gaade_id": "G053"
+    },
+    {
+      "situation_id": "S054_1",
+      "gaade_id": "G054"
+    },
+    {
+      "situation_id": "S054_2",
+      "gaade_id": "G054"
+    },
+    {
+      "situation_id": "S055_1",
+      "gaade_id": "G055"
+    },
+    {
+      "situation_id": "S055_2",
+      "gaade_id": "G055"
+    },
+    {
+      "situation_id": "S056_1",
+      "gaade_id": "G056"
+    },
+    {
+      "situation_id": "S056_2",
+      "gaade_id": "G056"
+    },
+    {
+      "situation_id": "S057_1",
+      "gaade_id": "G057"
+    },
+    {
+      "situation_id": "S057_2",
+      "gaade_id": "G057"
+    },
+    {
+      "situation_id": "S058_1",
+      "gaade_id": "G058"
+    },
+    {
+      "situation_id": "S058_2",
+      "gaade_id": "G058"
+    },
+    {
+      "situation_id": "S059_1",
+      "gaade_id": "G059"
+    },
+    {
+      "situation_id": "S059_2",
+      "gaade_id": "G059"
+    },
+    {
+      "situation_id": "S060_1",
+      "gaade_id": "G060"
+    },
+    {
+      "situation_id": "S060_2",
+      "gaade_id": "G060"
+    },
+    {
+      "situation_id": "S061_1",
+      "gaade_id": "G061"
+    },
+    {
+      "situation_id": "S061_2",
+      "gaade_id": "G061"
+    },
+    {
+      "situation_id": "S062_1",
+      "gaade_id": "G062"
+    },
+    {
+      "situation_id": "S062_2",
+      "gaade_id": "G062"
+    },
+    {
+      "situation_id": "S063_1",
+      "gaade_id": "G063"
+    },
+    {
+      "situation_id": "S063_2",
+      "gaade_id": "G063"
+    },
+    {
+      "situation_id": "S064_1",
+      "gaade_id": "G064"
+    },
+    {
+      "situation_id": "S064_2",
+      "gaade_id": "G064"
+    },
+    {
+      "situation_id": "S065_1",
+      "gaade_id": "G065"
+    },
+    {
+      "situation_id": "S065_2",
+      "gaade_id": "G065"
+    },
+    {
+      "situation_id": "S066_1",
+      "gaade_id": "G066"
+    },
+    {
+      "situation_id": "S066_2",
+      "gaade_id": "G066"
+    },
+    {
+      "situation_id": "S067_1",
+      "gaade_id": "G067"
+    },
+    {
+      "situation_id": "S067_2",
+      "gaade_id": "G067"
+    },
+    {
+      "situation_id": "S068_1",
+      "gaade_id": "G068"
+    },
+    {
+      "situation_id": "S068_2",
+      "gaade_id": "G068"
+    },
+    {
+      "situation_id": "S069_1",
+      "gaade_id": "G069"
+    },
+    {
+      "situation_id": "S069_2",
+      "gaade_id": "G069"
+    },
+    {
+      "situation_id": "S070_1",
+      "gaade_id": "G070"
+    },
+    {
+      "situation_id": "S070_2",
+      "gaade_id": "G070"
+    },
+    {
+      "situation_id": "S071_1",
+      "gaade_id": "G071"
+    },
+    {
+      "situation_id": "S071_2",
+      "gaade_id": "G071"
+    },
+    {
+      "situation_id": "S072_1",
+      "gaade_id": "G072"
+    },
+    {
+      "situation_id": "S072_2",
+      "gaade_id": "G072"
+    },
+    {
+      "situation_id": "S073_1",
+      "gaade_id": "G073"
+    },
+    {
+      "situation_id": "S073_2",
+      "gaade_id": "G073"
+    },
+    {
+      "situation_id": "S074_1",
+      "gaade_id": "G074"
+    },
+    {
+      "situation_id": "S074_2",
+      "gaade_id": "G074"
+    },
+    {
+      "situation_id": "S075_1",
+      "gaade_id": "G075"
+    },
+    {
+      "situation_id": "S075_2",
+      "gaade_id": "G075"
+    },
+    {
+      "situation_id": "S076_1",
+      "gaade_id": "G076"
+    },
+    {
+      "situation_id": "S076_2",
+      "gaade_id": "G076"
+    },
+    {
+      "situation_id": "S077_1",
+      "gaade_id": "G077"
+    },
+    {
+      "situation_id": "S077_2",
+      "gaade_id": "G077"
+    },
+    {
+      "situation_id": "S078_1",
+      "gaade_id": "G078"
+    },
+    {
+      "situation_id": "S078_2",
+      "gaade_id": "G078"
+    },
+    {
+      "situation_id": "S079_1",
+      "gaade_id": "G079"
+    },
+    {
+      "situation_id": "S079_2",
+      "gaade_id": "G079"
+    },
+    {
+      "situation_id": "S080_1",
+      "gaade_id": "G080"
+    },
+    {
+      "situation_id": "S080_2",
+      "gaade_id": "G080"
+    },
+    {
+      "situation_id": "S081_1",
+      "gaade_id": "G081"
+    },
+    {
+      "situation_id": "S081_2",
+      "gaade_id": "G081"
+    },
+    {
+      "situation_id": "S082_1",
+      "gaade_id": "G082"
+    },
+    {
+      "situation_id": "S082_2",
+      "gaade_id": "G082"
+    },
+    {
+      "situation_id": "S083_1",
+      "gaade_id": "G083"
+    },
+    {
+      "situation_id": "S083_2",
+      "gaade_id": "G083"
+    },
+    {
+      "situation_id": "S084_1",
+      "gaade_id": "G084"
+    },
+    {
+      "situation_id": "S084_2",
+      "gaade_id": "G084"
+    },
+    {
+      "situation_id": "S085_1",
+      "gaade_id": "G085"
+    },
+    {
+      "situation_id": "S085_2",
+      "gaade_id": "G085"
+    },
+    {
+      "situation_id": "S087_1",
+      "gaade_id": "G087"
+    },
+    {
+      "situation_id": "S087_2",
+      "gaade_id": "G087"
+    },
+    {
+      "situation_id": "S088_1",
+      "gaade_id": "G088"
+    },
+    {
+      "situation_id": "S088_2",
+      "gaade_id": "G088"
+    },
+    {
+      "situation_id": "S089_1",
+      "gaade_id": "G089"
+    },
+    {
+      "situation_id": "S089_2",
+      "gaade_id": "G089"
+    },
+    {
+      "situation_id": "S090_1",
+      "gaade_id": "G090"
+    },
+    {
+      "situation_id": "S090_2",
+      "gaade_id": "G090"
+    },
+    {
+      "situation_id": "S091_1",
+      "gaade_id": "G091"
+    },
+    {
+      "situation_id": "S091_2",
+      "gaade_id": "G091"
+    },
+    {
+      "situation_id": "S092_1",
+      "gaade_id": "G092"
+    },
+    {
+      "situation_id": "S092_2",
+      "gaade_id": "G092"
+    },
+    {
+      "situation_id": "S093_1",
+      "gaade_id": "G093"
+    },
+    {
+      "situation_id": "S093_2",
+      "gaade_id": "G093"
+    },
+    {
+      "situation_id": "S094_1",
+      "gaade_id": "G094"
+    },
+    {
+      "situation_id": "S094_2",
+      "gaade_id": "G094"
+    },
+    {
+      "situation_id": "S095_1",
+      "gaade_id": "G095"
+    },
+    {
+      "situation_id": "S095_2",
+      "gaade_id": "G095"
+    },
+    {
+      "situation_id": "S096_1",
+      "gaade_id": "G096"
+    },
+    {
+      "situation_id": "S096_2",
+      "gaade_id": "G096"
+    },
+    {
+      "situation_id": "S097_1",
+      "gaade_id": "G097"
+    },
+    {
+      "situation_id": "S097_2",
+      "gaade_id": "G097"
+    },
+    {
+      "situation_id": "S098_1",
+      "gaade_id": "G098"
+    },
+    {
+      "situation_id": "S098_2",
+      "gaade_id": "G098"
+    },
+    {
+      "situation_id": "S099_1",
+      "gaade_id": "G099"
+    },
+    {
+      "situation_id": "S099_2",
+      "gaade_id": "G099"
+    },
+    {
+      "situation_id": "S100_1",
+      "gaade_id": "G100"
+    },
+    {
+      "situation_id": "S100_2",
+      "gaade_id": "G100"
+    },
+    {
+      "situation_id": "S101_1",
+      "gaade_id": "G101"
+    },
+    {
+      "situation_id": "S101_2",
+      "gaade_id": "G101"
+    },
+    {
+      "situation_id": "S102_1",
+      "gaade_id": "G102"
+    },
+    {
+      "situation_id": "S102_2",
+      "gaade_id": "G102"
+    },
+    {
+      "situation_id": "S103_1",
+      "gaade_id": "G103"
+    },
+    {
+      "situation_id": "S103_2",
+      "gaade_id": "G103"
+    },
+    {
+      "situation_id": "S104_1",
+      "gaade_id": "G104"
+    },
+    {
+      "situation_id": "S104_2",
+      "gaade_id": "G104"
+    },
+    {
+      "situation_id": "S105_1",
+      "gaade_id": "G105"
+    },
+    {
+      "situation_id": "S105_2",
+      "gaade_id": "G105"
+    },
+    {
+      "situation_id": "S106_1",
+      "gaade_id": "G106"
+    },
+    {
+      "situation_id": "S106_2",
+      "gaade_id": "G106"
+    },
+    {
+      "situation_id": "S107_1",
+      "gaade_id": "G107"
+    },
+    {
+      "situation_id": "S107_2",
+      "gaade_id": "G107"
+    },
+    {
+      "situation_id": "S108_1",
+      "gaade_id": "G108"
+    },
+    {
+      "situation_id": "S108_2",
+      "gaade_id": "G108"
+    },
+    {
+      "situation_id": "S109_1",
+      "gaade_id": "G109"
+    },
+    {
+      "situation_id": "S109_2",
+      "gaade_id": "G109"
+    },
+    {
+      "situation_id": "S110_1",
+      "gaade_id": "G110"
+    },
+    {
+      "situation_id": "S110_2",
+      "gaade_id": "G110"
+    },
+    {
+      "situation_id": "S111_1",
+      "gaade_id": "G111"
+    },
+    {
+      "situation_id": "S111_2",
+      "gaade_id": "G111"
+    },
+    {
+      "situation_id": "S112_1",
+      "gaade_id": "G112"
+    },
+    {
+      "situation_id": "S112_2",
+      "gaade_id": "G112"
+    },
+    {
+      "situation_id": "S113_1",
+      "gaade_id": "G113"
+    },
+    {
+      "situation_id": "S113_2",
+      "gaade_id": "G113"
+    },
+    {
+      "situation_id": "S114_1",
+      "gaade_id": "G114"
+    },
+    {
+      "situation_id": "S114_2",
+      "gaade_id": "G114"
+    },
+    {
+      "situation_id": "S115_1",
+      "gaade_id": "G115"
+    },
+    {
+      "situation_id": "S115_2",
+      "gaade_id": "G115"
+    },
+    {
+      "situation_id": "S116_1",
+      "gaade_id": "G116"
+    },
+    {
+      "situation_id": "S116_2",
+      "gaade_id": "G116"
+    },
+    {
+      "situation_id": "S118_1",
+      "gaade_id": "G118"
+    },
+    {
+      "situation_id": "S118_2",
+      "gaade_id": "G118"
+    },
+    {
+      "situation_id": "S119_1",
+      "gaade_id": "G119"
+    },
+    {
+      "situation_id": "S119_2",
+      "gaade_id": "G119"
+    },
+    {
+      "situation_id": "S120_1",
+      "gaade_id": "G120"
+    },
+    {
+      "situation_id": "S120_2",
+      "gaade_id": "G120"
+    },
+    {
+      "situation_id": "S121_1",
+      "gaade_id": "G121"
+    },
+    {
+      "situation_id": "S121_2",
+      "gaade_id": "G121"
+    },
+    {
+      "situation_id": "S122_1",
+      "gaade_id": "G122"
+    },
+    {
+      "situation_id": "S122_2",
+      "gaade_id": "G122"
+    },
+    {
+      "situation_id": "S123_1",
+      "gaade_id": "G123"
+    },
+    {
+      "situation_id": "S123_2",
+      "gaade_id": "G123"
+    },
+    {
+      "situation_id": "S124_1",
+      "gaade_id": "G124"
+    },
+    {
+      "situation_id": "S124_2",
+      "gaade_id": "G124"
+    },
+    {
+      "situation_id": "S126_1",
+      "gaade_id": "G126"
+    },
+    {
+      "situation_id": "S126_2",
+      "gaade_id": "G126"
+    },
+    {
+      "situation_id": "S127_1",
+      "gaade_id": "G127"
+    },
+    {
+      "situation_id": "S127_2",
+      "gaade_id": "G127"
+    },
+    {
+      "situation_id": "S128_1",
+      "gaade_id": "G128"
+    },
+    {
+      "situation_id": "S128_2",
+      "gaade_id": "G128"
+    },
+    {
+      "situation_id": "S129_1",
+      "gaade_id": "G129"
+    },
+    {
+      "situation_id": "S129_2",
+      "gaade_id": "G129"
+    },
+    {
+      "situation_id": "S130_1",
+      "gaade_id": "G130"
+    },
+    {
+      "situation_id": "S130_2",
+      "gaade_id": "G130"
+    },
+    {
+      "situation_id": "S132_1",
+      "gaade_id": "G132"
+    },
+    {
+      "situation_id": "S132_2",
+      "gaade_id": "G132"
+    },
+    {
+      "situation_id": "S133_1",
+      "gaade_id": "G133"
+    },
+    {
+      "situation_id": "S133_2",
+      "gaade_id": "G133"
+    },
+    {
+      "situation_id": "S134_1",
+      "gaade_id": "G134"
+    },
+    {
+      "situation_id": "S134_2",
+      "gaade_id": "G134"
+    },
+    {
+      "situation_id": "S136_1",
+      "gaade_id": "G136"
+    },
+    {
+      "situation_id": "S136_2",
+      "gaade_id": "G136"
+    },
+    {
+      "situation_id": "S137_1",
+      "gaade_id": "G137"
+    },
+    {
+      "situation_id": "S137_2",
+      "gaade_id": "G137"
+    },
+    {
+      "situation_id": "S138_1",
+      "gaade_id": "G138"
+    },
+    {
+      "situation_id": "S138_2",
+      "gaade_id": "G138"
+    },
+    {
+      "situation_id": "S139_1",
+      "gaade_id": "G139"
+    },
+    {
+      "situation_id": "S139_2",
+      "gaade_id": "G139"
+    },
+    {
+      "situation_id": "S140_1",
+      "gaade_id": "G140"
+    },
+    {
+      "situation_id": "S140_2",
+      "gaade_id": "G140"
+    },
+    {
+      "situation_id": "S141_1",
+      "gaade_id": "G141"
+    },
+    {
+      "situation_id": "S141_2",
+      "gaade_id": "G141"
+    },
+    {
+      "situation_id": "S142_1",
+      "gaade_id": "G142"
+    },
+    {
+      "situation_id": "S142_2",
+      "gaade_id": "G142"
+    },
+    {
+      "situation_id": "S143_1",
+      "gaade_id": "G143"
+    },
+    {
+      "situation_id": "S143_2",
+      "gaade_id": "G143"
+    },
+    {
+      "situation_id": "S144_1",
+      "gaade_id": "G144"
+    },
+    {
+      "situation_id": "S144_2",
+      "gaade_id": "G144"
+    },
+    {
+      "situation_id": "S145_1",
+      "gaade_id": "G145"
+    },
+    {
+      "situation_id": "S145_2",
+      "gaade_id": "G145"
+    },
+    {
+      "situation_id": "S146_1",
+      "gaade_id": "G146"
+    },
+    {
+      "situation_id": "S146_2",
+      "gaade_id": "G146"
+    },
+    {
+      "situation_id": "S147_1",
+      "gaade_id": "G147"
+    },
+    {
+      "situation_id": "S147_2",
+      "gaade_id": "G147"
+    },
+    {
+      "situation_id": "S148_1",
+      "gaade_id": "G148"
+    },
+    {
+      "situation_id": "S148_2",
+      "gaade_id": "G148"
+    },
+    {
+      "situation_id": "S149_1",
+      "gaade_id": "G149"
+    },
+    {
+      "situation_id": "S149_2",
+      "gaade_id": "G149"
+    },
+    {
+      "situation_id": "S150_1",
+      "gaade_id": "G150"
+    },
+    {
+      "situation_id": "S150_2",
+      "gaade_id": "G150"
+    },
+    {
+      "situation_id": "S151_1",
+      "gaade_id": "G151"
+    },
+    {
+      "situation_id": "S151_2",
+      "gaade_id": "G151"
+    },
+    {
+      "situation_id": "S152_1",
+      "gaade_id": "G152"
+    },
+    {
+      "situation_id": "S152_2",
+      "gaade_id": "G152"
+    },
+    {
+      "situation_id": "S153_1",
+      "gaade_id": "G153"
+    },
+    {
+      "situation_id": "S153_2",
+      "gaade_id": "G153"
+    },
+    {
+      "situation_id": "S154_1",
+      "gaade_id": "G154"
+    },
+    {
+      "situation_id": "S154_2",
+      "gaade_id": "G154"
+    },
+    {
+      "situation_id": "S155_1",
+      "gaade_id": "G155"
+    },
+    {
+      "situation_id": "S155_2",
+      "gaade_id": "G155"
+    },
+    {
+      "situation_id": "S156_1",
+      "gaade_id": "G156"
+    },
+    {
+      "situation_id": "S156_2",
+      "gaade_id": "G156"
+    },
+    {
+      "situation_id": "S157_1",
+      "gaade_id": "G157"
+    },
+    {
+      "situation_id": "S157_2",
+      "gaade_id": "G157"
+    },
+    {
+      "situation_id": "S158_1",
+      "gaade_id": "G158"
+    },
+    {
+      "situation_id": "S158_2",
+      "gaade_id": "G158"
+    },
+    {
+      "situation_id": "S159_1",
+      "gaade_id": "G159"
+    },
+    {
+      "situation_id": "S159_2",
+      "gaade_id": "G159"
+    },
+    {
+      "situation_id": "S160_1",
+      "gaade_id": "G160"
+    },
+    {
+      "situation_id": "S160_2",
+      "gaade_id": "G160"
+    },
+    {
+      "situation_id": "S161_1",
+      "gaade_id": "G161"
+    },
+    {
+      "situation_id": "S161_2",
+      "gaade_id": "G161"
+    },
+    {
+      "situation_id": "S162_1",
+      "gaade_id": "G162"
+    },
+    {
+      "situation_id": "S162_2",
+      "gaade_id": "G162"
+    },
+    {
+      "situation_id": "S165_1",
+      "gaade_id": "G165"
+    },
+    {
+      "situation_id": "S165_2",
+      "gaade_id": "G165"
+    },
+    {
+      "situation_id": "S166_1",
+      "gaade_id": "G166"
+    },
+    {
+      "situation_id": "S166_2",
+      "gaade_id": "G166"
+    },
+    {
+      "situation_id": "S167_1",
+      "gaade_id": "G167"
+    },
+    {
+      "situation_id": "S167_2",
+      "gaade_id": "G167"
+    },
+    {
+      "situation_id": "S171_1",
+      "gaade_id": "G171"
+    },
+    {
+      "situation_id": "S171_2",
+      "gaade_id": "G171"
+    },
+    {
+      "situation_id": "S172_1",
+      "gaade_id": "G172"
+    },
+    {
+      "situation_id": "S172_2",
+      "gaade_id": "G172"
+    },
+    {
+      "situation_id": "S173_1",
+      "gaade_id": "G173"
+    },
+    {
+      "situation_id": "S173_2",
+      "gaade_id": "G173"
+    },
+    {
+      "situation_id": "S175_1",
+      "gaade_id": "G175"
+    },
+    {
+      "situation_id": "S175_2",
+      "gaade_id": "G175"
+    },
+    {
+      "situation_id": "S176_1",
+      "gaade_id": "G176"
+    },
+    {
+      "situation_id": "S176_2",
+      "gaade_id": "G176"
+    },
+    {
+      "situation_id": "S178_1",
+      "gaade_id": "G178"
+    },
+    {
+      "situation_id": "S178_2",
+      "gaade_id": "G178"
+    },
+    {
+      "situation_id": "S185_1",
+      "gaade_id": "G185"
+    },
+    {
+      "situation_id": "S185_2",
+      "gaade_id": "G185"
+    },
+    {
+      "situation_id": "S186_1",
+      "gaade_id": "G186"
+    },
+    {
+      "situation_id": "S186_2",
+      "gaade_id": "G186"
+    },
+    {
+      "situation_id": "S187_1",
+      "gaade_id": "G187"
+    },
+    {
+      "situation_id": "S187_2",
+      "gaade_id": "G187"
+    },
+    {
+      "situation_id": "S188_1",
+      "gaade_id": "G188"
+    },
+    {
+      "situation_id": "S188_2",
+      "gaade_id": "G188"
+    },
+    {
+      "situation_id": "S189_1",
+      "gaade_id": "G189"
+    },
+    {
+      "situation_id": "S189_2",
+      "gaade_id": "G189"
+    },
+    {
+      "situation_id": "S191_1",
+      "gaade_id": "G191"
+    },
+    {
+      "situation_id": "S191_2",
+      "gaade_id": "G191"
+    },
+    {
+      "situation_id": "S192_1",
+      "gaade_id": "G192"
+    },
+    {
+      "situation_id": "S192_2",
+      "gaade_id": "G192"
+    },
+    {
+      "situation_id": "S194_1",
+      "gaade_id": "G194"
+    },
+    {
+      "situation_id": "S194_2",
+      "gaade_id": "G194"
+    },
+    {
+      "situation_id": "S201_1",
+      "gaade_id": "G201"
+    },
+    {
+      "situation_id": "S201_2",
+      "gaade_id": "G201"
+    },
+    {
+      "situation_id": "S202_1",
+      "gaade_id": "G202"
+    },
+    {
+      "situation_id": "S202_2",
+      "gaade_id": "G202"
+    },
+    {
+      "situation_id": "S203_1",
+      "gaade_id": "G203"
+    },
+    {
+      "situation_id": "S203_2",
+      "gaade_id": "G203"
+    },
+    {
+      "situation_id": "S204_1",
+      "gaade_id": "G204"
+    },
+    {
+      "situation_id": "S204_2",
+      "gaade_id": "G204"
+    },
+    {
+      "situation_id": "S205_1",
+      "gaade_id": "G205"
+    },
+    {
+      "situation_id": "S205_2",
+      "gaade_id": "G205"
+    },
+    {
+      "situation_id": "S206_1",
+      "gaade_id": "G206"
+    },
+    {
+      "situation_id": "S206_2",
+      "gaade_id": "G206"
+    },
+    {
+      "situation_id": "S207_1",
+      "gaade_id": "G207"
+    },
+    {
+      "situation_id": "S207_2",
+      "gaade_id": "G207"
+    },
+    {
+      "situation_id": "S208_1",
+      "gaade_id": "G208"
+    },
+    {
+      "situation_id": "S208_2",
+      "gaade_id": "G208"
+    },
+    {
+      "situation_id": "S209_1",
+      "gaade_id": "G209"
+    },
+    {
+      "situation_id": "S209_2",
+      "gaade_id": "G209"
+    },
+    {
+      "situation_id": "S210_1",
+      "gaade_id": "G210"
+    },
+    {
+      "situation_id": "S210_2",
+      "gaade_id": "G210"
+    },
+    {
+      "situation_id": "S211_1",
+      "gaade_id": "G211"
+    },
+    {
+      "situation_id": "S211_2",
+      "gaade_id": "G211"
+    },
+    {
+      "situation_id": "S212_1",
+      "gaade_id": "G212"
+    },
+    {
+      "situation_id": "S212_2",
+      "gaade_id": "G212"
+    },
+    {
+      "situation_id": "S213_1",
+      "gaade_id": "G213"
+    },
+    {
+      "situation_id": "S213_2",
+      "gaade_id": "G213"
+    },
+    {
+      "situation_id": "S214_1",
+      "gaade_id": "G214"
+    },
+    {
+      "situation_id": "S214_2",
+      "gaade_id": "G214"
+    },
+    {
+      "situation_id": "S215_1",
+      "gaade_id": "G215"
+    },
+    {
+      "situation_id": "S215_2",
+      "gaade_id": "G215"
+    },
+    {
+      "situation_id": "S216_1",
+      "gaade_id": "G216"
+    },
+    {
+      "situation_id": "S216_2",
+      "gaade_id": "G216"
+    },
+    {
+      "situation_id": "S217_1",
+      "gaade_id": "G217"
+    },
+    {
+      "situation_id": "S217_2",
+      "gaade_id": "G217"
+    },
+    {
+      "situation_id": "S218_1",
+      "gaade_id": "G218"
+    },
+    {
+      "situation_id": "S218_2",
+      "gaade_id": "G218"
+    },
+    {
+      "situation_id": "S219_1",
+      "gaade_id": "G219"
+    },
+    {
+      "situation_id": "S219_2",
+      "gaade_id": "G219"
+    },
+    {
+      "situation_id": "S220_1",
+      "gaade_id": "G220"
+    },
+    {
+      "situation_id": "S220_2",
+      "gaade_id": "G220"
+    },
+    {
+      "situation_id": "S221_1",
+      "gaade_id": "G221"
+    },
+    {
+      "situation_id": "S221_2",
+      "gaade_id": "G221"
+    },
+    {
+      "situation_id": "S222_1",
+      "gaade_id": "G222"
+    },
+    {
+      "situation_id": "S222_2",
+      "gaade_id": "G222"
+    },
+    {
+      "situation_id": "S223_1",
+      "gaade_id": "G223"
+    },
+    {
+      "situation_id": "S223_2",
+      "gaade_id": "G223"
+    },
+    {
+      "situation_id": "S224_1",
+      "gaade_id": "G224"
+    },
+    {
+      "situation_id": "S224_2",
+      "gaade_id": "G224"
+    },
+    {
+      "situation_id": "S225_1",
+      "gaade_id": "G225"
+    },
+    {
+      "situation_id": "S225_2",
+      "gaade_id": "G225"
+    },
+    {
+      "situation_id": "S226_1",
+      "gaade_id": "G226"
+    },
+    {
+      "situation_id": "S226_2",
+      "gaade_id": "G226"
+    },
+    {
+      "situation_id": "S227_1",
+      "gaade_id": "G227"
+    },
+    {
+      "situation_id": "S227_2",
+      "gaade_id": "G227"
+    },
+    {
+      "situation_id": "S228_1",
+      "gaade_id": "G228"
+    },
+    {
+      "situation_id": "S228_2",
+      "gaade_id": "G228"
+    },
+    {
+      "situation_id": "S229_1",
+      "gaade_id": "G229"
+    },
+    {
+      "situation_id": "S229_2",
+      "gaade_id": "G229"
+    },
+    {
+      "situation_id": "S230_1",
+      "gaade_id": "G230"
+    },
+    {
+      "situation_id": "S230_2",
+      "gaade_id": "G230"
+    },
+    {
+      "situation_id": "S231_1",
+      "gaade_id": "G231"
+    },
+    {
+      "situation_id": "S231_2",
+      "gaade_id": "G231"
+    },
+    {
+      "situation_id": "S232_1",
+      "gaade_id": "G232"
+    },
+    {
+      "situation_id": "S232_2",
+      "gaade_id": "G232"
+    },
+    {
+      "situation_id": "S233_1",
+      "gaade_id": "G233"
+    },
+    {
+      "situation_id": "S233_2",
+      "gaade_id": "G233"
+    },
+    {
+      "situation_id": "S234_1",
+      "gaade_id": "G234"
+    },
+    {
+      "situation_id": "S234_2",
+      "gaade_id": "G234"
+    },
+    {
+      "situation_id": "S235_1",
+      "gaade_id": "G235"
+    },
+    {
+      "situation_id": "S235_2",
+      "gaade_id": "G235"
+    },
+    {
+      "situation_id": "S236_1",
+      "gaade_id": "G236"
+    },
+    {
+      "situation_id": "S236_2",
+      "gaade_id": "G236"
+    },
+    {
+      "situation_id": "S237_1",
+      "gaade_id": "G237"
+    },
+    {
+      "situation_id": "S237_2",
+      "gaade_id": "G237"
+    },
+    {
+      "situation_id": "S238_1",
+      "gaade_id": "G238"
+    },
+    {
+      "situation_id": "S238_2",
+      "gaade_id": "G238"
+    },
+    {
+      "situation_id": "S239_1",
+      "gaade_id": "G239"
+    },
+    {
+      "situation_id": "S239_2",
+      "gaade_id": "G239"
+    },
+    {
+      "situation_id": "S240_1",
+      "gaade_id": "G240"
+    },
+    {
+      "situation_id": "S240_2",
+      "gaade_id": "G240"
+    },
+    {
+      "situation_id": "S241_1",
+      "gaade_id": "G241"
+    },
+    {
+      "situation_id": "S241_2",
+      "gaade_id": "G241"
+    },
+    {
+      "situation_id": "S242_1",
+      "gaade_id": "G242"
+    },
+    {
+      "situation_id": "S242_2",
+      "gaade_id": "G242"
+    },
+    {
+      "situation_id": "S243_1",
+      "gaade_id": "G243"
+    },
+    {
+      "situation_id": "S243_2",
+      "gaade_id": "G243"
+    },
+    {
+      "situation_id": "S244_1",
+      "gaade_id": "G244"
+    },
+    {
+      "situation_id": "S244_2",
+      "gaade_id": "G244"
+    },
+    {
+      "situation_id": "S245_1",
+      "gaade_id": "G245"
+    },
+    {
+      "situation_id": "S245_2",
+      "gaade_id": "G245"
+    },
+    {
+      "situation_id": "S246_1",
+      "gaade_id": "G246"
+    },
+    {
+      "situation_id": "S246_2",
+      "gaade_id": "G246"
+    },
+    {
+      "situation_id": "S247_1",
+      "gaade_id": "G247"
+    },
+    {
+      "situation_id": "S247_2",
+      "gaade_id": "G247"
+    },
+    {
+      "situation_id": "S248_1",
+      "gaade_id": "G248"
+    },
+    {
+      "situation_id": "S248_2",
+      "gaade_id": "G248"
+    },
+    {
+      "situation_id": "S249_1",
+      "gaade_id": "G249"
+    },
+    {
+      "situation_id": "S249_2",
+      "gaade_id": "G249"
+    },
+    {
+      "situation_id": "S250_1",
+      "gaade_id": "G250"
+    },
+    {
+      "situation_id": "S250_2",
+      "gaade_id": "G250"
+    },
+    {
+      "situation_id": "S251_1",
+      "gaade_id": "G251"
+    },
+    {
+      "situation_id": "S251_2",
+      "gaade_id": "G251"
+    },
+    {
+      "situation_id": "S252_1",
+      "gaade_id": "G252"
+    },
+    {
+      "situation_id": "S252_2",
+      "gaade_id": "G252"
+    }
+  ],
+  "created_at": "2026-11-19 13:30:44"
+}
