@@ -90,8 +90,12 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 
 # Root & Health Endpoints
 @app.get("/", tags=["General"])
-def get_root():
-    """Root endpoint welcoming users to the Gaade Kosha API."""
+def get_root(request: Request):
+    """Root endpoint: serves frontend UI for browsers, JSON info for API clients."""
+    accept = request.headers.get("accept", "")
+    dist_index = os.path.abspath(os.path.join(settings.BASE_DIR, "frontend", "dist", "index.html"))
+    if "text/html" in accept and os.path.isfile(dist_index):
+        return FileResponse(dist_index)
     return {
         "message": "Welcome to Gaade Kosha API (ಗಾದೆ ಕೋಶ)",
         "project": "Modalapada 2.0 - Problem 2",
