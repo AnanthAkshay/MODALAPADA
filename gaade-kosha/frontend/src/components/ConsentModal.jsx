@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, ShieldCheck, Users, FileSignature, MapPin, Calendar, BookOpen, CheckCircle2 } from 'lucide-react';
+import { X, ShieldCheck, Users, FileSignature, MapPin, Calendar, BookOpen, CheckCircle2, Mic } from 'lucide-react';
 import { consentData } from '../data/consentData';
 
 export default function ConsentModal({ isOpen, onClose }) {
@@ -77,33 +77,33 @@ export default function ConsentModal({ isOpen, onClose }) {
             </div>
           </div>
 
-          {/* Part A: Gaade Contributors */}
-          <section className="consent-section" aria-labelledby="contributors-heading">
+          {/* Part A: Gaade Contributors (Total 250 Gaade) */}
+          <section className="consent-section" aria-labelledby="gaade-contributors-heading">
             <div className="consent-section-header">
               <div className="section-title-wrap">
                 <BookOpen size={18} className="section-icon" />
-                <h3 id="contributors-heading" className="section-title">
-                  {consentData.contributorsGroup.title.en}
+                <h3 id="gaade-contributors-heading" className="section-title">
+                  {consentData.gaadeContributorsGroup.title.en}
                 </h3>
               </div>
               <div className="section-title-kn kannada-text" lang="kn">
-                {consentData.contributorsGroup.title.kn}
+                {consentData.gaadeContributorsGroup.title.kn}
               </div>
             </div>
 
             {/* Formal Declaration Paragraph */}
             <div className="consent-declaration-box">
               <p className="declaration-text-en">
-                <strong>Declaration:</strong> {consentData.contributorsGroup.declaration.en}
+                <strong>Declaration:</strong> {consentData.gaadeContributorsGroup.declaration.en}
               </p>
               <p className="declaration-text-kn kannada-text" lang="kn">
-                <strong>ಘೋಷಣೆ:</strong> {consentData.contributorsGroup.declaration.kn}
+                <strong>ಘೋಷಣೆ:</strong> {consentData.gaadeContributorsGroup.declaration.kn}
               </p>
             </div>
 
-            {/* Contributors Cards Grid */}
+            {/* Gaade Contributors Cards Grid */}
             <div className="consent-cards-grid">
-              {consentData.contributorsGroup.items.map((contributor) => (
+              {consentData.gaadeContributorsGroup.items.map((contributor) => (
                 <div key={contributor.id} className="contributor-card">
                   <div className="card-top-row">
                     <div className="contributor-num">#{contributor.id}</div>
@@ -156,7 +156,86 @@ export default function ConsentModal({ isOpen, onClose }) {
             </div>
           </section>
 
-          {/* Part B: App Developers */}
+          {/* Part B: Audio / Voice Contributors (Total 250 Recordings) */}
+          <section className="consent-section" aria-labelledby="audio-contributors-heading">
+            <div className="consent-section-header">
+              <div className="section-title-wrap">
+                <Mic size={18} className="section-icon" />
+                <h3 id="audio-contributors-heading" className="section-title">
+                  {consentData.audioContributorsGroup.title.en}
+                </h3>
+              </div>
+              <div className="section-title-kn kannada-text" lang="kn">
+                {consentData.audioContributorsGroup.title.kn}
+              </div>
+            </div>
+
+            {/* Formal Declaration Paragraph */}
+            <div className="consent-declaration-box">
+              <p className="declaration-text-en">
+                <strong>Audio Consent:</strong> {consentData.audioContributorsGroup.declaration.en}
+              </p>
+              <p className="declaration-text-kn kannada-text" lang="kn">
+                <strong>ಧ್ವನಿ ಒಪ್ಪಿಗೆ ಘೋಷಣೆ:</strong> {consentData.audioContributorsGroup.declaration.kn}
+              </p>
+            </div>
+
+            {/* Audio Contributors Cards Grid */}
+            <div className="consent-cards-grid">
+              {consentData.audioContributorsGroup.items.map((voice) => (
+                <div key={voice.id} className="contributor-card audio-card">
+                  <div className="card-top-row">
+                    <div className="contributor-num">#{voice.id}</div>
+                    <div className="gaade-count-badge audio-count-badge">
+                      <strong>{voice.recordingCount}</strong> Recordings ({voice.audioRange})
+                    </div>
+                  </div>
+
+                  <div className="card-identity">
+                    <h4 className="contributor-name">
+                      {voice.name}
+                      <span className="contributor-name-kn kannada-text" lang="kn">
+                        ({voice.name_kn})
+                      </span>
+                    </h4>
+                    <p className="contributor-role">
+                      <span>{voice.relationship}</span> •{' '}
+                      <span className="kannada-text" lang="kn">{voice.relationship_kn}</span>
+                    </p>
+                  </div>
+
+                  <div className="card-meta-row">
+                    <span className="meta-pill">
+                      <MapPin size={13} />
+                      <span>{voice.place} ({voice.place_kn})</span>
+                    </span>
+                    <span className="meta-pill">
+                      <Calendar size={13} />
+                      <span>{voice.date}</span>
+                    </span>
+                  </div>
+
+                  {/* Signature Box */}
+                  <div className="signature-container">
+                    <div className="signature-label">
+                      <FileSignature size={12} />
+                      <span>Verified Signature</span>
+                    </div>
+                    <div className="signature-image-wrapper">
+                      <img
+                        src={voice.signatureImage}
+                        alt={voice.altText}
+                        className="signature-image"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Part C: App Developers */}
           <section className="consent-section" aria-labelledby="developers-heading">
             <div className="consent-section-header">
               <div className="section-title-wrap">
@@ -252,4 +331,3 @@ export default function ConsentModal({ isOpen, onClose }) {
     </div>
   );
 }
-

@@ -1,10 +1,10 @@
 # Gaade Kosha Submission Manifest
-# Generated: 2026-11-19T20:58:37.017144
+# Generated: 2026-11-19T21:10:11.416364
 # Total Files: 238
 # Total Size: 19.53 MB
 # Format: SHA256  SIZE_BYTES  RELATIVE_PATH
 # ====================================================================
-8796d2b640d3bedc895b5e672ff75f57cb4b4716bc33caaf703146dc31542e5a       12432  README.md
+0ba853a2f24a4807c3aba4518e40a9ee40d0ab5be8f2c82d808d422e6a64e0b7       12698  README.md
 6653f6080621812b44a58186c10d2912b6ca183971219c54195dd3d431bb351c       77310  audio/G001.wav
 5410f2b87708af14bee2dc53993db3336018d179ef749638f7564936c3ee47e3      111870  audio/G002.wav
 23e9a7d76b8067815ede06b949763612af5000f71468aba89c5b5589f43abd84       76670  audio/G003.wav
@@ -229,8 +229,8 @@ f5897ba96f78b15040fa5da9a64e168b62a3c2608ff058c3533f108e32009ef5       66430  au
 67358627f49f320ba8265c0ae7638cb027cff7056b9f1abf582e0fc628e54d3e       81790  audio/G248.wav
 3cb4d7899adabad18646e3759a8407e1802ac9aaefa3b5d6ab96ef56e8fde797       52350  audio/G249.wav
 980bc894583906bdc93294e118d61d9c853f427ed6b73b8daffb21460d3f6afd       74110  audio/G250.wav
-d31922e7dd056e1573f85970cb17d2425dbaaefc0e1129ddd14c23c1bb64d1c6       15280  consent/CONSENT_TEMPLATE.md
-9a1d6434e5656ba0e3af15e9d4892891b6384aa8453e961fffc2a325a14db67c         690  consent/consent_register.csv
+096d159591d5b809a69a85becbea30f736ef8735752a2dfebdd25b61611ff0e6       13474  consent/CONSENT_TEMPLATE.md
+e250665e31d00c8af67d6ab3b9d047f80bd89c512072da42fa4f2a359128d857        1285  consent/consent_register.csv
 eda75a945b82ea6688c6a364ed2493bea2fa9238af7b34001014357a7378fbd5       12021  docs/DEMO.md
 0ece0ef9754dbd20c43d6d806236b002d4f90e1343d9fc92aabc7941125e134b        3701  docs/SUBMISSION_CHECKLIST.md
 504a45cc4a40ec75c466a843eaa9a680f8cbb3a8cd66decf371d48c9a0ec5105       13726  docs/TEST_REPORT.md

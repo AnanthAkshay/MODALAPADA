@@ -83,60 +83,36 @@ I confirm that I have explained the nature and purpose of this study to the part
 - **Collector Signature (ಸಂಗ್ರಹಕಾರರ ಸಹಿ)**: _______________________________
 - **Date (ದಿನಾಂಕ)**: _______________________________
 
-
 ---
 
 ## 7. Verified Registry of Consent & Signatures (ಪ್ರಮಾಣೀಕೃತ ಒಪ್ಪಿಗೆ ಮತ್ತು ಸಹಿಗಳ ನೋಂದಣಿ)
 *Executed on 19/11/2026 under Modalapada 2.0*
 
-**Total Summary: 500 gaade contributed by 5 contributors (೫೦೦ ಗಾದೆಗಳು · ೫ ಕೊಡುಗೆದಾರರಿಂದ ಸ್ವಯಂಪ್ರೇರಿತ ಒಪ್ಪಿಗೆ)**
+**Total Summary: 250 gaade from 2 contributors, voiced by 3 audio contributors (೨ ಕೊಡುಗೆದಾರರಿಂದ ೨೫೦ ಗಾದೆಗಳು · ೩ ಧ್ವನಿ ಕೊಡುಗೆದಾರರಿಂದ ಧ್ವನಿ ಮುದ್ರಣ)**
 
-### Part A: Gaade Contributors (Total 500 Gaade)
-The contributors listed below have voluntarily declared their informed consent for their shared Kannada proverbs, contextual real-world examples, and associated oral knowledge to be collected, preserved, processed, displayed, and utilized in the MODALAPADA (Gaade Kosha) application for educational, cultural, and non-commercial research purposes.
+### Part A: Gaade Contributors (Total 250 Gaade)
+The contributors listed below have voluntarily declared their informed consent for their shared Kannada proverbs, contextual meanings, and real-world examples to be collected, preserved, processed, displayed, and utilized in the MODALAPADA (Gaade Kosha) application for educational, cultural, and non-commercial research purposes.
 
 | # | Contributor | Relationship / Place | Gaade Count | Range | Date | Signature Image File |
 |---|-------------|----------------------|-------------|-------|------|----------------------|
 | 1 | Shantha B M | Grandmother, Hassan | 125 | 1–125 | 19/11/2026 | `signatures/Shantha_Signature.jpeg` |
 | 2 | Kumaraswamy H | Grandfather, Shivamogga | 125 | 126–250 | 19/11/2026 | `signatures/Kumarswamy_Signature.jpeg` |
-| 3 | H M Pranav | Contributor, Bengaluru | 50 | 251–300 | 19/11/2026 | `signatures/Pranav_Signature.jpeg` |
-| 4 | Aaditya V | Contributor, Bengaluru | 50 | 301–350 | 19/11/2026 | `signatures/Aaditya_Signature.jpeg` |
-| 5 | Akshatha A | Sister, Bengaluru | 150 | 351–500 | 19/11/2026 | `signatures/Akshatha_Signature.jpeg` |
 
-### Part B: App Developers
+### Part B: Audio / Voice Contributors (Total 250 Recordings)
+The voice contributors named below have voluntarily declared their informed consent for their human voice recordings of the 250 Kannada gaades to be recorded, digitally preserved, stored, played back, and utilized within the MODALAPADA (Gaade Kosha) application.
+
+| # | Name | Relationship / Place | Recordings | Audio Range | Date | Signature Image File |
+|---|------|----------------------|------------|-------------|------|----------------------|
+| 1 | H M Pranav | Contributor, Bengaluru | 50 | 1–50 | 19/11/2026 | `signatures/Pranav_Signature.jpeg` |
+| 2 | Aaditya V | Contributor, Bengaluru | 50 | 51–100 | 19/11/2026 | `signatures/Aaditya_Signature.jpeg` |
+| 3 | Akshatha A | Sister, Bengaluru | 150 | 101–250 | 19/11/2026 | `signatures/Akshatha_Signature.jpeg` |
+
+### Part C: App Developers
 The developers named below confirm their voluntary consent, authorization, and commitment to architect, build, verify, test, and publish the MODALAPADA application in strict compliance with cultural preservation and ethical AI standards.
 
 | # | Developer | Place | Role | Date | Signature Image File |
 |---|-----------|-------|------|------|----------------------|
 | 1 | Akshay A | Bengaluru | App Developer | 19/11/2026 | `signatures/Akshay_Signature.jpeg` |
 | 2 | Tejas M | Bengaluru | App Developer | 19/11/2026 | `signatures/Tejas_Signature.jpeg` |
-| 3 | H M Pranav | Bengaluru | App Developer & Contributor | 19/11/2026 | `signatures/Pranav_Signature.jpeg` |
-| 4 | Aaditya V | Bengaluru | App Developer & Contributor | 19/11/2026 | `signatures/Aaditya_Signature.jpeg` |
-
-
----
-
-## 7. Verified Registry of Consent & Signatures (ಪ್ರಮಾಣೀಕೃತ ಒಪ್ಪಿಗೆ ಮತ್ತು ಸಹಿಗಳ ನೋಂದಣಿ)
-*Executed on 19/11/2026 under Modalapada 2.0*
-
-**Total Summary: 500 gaade contributed by 5 contributors (೫೦೦ ಗಾದೆಗಳು · ೫ ಕೊಡುಗೆದಾರರಿಂದ ಸ್ವಯಂಪ್ರೇರಿತ ಒಪ್ಪಿಗೆ)**
-
-### Part A: Gaade Contributors (Total 500 Gaade)
-The contributors listed below have voluntarily declared their informed consent for their shared Kannada proverbs, contextual real-world examples, and associated oral knowledge to be collected, preserved, processed, displayed, and utilized in the MODALAPADA (Gaade Kosha) application for educational, cultural, and non-commercial research purposes.
-
-| # | Contributor | Relationship / Place | Gaade Count | Range | Date | Signature Image File |
-|---|-------------|----------------------|-------------|-------|------|----------------------|
-| 1 | Shantha B M | Grandmother, Hassan | 125 | 1–125 | 19/11/2026 | `signatures/Shantha_Signature.jpeg` |
-| 2 | Kumaraswamy H | Grandfather, Shivamogga | 125 | 126–250 | 19/11/2026 | `signatures/Kumarswamy_Signature.jpeg` |
-| 3 | H M Pranav | Contributor, Bengaluru | 50 | 251–300 | 19/11/2026 | `signatures/Pranav_Signature.jpeg` |
-| 4 | Aaditya V | Contributor, Bengaluru | 50 | 301–350 | 19/11/2026 | `signatures/Aaditya_Signature.jpeg` |
-| 5 | Akshatha A | Sister, Bengaluru | 150 | 351–500 | 19/11/2026 | `signatures/Akshatha_Signature.jpeg` |
-
-### Part B: App Developers
-The developers named below confirm their voluntary consent, authorization, and commitment to architect, build, verify, test, and publish the MODALAPADA application in strict compliance with cultural preservation and ethical AI standards.
-
-| # | Developer | Place | Role | Date | Signature Image File |
-|---|-----------|-------|------|------|----------------------|
-| 1 | Akshay A | Bengaluru | App Developer | 19/11/2026 | `signatures/Akshay_Signature.jpeg` |
-| 2 | Tejas M | Bengaluru | App Developer | 19/11/2026 | `signatures/Tejas_Signature.jpeg` |
-| 3 | H M Pranav | Bengaluru | App Developer & Contributor | 19/11/2026 | `signatures/Pranav_Signature.jpeg` |
-| 4 | Aaditya V | Bengaluru | App Developer & Contributor | 19/11/2026 | `signatures/Aaditya_Signature.jpeg` |
+| 3 | H M Pranav | Bengaluru | Developer & Voice Contributor | 19/11/2026 | `signatures/Pranav_Signature.jpeg` |
+| 4 | Aaditya V | Bengaluru | Developer & Voice Contributor | 19/11/2026 | `signatures/Aaditya_Signature.jpeg` |

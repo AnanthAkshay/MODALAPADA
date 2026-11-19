@@ -1,6 +1,10 @@
-contributor_id,contributor_name,relationship,place,consent_form_file,gaade_ids_contributed,gaade_range,audio_recorded_yes_no,date
-C01,Shantha B M,Grandmother,Hassan,docs/consent/signatures/Shantha_Signature.jpeg,125,1–125,yes,19/11/2026
-C02,Kumaraswamy H,Grandfather,Shivamogga,docs/consent/signatures/Kumarswamy_Signature.jpeg,125,126–250,yes,19/11/2026
-C03,H M Pranav,Contributor,Bengaluru,docs/consent/signatures/Pranav_Signature.jpeg,50,251–300,yes,19/11/2026
-C04,Aaditya V,Contributor,Bengaluru,docs/consent/signatures/Aaditya_Signature.jpeg,50,301–350,yes,19/11/2026
-C05,Akshatha A,Sister,Bengaluru,docs/consent/signatures/Akshatha_Signature.jpeg,150,351–500,yes,19/11/2026
+contributor_id,contributor_name,contributor_type,relationship,place,consent_form_file,count,range,audio_recorded_yes_no,date
+G01,Shantha B M,Gaade Contributor,Grandmother,Hassan,docs/consent/signatures/Shantha_Signature.jpeg,125,1–125,no,19/11/2026
+G02,Kumaraswamy H,Gaade Contributor,Grandfather,Shivamogga,docs/consent/signatures/Kumarswamy_Signature.jpeg,125,126–250,no,19/11/2026
+A01,H M Pranav,Voice Contributor,Contributor,Bengaluru,docs/consent/signatures/Pranav_Signature.jpeg,50,1–50,yes,19/11/2026
+A02,Aaditya V,Voice Contributor,Contributor,Bengaluru,docs/consent/signatures/Aaditya_Signature.jpeg,50,51–100,yes,19/11/2026
+A03,Akshatha A,Voice Contributor,Sister,Bengaluru,docs/consent/signatures/Akshatha_Signature.jpeg,150,101–250,yes,19/11/2026
+D01,Akshay A,App Developer,Developer,Bengaluru,docs/consent/signatures/Akshay_Signature.jpeg,-,-,no,19/11/2026
+D02,Tejas M,App Developer,Developer,Bengaluru,docs/consent/signatures/Tejas_Signature.jpeg,-,-,no,19/11/2026
+D03,H M Pranav,App Developer & Voice Contributor,Developer & Contributor,Bengaluru,docs/consent/signatures/Pranav_Signature.jpeg,-,-,yes,19/11/2026
+D04,Aaditya V,App Developer & Voice Contributor,Developer & Contributor,Bengaluru,docs/consent/signatures/Aaditya_Signature.jpeg,-,-,yes,19/11/2026

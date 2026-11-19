@@ -183,24 +183,28 @@ In strict adherence to academic ethics and the hackathon rules:
 ### Collection Sources & Consent Table
 *(Verified field collection records and informed consent documentation dated 19/11/2026)*
 
-**Total Summary: 500 gaade contributed by 5 contributors (೫೦೦ ಗಾದೆಗಳು · ೫ ಕೊಡುಗೆದಾರರಿಂದ ಸ್ವಯಂಪ್ರೇರಿತ ಒಪ್ಪಿಗೆ)**
+**Total Summary: 250 gaade from 2 contributors, voiced by 3 audio contributors (೨ ಕೊಡುಗೆದಾರರಿಂದ ೨೫೦ ಗಾದೆಗಳು · ೩ ಧ್ವನಿ ಕೊಡುಗೆದಾರರಿಂದ ಧ್ವನಿ ಮುದ್ರಣ)**
 
-#### Part A: Gaade Contributors (Total 500 Gaade)
+#### Part A: Gaade Contributors (Total 250 Gaade)
 | # | Contributor | Relationship / Place | Gaade Count | Range | Date | Signature Record |
 | :---: | :--- | :--- | :---: | :---: | :---: | :--- |
 | 1 | Shantha B M | Grandmother, Hassan | 125 | 1–125 | 19/11/2026 | `docs/consent/signatures/Shantha_Signature.jpeg` |
 | 2 | Kumaraswamy H | Grandfather, Shivamogga | 125 | 126–250 | 19/11/2026 | `docs/consent/signatures/Kumarswamy_Signature.jpeg` |
-| 3 | H M Pranav | Contributor, Bengaluru | 50 | 251–300 | 19/11/2026 | `docs/consent/signatures/Pranav_Signature.jpeg` |
-| 4 | Aaditya V | Contributor, Bengaluru | 50 | 301–350 | 19/11/2026 | `docs/consent/signatures/Aaditya_Signature.jpeg` |
-| 5 | Akshatha A | Sister, Bengaluru | 150 | 351–500 | 19/11/2026 | `docs/consent/signatures/Akshatha_Signature.jpeg` |
 
-#### Part B: App Developers
+#### Part B: Audio / Voice Contributors (Total 250 Recordings)
+| # | Name | Relationship / Place | Recordings | Audio Range | Date | Signature Record |
+| :---: | :--- | :--- | :---: | :---: | :---: | :--- |
+| 1 | H M Pranav | Contributor, Bengaluru | 50 | 1–50 | 19/11/2026 | `docs/consent/signatures/Pranav_Signature.jpeg` |
+| 2 | Aaditya V | Contributor, Bengaluru | 50 | 51–100 | 19/11/2026 | `docs/consent/signatures/Aaditya_Signature.jpeg` |
+| 3 | Akshatha A | Sister, Bengaluru | 150 | 101–250 | 19/11/2026 | `docs/consent/signatures/Akshatha_Signature.jpeg` |
+
+#### Part C: App Developers
 | # | Developer | Place | Role | Date | Signature Record |
 | :---: | :--- | :--- | :--- | :---: | :--- |
 | 1 | Akshay A | Bengaluru | App Developer | 19/11/2026 | `docs/consent/signatures/Akshay_Signature.jpeg` |
 | 2 | Tejas M | Bengaluru | App Developer | 19/11/2026 | `docs/consent/signatures/Tejas_Signature.jpeg` |
-| 3 | H M Pranav | Bengaluru | App Developer & Contributor | 19/11/2026 | `docs/consent/signatures/Pranav_Signature.jpeg` |
-| 4 | Aaditya V | Bengaluru | App Developer & Contributor | 19/11/2026 | `docs/consent/signatures/Aaditya_Signature.jpeg` |
+| 3 | H M Pranav | Bengaluru | Developer & Voice Contributor | 19/11/2026 | `docs/consent/signatures/Pranav_Signature.jpeg` |
+| 4 | Aaditya V | Bengaluru | Developer & Voice Contributor | 19/11/2026 | `docs/consent/signatures/Aaditya_Signature.jpeg` |
 
 ---
 

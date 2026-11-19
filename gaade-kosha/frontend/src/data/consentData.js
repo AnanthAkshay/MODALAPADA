@@ -12,8 +12,8 @@ export const consentData = {
     kn: "ಒಪ್ಪಿಗೆ ಪತ್ರ ಮತ್ತು ಕೊಡುಗೆದಾರರ ಘೋಷಣೆ"
   },
   summaryLine: {
-    en: "500 gaade contributed by 5 contributors",
-    kn: "೫೦೦ ಗಾದೆಗಳು · ೫ ಕೊಡುಗೆದಾರರಿಂದ ಸ್ವಯಂಪ್ರೇರಿತ ಒಪ್ಪಿಗೆ"
+    en: "250 gaade from 2 contributors, voiced by 3 audio contributors",
+    kn: "೨ ಕೊಡುಗೆದಾರರಿಂದ ೨೫೦ ಗಾದೆಗಳು · ೩ ಧ್ವನಿ ಕೊಡುಗೆದಾರರಿಂದ ಧ್ವನಿ ಮುದ್ರಣ"
   },
   institution: {
     en: "Modalapada 2.0 • Department of CSE&E, Ramaiah Institute of Technology, Bengaluru",
@@ -21,14 +21,14 @@ export const consentData = {
   },
   dateOfConsent: "19/11/2026",
   
-  contributorsGroup: {
+  gaadeContributorsGroup: {
     title: {
-      en: "Part A: Gaade Contributors (Total 500 Gaade)",
-      kn: "ವಿಭಾಗ 'ಅ': ಗಾದೆ ಕೊಡುಗೆದಾರರು (ಒಟ್ಟು ೫೦೦ ಗಾದೆಗಳು)"
+      en: "Part A: Gaade Contributors (Total 250 Gaade)",
+      kn: "ವಿಭಾಗ 'ಅ': ಗಾದೆ ಕೊಡುಗೆದಾರರು (ಒಟ್ಟು ೨೫೦ ಗಾದೆಗಳು)"
     },
     declaration: {
-      en: "We, the undersigned contributors, voluntarily declare our informed consent for our shared Kannada proverbs (gaadegalu), contextual real-world examples, and associated oral knowledge to be collected, digitally preserved, stored, displayed, and utilized in the MODALAPADA (Gaade Kosha) application. We affirm that this cultural heritage is shared freely for educational, academic, and non-commercial research purposes to benefit future generations.",
-      kn: "ನಾವು, ಕೆಳಗೆ ಸಹಿ ಮಾಡಿರುವ ಕೊಡುಗೆದಾರರು, ನಮ್ಮಿಂದ ಸಂಗ್ರಹಿಸಲಾದ ಕನ್ನಡ ಗಾದೆಗಳು, ಅವುಗಳ ನಿತ್ಯ ಜೀವನದ ನಿದರ್ಶನಗಳು ಹಾಗೂ ಸಂಬಂಧಿತ ಮೌಖಿಕ ಜ್ಞಾನವನ್ನು ಮೊದಲಪದ (ಗಾದೆ ಕೋಶ) ತಂತ್ರಾಂಶದಲ್ಲಿ ಸಂಗ್ರಹಿಸಲು, ದಾಖಲಿಸಲು, ಪ್ರದರ್ಶಿಸಲು ಮತ್ತು ಬಳಸಲು ನಮ್ಮ ಸ್ವಯಂಪ್ರೇರಿತ ಒಪ್ಪಿಗೆಯನ್ನು ನೀಡುತ್ತಿದ್ದೇವೆ. ಈ ಸಾಂಸ್ಕೃತಿಕ ಪರಂಪರೆಯನ್ನು ಶೈಕ್ಷಣಿಕ ಮತ್ತು ಮುಕ್ತ ಸಂಶೋಧನಾ ಹಿತದೃಷ್ಟಿಯಿಂದ ಸಾರ್ವಜನಿಕರಿಗೆ ಮುಕ್ತವಾಗಿ ಹಂಚಿಕೊಳ್ಳಲು ಸಮ್ಮತಿಸುತ್ತೇವೆ."
+      en: "We, the undersigned contributors, voluntarily declare our informed consent for our shared Kannada proverbs (gaadegalu), contextual meanings, real-world examples, and cultural wisdom to be collected, digitally preserved, stored, displayed, and utilized in the MODALAPADA (Gaade Kosha) application for educational, academic, and non-commercial research purposes.",
+      kn: "ನಾವು, ಕೆಳಗೆ ಸಹಿ ಮಾಡಿರುವ ಕೊಡುಗೆದಾರರು, ನಮ್ಮಿಂದ ಸಂಗ್ರಹಿಸಲಾದ ಕನ್ನಡ ಗಾದೆಗಳು, ಅವುಗಳ ಅರ್ಥಗಳು, ನಿತ್ಯ ಜೀವನದ ನಿದರ್ಶನಗಳು ಹಾಗೂ ಸಾಂಸ್ಕೃತಿಕ ಜ್ಞಾನವನ್ನು ಮೊದಲಪದ (ಗಾದೆ ಕೋಶ) ತಂತ್ರಾಂಶದಲ್ಲಿ ಸಂಗ್ರಹಿಸಲು, ದಾಖಲಿಸಲು, ಪ್ರದರ್ಶಿಸಲು ಮತ್ತು ಬಳಸಲು ನಮ್ಮ ಸ್ವಯಂಪ್ರೇರಿತ ಒಪ್ಪಿಗೆಯನ್ನು ನೀಡುತ್ತಿದ್ದೇವೆ."
     },
     items: [
       {
@@ -60,47 +60,60 @@ export const consentData = {
         signatureImage: kumarswamySig,
         signatureFilename: "Kumarswamy_Signature.jpeg",
         altText: "Signature of Kumaraswamy H"
-      },
+      }
+    ]
+  },
+
+  audioContributorsGroup: {
+    title: {
+      en: "Part B: Audio / Voice Contributors (Total 250 Recordings)",
+      kn: "ವಿಭಾಗ 'ಬ': ಧ್ವನಿ ಕೊಡುಗೆದಾರರು (ಒಟ್ಟು ೨೫೦ ಧ್ವನಿ ಮುದ್ರಣಗಳು)"
+    },
+    declaration: {
+      en: "We, the undersigned voice contributors, voluntarily declare our informed consent for our human voice recordings of the 250 Kannada gaades to be recorded, digitally preserved, stored, played back, and utilized within the MODALAPADA (Gaade Kosha) application, and acknowledge that these authentic recordings serve as an integral part of this multimodal cultural preservation system.",
+      kn: "ನಾವು, ಕೆಳಗೆ ಸಹಿ ಮಾಡಿರುವ ಧ್ವನಿ ಕೊಡುಗೆದಾರರು, ೨೫೦ ಕನ್ನಡ ಗಾದೆಗಳ ನಮ್ಮ ಧ್ವನಿ ಮುದ್ರಣಗಳನ್ನು ಮೊದಲಪದ (ಗಾದೆ ಕೋಶ) ತಂತ್ರಾಂಶದಲ್ಲಿ ಧ್ವನಿಗ್ರಹಣ ಮಾಡಲು, ಸಂಗ್ರಹಿಸಲು, ಆಡಿಯೋ ಪ್ಲೇಬ್ಯಾಕ್ ಮಾಡಲು ಮತ್ತು ಬಳಸಲು ನಮ್ಮ ಸ್ವಯಂಪ್ರೇರಿತ ಒಪ್ಪಿಗೆಯನ್ನು ನೀಡುತ್ತಿದ್ದೇವೆ ಹಾಗೂ ಈ ಮುದ್ರಣಗಳು ಈ ತಂತ್ರಾಂಶದ ಅವಿಭಾಜ್ಯ ಅಂಗವೆಂದು ದೃಢೀಕರಿಸುತ್ತೇವೆ."
+    },
+    items: [
       {
-        id: 3,
+        id: 1,
         name: "H M Pranav",
         name_kn: "ಹೆಚ್. ಎಂ. ಪ್ರಣವ್",
         relationship: "Contributor",
         relationship_kn: "ಕೊಡುಗೆದಾರರು",
         place: "Bengaluru",
         place_kn: "ಬೆಂಗಳೂರು",
-        gaadeCount: 50,
-        gaadeRange: "251–300",
+        recordingCount: 50,
+        audioRange: "1–50",
         date: "19/11/2026",
         signatureImage: pranavSig,
         signatureFilename: "Pranav_Signature.jpeg",
         altText: "Signature of H M Pranav"
       },
       {
-        id: 4,
+        id: 2,
         name: "Aaditya V",
         name_kn: "ಆದಿತ್ಯ ವಿ.",
         relationship: "Contributor",
         relationship_kn: "ಕೊಡುಗೆದಾರರು",
         place: "Bengaluru",
         place_kn: "ಬೆಂಗಳೂರು",
-        gaadeCount: 50,
-        gaadeRange: "301–350",
+        recordingCount: 50,
+        audioRange: "51–100",
         date: "19/11/2026",
         signatureImage: aadityaSig,
         signatureFilename: "Aaditya_Signature.jpeg",
         altText: "Signature of Aaditya V"
       },
       {
-        id: 5,
+        id: 3,
         name: "Akshatha A",
         name_kn: "ಅಕ್ಷತಾ ಎ.",
         relationship: "Sister",
         relationship_kn: "ಸಹೋದರಿ",
         place: "Bengaluru",
         place_kn: "ಬೆಂಗಳೂರು",
-        gaadeCount: 150,
-        gaadeRange: "351–500",
+        recordingCount: 150,
+        audioRange: "101–250",
         date: "19/11/2026",
         signatureImage: akshathaSig,
         signatureFilename: "Akshatha_Signature.jpeg",
@@ -111,8 +124,8 @@ export const consentData = {
 
   developersGroup: {
     title: {
-      en: "Part B: App Developers",
-      kn: "ವಿಭಾಗ 'ಬ': ತಂತ್ರಾಂಶ ಅಭಿವೃದ್ಧಿಪಡಿಸಿದವರು"
+      en: "Part C: App Developers",
+      kn: "ವಿಭಾಗ 'ಕ': ತಂತ್ರಾಂಶ ಅಭಿವೃದ್ಧಿಪಡಿಸಿದವರು"
     },
     declaration: {
       en: "We, the developers named below, hereby affirm our formal authorization and voluntary consent to architect, build, verify, test, and publish the MODALAPADA (Gaade Kosha) application, adhering strictly to cultural preservation integrity and ethical AI principles.",
@@ -149,8 +162,8 @@ export const consentData = {
         id: 3,
         name: "H M Pranav",
         name_kn: "ಹೆಚ್. ಎಂ. ಪ್ರಣವ್",
-        role: "Developer & Contributor",
-        role_kn: "ತಂತ್ರಾಂಶ ರಚನೆಕಾರರು & ಕೊಡುಗೆದಾರರು",
+        role: "Developer & Voice Contributor",
+        role_kn: "ತಂತ್ರಾಂಶ ರಚನೆಕಾರರು & ಧ್ವನಿ ಕೊಡುಗೆದಾರರು",
         place: "Bengaluru",
         place_kn: "ಬೆಂಗಳೂರು",
         date: "19/11/2026",
@@ -162,8 +175,8 @@ export const consentData = {
         id: 4,
         name: "Aaditya V",
         name_kn: "ಆದಿತ್ಯ ವಿ.",
-        role: "Developer & Contributor",
-        role_kn: "ತಂತ್ರಾಂಶ ರಚನೆಕಾರರು & ಕೊಡುಗೆದಾರರು",
+        role: "Developer & Voice Contributor",
+        role_kn: "ತಂತ್ರಾಂಶ ರಚನೆಕಾರರು & ಧ್ವನಿ ಕೊಡುಗೆದಾರರು",
         place: "Bengaluru",
         place_kn: "ಬೆಂಗಳೂರು",
         date: "19/11/2026",
@@ -174,4 +187,3 @@ export const consentData = {
     ]
   }
 };
-
