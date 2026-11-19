@@ -1,11 +1,11 @@
 # Gaade Kosha Submission Manifest
-# Generated: 2026-11-20T01:29:10.804999
+# Generated: 2026-11-20T02:34:18.967487
 # Total Files: 243
 # Total Size: 19.01 MB
 # Format: SHA256  SIZE_BYTES  RELATIVE_PATH
 # ====================================================================
 c17ce08a9ad68547169b58e2441a02e68d2cfacb84f22a0b27bb90ebd52566ae        4422  MISSING_ITEMS.md
-67295099afa866cd46df644cb0e1548b1199104d72b5271315bb2d5582c2f857       19783  README.md
+c9d4ee56cb356c565148c623d8d9481a14d08111a8c2fb7edf99df133ced451c       20101  README.md
 6653f6080621812b44a58186c10d2912b6ca183971219c54195dd3d431bb351c       77310  audio/G001.wav
 5410f2b87708af14bee2dc53993db3336018d179ef749638f7564936c3ee47e3      111870  audio/G002.wav
 23e9a7d76b8067815ede06b949763612af5000f71468aba89c5b5589f43abd84       76670  audio/G003.wav
@@ -237,13 +237,13 @@ eda75a945b82ea6688c6a364ed2493bea2fa9238af7b34001014357a7378fbd5       12021  do
 ddefc1b8458e66c5dc68c2e3470760e34eee71b02b2046afbfc6abec1fbce62d        3710  docs/SUBMISSION_CHECKLIST.md
 0402a4a33faff3dadae283ad69f007b48a768c6b0dc64abe26af7ef6e3e12ee0       13633  docs/TEST_REPORT.md
 a27a8acf4f6bbf61a5eeb74128a76fb25ad5fecdea01609ac73e80ce40744e69        8324  docs/audio_conversion_report.md
-f37bf65bd6b70c76feee28758f3df2b813c6695ce6f2de110f2ddc75ffaa3ccc        9121  docs/csv_cleanup_report.md
-9ea65bb6e42eb1f5d6d66d42afbd9d48d3c582f80638925961d4d32f26e49dda        2336  docs/spacing_issues.md
+ee280e459d8a3a8b48bd7f759be483d95679eecc8d997b73f52a130db8ca204f        9228  docs/csv_cleanup_report.md
+a9274a66fcc7f29f2bf183a7c1fca61e33e09c2a8ffb90a56c371af18d4d69cf        2379  docs/spacing_issues.md
 d536d81f3ce5634d005b97dd18229ddcf6f074ec195d4d26a718979afcce0015        1896  docs/utf8_no_bom/consent_register.csv
 d77568c9f94373dcdf20b64539938dfac4bbc6496f1334ddca241338151bbfbc       83227  docs/utf8_no_bom/gaades.csv
 7331c1e02c81c94c9159ab7ec4e3ea01998a49dbc4a3b1b21756f39d368bae9c      254777  docs/utf8_no_bom/situations.csv
 a2a5c57793276439c0f66cc1c51efd2e7dee212d653ca75e36f20813db8e5c50        6645  docs/verification_coverage.md
-ce921aa268fac7734b1c8d432749e55135dcfb8e15ee4cca4984415ce05ee884       44170  extras/gaades.xlsx
-e331b0509e8c3cb58151bc07502525107f4f653ce257beeea49169bd6519427a      105645  extras/situations.xlsx
+e628236653b4895e43390b055383b156749d7aa6c7050651596b26cec8394cb3       44170  extras/gaades.xlsx
+5cc99ebc3813606eb9214cf0c41337d02440d0cb25698db178979e46875eda91      105645  extras/situations.xlsx
 ac3514ad8370cf14f12fe118f2b68e8f964bcbaeeeaa4126520dae574c3858d3       83457  gaades.csv
 b407e4fb851d6c4213c9939c2ff517dc515222148e1b3a4a3bce443675aa0f7d      255233  situations.csv

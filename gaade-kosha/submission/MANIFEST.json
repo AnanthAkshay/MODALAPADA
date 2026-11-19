@@ -2,9 +2,9 @@
   "project": "Gaade Kosha (ಗಾದೆ ಕೋಶ)",
   "hackathon": "Modalapada 2.0 (Problem 2)",
   "department": "Dept of CSE&E, Ramaiah Institute of Technology",
-  "generated_at": "2026-11-20T01:29:10.805289",
+  "generated_at": "2026-11-20T02:34:18.968046",
   "total_files": 243,
-  "total_size_bytes": 19931286,
+  "total_size_bytes": 19931754,
   "total_size_mb": 19.01,
   "canonical_gaades": 226,
   "canonical_audio_wavs": 224,
@@ -16,8 +16,8 @@
     },
     {
       "path": "README.md",
-      "size_bytes": 19783,
-      "sha256": "67295099afa866cd46df644cb0e1548b1199104d72b5271315bb2d5582c2f857"
+      "size_bytes": 20101,
+      "sha256": "c9d4ee56cb356c565148c623d8d9481a14d08111a8c2fb7edf99df133ced451c"
     },
     {
       "path": "audio/G001.wav",
@@ -1176,13 +1176,13 @@
     },
     {
       "path": "docs/csv_cleanup_report.md",
-      "size_bytes": 9121,
-      "sha256": "f37bf65bd6b70c76feee28758f3df2b813c6695ce6f2de110f2ddc75ffaa3ccc"
+      "size_bytes": 9228,
+      "sha256": "ee280e459d8a3a8b48bd7f759be483d95679eecc8d997b73f52a130db8ca204f"
     },
     {
       "path": "docs/spacing_issues.md",
-      "size_bytes": 2336,
-      "sha256": "9ea65bb6e42eb1f5d6d66d42afbd9d48d3c582f80638925961d4d32f26e49dda"
+      "size_bytes": 2379,
+      "sha256": "a9274a66fcc7f29f2bf183a7c1fca61e33e09c2a8ffb90a56c371af18d4d69cf"
     },
     {
       "path": "docs/utf8_no_bom/consent_register.csv",
@@ -1207,12 +1207,12 @@
     {
       "path": "extras/gaades.xlsx",
       "size_bytes": 44170,
-      "sha256": "ce921aa268fac7734b1c8d432749e55135dcfb8e15ee4cca4984415ce05ee884"
+      "sha256": "e628236653b4895e43390b055383b156749d7aa6c7050651596b26cec8394cb3"
     },
     {
       "path": "extras/situations.xlsx",
       "size_bytes": 105645,
-      "sha256": "e331b0509e8c3cb58151bc07502525107f4f653ce257beeea49169bd6519427a"
+      "sha256": "5cc99ebc3813606eb9214cf0c41337d02440d0cb25698db178979e46875eda91"
     },
     {
       "path": "gaades.csv",
