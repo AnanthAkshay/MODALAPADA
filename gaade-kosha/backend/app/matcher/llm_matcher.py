@@ -235,7 +235,7 @@ class LLMMatcher:
         """
         providers = []
         user_pref = (os.getenv("LLM_PROVIDER") or "").lower().strip()
-        timeout = float(os.getenv("LLM_TIMEOUT_SECONDS") or settings.LLM_TIMEOUT_SECONDS or 15.0)
+        timeout = float(os.getenv("LLM_TIMEOUT_SECONDS") or settings.LLM_TIMEOUT_SECONDS or 25.0)
 
         def find_env_val(*names: str) -> Optional[str]:
             for target in names:
@@ -322,10 +322,16 @@ class LLMMatcher:
         """Call Google Gemini generateContent REST endpoint with multi-model fallback."""
         clean_model = model.replace("models/", "").strip()
         # Ensure modern active models are tried if older ones return 404
-        candidate_models = [clean_model]
-        for fallback in ["gemini-2.5-flash", "gemini-flash-latest", "gemini-2.0-flash", "gemini-1.5-flash"]:
-            if fallback not in candidate_models:
-                candidate_models.append(fallback)
+        # Order candidate models: prioritize modern active models (gemini-2.5-flash) over deprecated 1.5
+        preferred_gemini = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-flash-latest"]
+        candidate_models = []
+        if clean_model not in ("gemini-1.5-flash", "gemini-1.5-pro") and clean_model not in candidate_models:
+            candidate_models.append(clean_model)
+        for m in preferred_gemini:
+            if m not in candidate_models:
+                candidate_models.append(m)
+        if clean_model in ("gemini-1.5-flash", "gemini-1.5-pro") and clean_model not in candidate_models:
+            candidate_models.append(clean_model)
 
         payload = {
             "systemInstruction": {
@@ -356,15 +362,15 @@ class LLMMatcher:
                         if parts:
                             logger.info(f"Gemini matched successfully using model '{curr_model}' in {lat_ms:.1f}ms")
                             return parts[0].get("text"), lat_ms, token_count
-                elif resp.status_code == 404:
-                    logger.info(f"Gemini model '{curr_model}' returned 404. Trying next model...")
+                elif resp.status_code in (404, 429, 503):
+                    logger.info(f"Gemini model '{curr_model}' returned {resp.status_code}. Trying next model...")
                     continue
                 else:
                     logger.error(f"Gemini API ({curr_model}) returned HTTP {resp.status_code}: {resp.text[:300]}")
-                    break
+                    continue
             except Exception as e:
-                logger.warning(f"Gemini call exception on '{curr_model}': {e}")
-                break
+                logger.warning(f"Gemini call exception on '{curr_model}': {e}. Trying next model...")
+                continue
 
         return None, (time.perf_counter() - t0) * 1000.0, None
 
@@ -381,10 +387,16 @@ class LLMMatcher:
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json"
         }
-        candidate_models = [model]
-        for fallback in ["openai/gpt-oss-120b", "qwen/qwen3.8-27b", "llama-3.3-70b-versatile", "llama-3.1-8b-instant"]:
-            if fallback not in candidate_models:
-                candidate_models.append(fallback)
+        # Order candidate models: prioritize ultra-fast production models accessible by key
+        preferred_groq = ["openai/gpt-oss-120b", "qwen/qwen3.8-27b", "llama-3.3-70b-versatile", "llama-3.1-8b-instant"]
+        candidate_models = []
+        if model not in ("llama-3.3-70b-versatile",) and model not in candidate_models:
+            candidate_models.append(model)
+        for m in preferred_groq:
+            if m not in candidate_models:
+                candidate_models.append(m)
+        if model in ("llama-3.3-70b-versatile",) and model not in candidate_models:
+            candidate_models.append(model)
 
         t0 = time.perf_counter()
 
@@ -411,15 +423,15 @@ class LLMMatcher:
                         content = choices[0].get("message", {}).get("content")
                         logger.info(f"Groq matched successfully using model '{curr_model}' in {lat_ms:.1f}ms")
                         return content, lat_ms, token_count
-                elif resp.status_code in (404, 429):
+                elif resp.status_code in (404, 429, 503):
                     logger.info(f"Groq model '{curr_model}' returned {resp.status_code}. Trying next model...")
                     continue
                 else:
                     logger.error(f"Groq API returned HTTP {resp.status_code}: {resp.text[:300]}")
-                    break
+                    continue
             except Exception as e:
-                logger.warning(f"Groq call exception on '{curr_model}': {e}")
-                break
+                logger.warning(f"Groq call exception on '{curr_model}': {e}. Trying next model...")
+                continue
 
         return None, (time.perf_counter() - t0) * 1000.0, None
 

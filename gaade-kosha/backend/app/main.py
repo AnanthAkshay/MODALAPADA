@@ -393,14 +393,17 @@ def debug_llm():
             except Exception as e:
                 tests[f"groq_{p_model}"] = {"error": str(e)}
         elif p_name == "gemini":
-            try:
-                clean_model = p_model.replace("models/", "")
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/{clean_model}:generateContent?key={p_key}"
-                payload = {"contents": [{"role": "user", "parts": [{"text": "Hello"}]}]}
-                r = requests.post(url, json=payload, timeout=8.0)
-                tests[f"gemini_{clean_model}"] = {"status_code": r.status_code, "body": r.text[:300]}
-            except Exception as e:
-                tests[f"gemini_{clean_model}"] = {"error": str(e)}
+            clean_model = p_model.replace("models/", "")
+            for test_m in [clean_model, "gemini-2.5-flash"]:
+                if f"gemini_{test_m}" in tests:
+                    continue
+                try:
+                    url = f"https://generativelanguage.googleapis.com/v1beta/models/{test_m}:generateContent?key={p_key}"
+                    payload = {"contents": [{"role": "user", "parts": [{"text": "Hello"}]}]}
+                    r = requests.post(url, json=payload, timeout=8.0)
+                    tests[f"gemini_{test_m}"] = {"status_code": r.status_code, "body": r.text[:300]}
+                except Exception as e:
+                    tests[f"gemini_{test_m}"] = {"error": str(e)}
 
     return {
         "matching_env_vars": env_vars,
