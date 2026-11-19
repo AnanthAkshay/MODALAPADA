@@ -359,50 +359,54 @@ def debug_llm():
     from backend.app.matcher.llm_matcher import LLMMatcher
     import requests
 
-    groq_raw = os.getenv("GROQ_API_KEY") or ""
-    gemini_raw = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY") or ""
-    llm_key_raw = os.getenv("LLM_API_KEY") or ""
-    provider_env = os.getenv("LLM_PROVIDER") or ""
-
-    diag = {
-        "env": {
-            "LLM_PROVIDER": provider_env,
-            "GROQ_API_KEY_present": bool(groq_raw.strip()),
-            "GROQ_API_KEY_len": len(groq_raw.strip()),
-            "GROQ_API_KEY_masked": f"{groq_raw.strip()[:6]}...{groq_raw.strip()[-4:]}" if len(groq_raw.strip()) > 10 else "***",
-            "GEMINI_API_KEY_present": bool(gemini_raw.strip()),
-            "GEMINI_API_KEY_len": len(gemini_raw.strip()),
-            "GEMINI_API_KEY_masked": f"{gemini_raw.strip()[:6]}...{gemini_raw.strip()[-4:]}" if len(gemini_raw.strip()) > 10 else "***",
-            "LLM_API_KEY_present": bool(llm_key_raw.strip()),
-        },
-        "configured_providers": [p["name"] for p in LLMMatcher.get_configured_providers()],
-        "tests": {}
-    }
-
-    if groq_raw.strip():
-        try:
-            url = "https://api.groq.com/openai/v1/chat/completions"
-            h = {"Authorization": f"Bearer {groq_raw.strip()}", "Content-Type": "application/json"}
-            payload = {
-                "model": "llama-3.3-70b-versatile",
-                "messages": [{"role": "user", "content": "Return valid JSON: {\"test\": true}"}],
-                "response_format": {"type": "json_object"}
+    env_vars = {}
+    for k, v in os.environ.items():
+        k_upper = k.upper()
+        if any(term in k_upper for term in ["KEY", "GROQ", "GEMINI", "LLM", "GOOGLE", "PROVIDER"]):
+            val = str(v).strip()
+            env_vars[k] = {
+                "len": len(val),
+                "prefix": val[:6] if len(val) >= 6 else "***",
+                "suffix": val[-4:] if len(val) >= 4 else "***"
             }
-            r = requests.post(url, headers=h, json=payload, timeout=8.0)
-            diag["tests"]["groq_70b"] = {"status_code": r.status_code, "body": r.text[:300]}
-        except Exception as e:
-            diag["tests"]["groq_70b"] = {"error": str(e)}
 
-    if gemini_raw.strip():
-        try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={gemini_raw.strip()}"
-            payload = {"contents": [{"role": "user", "parts": [{"text": "Hello"}]}]}
-            r = requests.post(url, json=payload, timeout=8.0)
-            diag["tests"]["gemini"] = {"status_code": r.status_code, "body": r.text[:300]}
-        except Exception as e:
-            diag["tests"]["gemini"] = {"error": str(e)}
+    matcher = LLMMatcher.get_instance()
+    providers = matcher.get_configured_providers()
 
-    return diag
+    tests = {}
+    for prov in providers:
+        p_name = prov["name"]
+        p_key = prov["api_key"]
+        p_model = prov["model"]
+
+        if p_name == "groq":
+            try:
+                url = "https://api.groq.com/openai/v1/chat/completions"
+                h = {"Authorization": f"Bearer {p_key}", "Content-Type": "application/json"}
+                payload = {
+                    "model": p_model,
+                    "messages": [{"role": "user", "content": "Return valid JSON: {\"test\": true}"}],
+                    "response_format": {"type": "json_object"}
+                }
+                r = requests.post(url, headers=h, json=payload, timeout=8.0)
+                tests[f"groq_{p_model}"] = {"status_code": r.status_code, "body": r.text[:300]}
+            except Exception as e:
+                tests[f"groq_{p_model}"] = {"error": str(e)}
+        elif p_name == "gemini":
+            try:
+                clean_model = p_model.replace("models/", "")
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{clean_model}:generateContent?key={p_key}"
+                payload = {"contents": [{"role": "user", "parts": [{"text": "Hello"}]}]}
+                r = requests.post(url, json=payload, timeout=8.0)
+                tests[f"gemini_{clean_model}"] = {"status_code": r.status_code, "body": r.text[:300]}
+            except Exception as e:
+                tests[f"gemini_{clean_model}"] = {"error": str(e)}
+
+    return {
+        "matching_env_vars": env_vars,
+        "configured_providers": [p["name"] for p in providers],
+        "tests": tests
+    }
 
 
 # Semantic Proverb Matcher Endpoint

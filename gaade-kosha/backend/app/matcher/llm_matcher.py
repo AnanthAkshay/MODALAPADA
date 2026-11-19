@@ -231,44 +231,58 @@ class LLMMatcher:
         """
         Detect and return all validly configured providers in order of priority.
         Supports both GROQ_API_KEY and GEMINI_API_KEY / GOOGLE_API_KEY.
-        If both are present, defaults to Groq first for sub-second latency,
-        with seamless failover to Gemini if Groq encounters any issues.
+        Handles case-insensitive environment variables and key prefix detection.
         """
         providers = []
         user_pref = (os.getenv("LLM_PROVIDER") or "").lower().strip()
         timeout = float(os.getenv("LLM_TIMEOUT_SECONDS") or settings.LLM_TIMEOUT_SECONDS or 15.0)
 
-        # 1. Inspect Groq
-        groq_key = (
-            os.getenv("GROQ_API_KEY")
-            or (os.getenv("LLM_API_KEY") if user_pref == "groq" or (os.getenv("LLM_API_KEY") or "").startswith("gsk_") else None)
-        )
-        if groq_key and groq_key.strip() and not groq_key.startswith("your_"):
+        def find_env_val(*names: str) -> Optional[str]:
+            for target in names:
+                t_upper = target.upper()
+                for k, v in os.environ.items():
+                    if k.upper() == t_upper and v and str(v).strip() and not str(v).strip().startswith("your_"):
+                        return str(v).strip()
+            return None
+
+        # 1. Discover Keys (case-insensitive & aliases)
+        groq_key = find_env_val("GROQ_API_KEY", "GROQ_KEY", "GROQ_APIKEY", "GROQ_TOKEN")
+        gemini_key = find_env_val("GEMINI_API_KEY", "GEMINI_KEY", "GEMINI_APIKEY", "GOOGLE_API_KEY", "GOOGLE_KEY")
+        llm_key = find_env_val("LLM_API_KEY", "LLM_KEY")
+
+        # Resolve ambiguous LLM_API_KEY by prefix if present
+        if llm_key:
+            if llm_key.startswith("gsk_") and not groq_key:
+                groq_key = llm_key
+            elif llm_key.startswith("AIza") and not gemini_key:
+                gemini_key = llm_key
+            elif not groq_key and not gemini_key:
+                if user_pref == "groq":
+                    groq_key = llm_key
+                else:
+                    gemini_key = llm_key
+
+        # 2. Register Groq if key found
+        if groq_key:
             groq_model = os.getenv("GROQ_MODEL") or (os.getenv("LLM_MODEL") if user_pref == "groq" else None) or "llama-3.3-70b-versatile"
             providers.append({
                 "name": "groq",
-                "api_key": groq_key.strip(),
+                "api_key": groq_key,
                 "model": groq_model,
                 "timeout": timeout
             })
 
-        # 2. Inspect Gemini
-        gemini_key = (
-            os.getenv("GEMINI_API_KEY")
-            or os.getenv("GOOGLE_API_KEY")
-            or (os.getenv("LLM_API_KEY") if user_pref != "groq" and not (os.getenv("LLM_API_KEY") or "").startswith("gsk_") else None)
-        )
-        if gemini_key and gemini_key.strip() and not gemini_key.startswith("your_"):
+        # 3. Register Gemini if key found
+        if gemini_key:
             gemini_model = os.getenv("GEMINI_MODEL") or (os.getenv("LLM_MODEL") if user_pref == "gemini" else None) or "gemini-1.5-flash"
             providers.append({
                 "name": "gemini",
-                "api_key": gemini_key.strip(),
+                "api_key": gemini_key,
                 "model": gemini_model,
                 "timeout": timeout
             })
 
         # Priority resolution:
-        # If user explicitly set LLM_PROVIDER=gemini, prefer gemini first
         if user_pref == "gemini":
             providers.sort(key=lambda p: 0 if p["name"] == "gemini" else 1)
         elif user_pref == "groq":
