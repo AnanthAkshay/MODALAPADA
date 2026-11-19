@@ -46,6 +46,7 @@ scratch/
 .tmp/
 
 # OS and Editor artifacts
+*.zip
 .DS_Store
 Thumbs.db
 desktop.ini

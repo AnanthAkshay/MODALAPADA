@@ -250,7 +250,34 @@ In strict adherence to academic ethics and the hackathon rules:
 ## 9. Verification & Submission Reports
 
 - **Full Test Report**: [docs/TEST_REPORT.md](docs/TEST_REPORT.md) – Detailed benchmark numbers, audio hashes, and 30 adversarial stress cases.
-- **Official Submission Checklist**: [docs/SUBMISSION_CHECKLIST.md](docs/SUBMISSION_CHECKLIST.md) – 15/15 requirements verified Done from real script outputs.
+- **Official Submission Checklist**: [docs/SUBMISSION_CHECKLIST.md](docs/SUBMISSION_CHECKLIST.md) – 16/16 requirements verified Done from real script outputs.
+- **Verification Coverage Matrix**: [docs/verification_coverage.md](docs/verification_coverage.md) – Test coverage across all subsystems.
+- **Audit of Unverified Items**: [docs/MISSING_ITEMS.md](docs/MISSING_ITEMS.md) – Transparent disclosure of unverified regions and text-only entries.
 - **Demo Guide & Script**: [docs/DEMO.md](docs/DEMO.md) – 6 evaluated scenarios, presentation script, and multi-tier failure fallback plan.
 - **System Architecture**: [docs/architecture.md](docs/architecture.md) – Detailed sequence flows and database schemas.
 - **Submission Builder**: Run `python scripts/build_submission.py` to pre-validate all assets and compile the final `submission/` package with SHA-256 checksums.
+
+---
+
+## 10. Known Limitations
+
+1. **Unverified Geographic Regions**: All 226 canonical proverbs currently have their `region` attribute recorded as `"UNVERIFIED"`. Field review sheets (`data/elder_review/elder_review_sheet.pdf`) have been distributed, but in strict observance of anti-fabrication rules, regions remain unassigned until physical forms are returned and transcribed.
+2. **Text-Only Canonical Additions (`G251`, `G252`)**: These two starter-situation proverbs lack archival folklore recordings. Consistent with our ethical AI stance, synthetic Text-to-Speech was not used to fabricate audio for them; they are served cleanly as text-only archival proverbs.
+3. **Hosted Free-Tier Wake-Up Latency**: The Render backend on the free tier may take 30–50 seconds to spin up from cold sleep on initial request.
+4. **Signature Artifact Distribution**: Loose raw signature images are omitted from public directory distributions to protect contributor privacy and are securely compiled inside `docs/consent/Consent_Summary.pdf`.
+
+---
+
+## 11. Project Credits
+
+Built by Akshay A, Tejas M, H M Pranav and Aaditya V
+
+### Contributor Attributions (Recorded in Consent Register)
+- **Gaade Contributors (Text, Meanings & Situations)**:
+  - Shantha B M (Grandmother, Hassan) – 125 Gaade (1–125)
+  - Kumaraswamy H (Grandfather, Shivamogga) – 125 Gaade (126–250)
+- **Audio / Voice Contributors (Authentic Spoken Proverb Recordings)**:
+  - H M Pranav (Contributor, Bengaluru) – 50 Recordings (1–50)
+  - Aaditya V (Contributor, Bengaluru) – 50 Recordings (51–100)
+  - Akshatha A (Sister, Bengaluru) – 150 Recordings (101–250)
+

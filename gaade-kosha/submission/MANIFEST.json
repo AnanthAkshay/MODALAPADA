@@ -2,17 +2,22 @@
   "project": "Gaade Kosha (ಗಾದೆ ಕೋಶ)",
   "hackathon": "Modalapada 2.0 (Problem 2)",
   "department": "Dept of CSE&E, Ramaiah Institute of Technology",
-  "generated_at": "2026-11-19T21:10:11.416879",
-  "total_files": 238,
-  "total_size_bytes": 20475080,
-  "total_size_mb": 19.53,
+  "generated_at": "2026-11-20T00:37:25.972329",
+  "total_files": 239,
+  "total_size_bytes": 19697993,
+  "total_size_mb": 18.79,
   "canonical_gaades": 226,
   "canonical_audio_wavs": 224,
   "entries": [
     {
+      "path": "MISSING_ITEMS.md",
+      "size_bytes": 4421,
+      "sha256": "62eefd1d60c1fd729caaec7352566d666a2011d8b1fb57af1a3491fc95fcc2c9"
+    },
+    {
       "path": "README.md",
-      "size_bytes": 12698,
-      "sha256": "0ba853a2f24a4807c3aba4518e40a9ee40d0ab5be8f2c82d808d422e6a64e0b7"
+      "size_bytes": 16700,
+      "sha256": "667871997d93437cb77a37cc8238de24727f2d9fd2c811a61b2a0c4d11eadf01"
     },
     {
       "path": "audio/G001.wav",
@@ -1135,14 +1140,19 @@
       "sha256": "980bc894583906bdc93294e118d61d9c853f427ed6b73b8daffb21460d3f6afd"
     },
     {
-      "path": "consent/CONSENT_TEMPLATE.md",
-      "size_bytes": 13474,
-      "sha256": "096d159591d5b809a69a85becbea30f736ef8735752a2dfebdd25b61611ff0e6"
+      "path": "consent/Consent_Summary.pdf",
+      "size_bytes": 810377,
+      "sha256": "4c99e2916190cc087175944a17014e4050aa6eb606ae5f068ffcba699ca4da80"
+    },
+    {
+      "path": "consent/consent_form_template.pdf",
+      "size_bytes": 36840,
+      "sha256": "a97d0e94cdd64f79938cefd3b04403059a148e911ad1a8302d77e7b31224cb72"
     },
     {
       "path": "consent/consent_register.csv",
-      "size_bytes": 1285,
-      "sha256": "e250665e31d00c8af67d6ab3b9d047f80bd89c512072da42fa4f2a359128d857"
+      "size_bytes": 1900,
+      "sha256": "b952743d837be411d163b3b934900ae8c975a2cae3de6e05c897e2bdd189cb7a"
     },
     {
       "path": "docs/DEMO.md",
@@ -1152,52 +1162,47 @@
     {
       "path": "docs/SUBMISSION_CHECKLIST.md",
       "size_bytes": 3701,
-      "sha256": "0ece0ef9754dbd20c43d6d806236b002d4f90e1343d9fc92aabc7941125e134b"
+      "sha256": "c5152bbd29484d2ae4aeda5bc5f24da566c7bc11678b0566f5b8069e5e14f87d"
     },
     {
       "path": "docs/TEST_REPORT.md",
       "size_bytes": 13726,
-      "sha256": "504a45cc4a40ec75c466a843eaa9a680f8cbb3a8cd66decf371d48c9a0ec5105"
+      "sha256": "c198081364be03546e0425ea462a98130fc940a09518fed082427f65d8728603"
     },
     {
-      "path": "docs/architecture.md",
-      "size_bytes": 17058,
-      "sha256": "249582c32e7906912b31d9bc361f404aa1265a7b9b9627989f7f8d564b0ded38"
+      "path": "docs/audio_conversion_report.md",
+      "size_bytes": 8324,
+      "sha256": "a27a8acf4f6bbf61a5eeb74128a76fb25ad5fecdea01609ac73e80ce40744e69"
     },
     {
-      "path": "elder_review/elder_review_sheet.csv",
-      "size_bytes": 29142,
-      "sha256": "5b9c62acff0158990aa833a27aa3a4ca4283de33cc304e2b7e41c903e104a14c"
+      "path": "docs/utf8_no_bom/consent_register.csv",
+      "size_bytes": 1897,
+      "sha256": "d1ac41a3798451362c714f0e6b47d5446c651a5a5102678e5063ac74025c63e6"
     },
     {
-      "path": "elder_review/elder_review_sheet.html",
-      "size_bytes": 234462,
-      "sha256": "09d1f28e47ab38e07e7d0b7b28c15a9202c788264f91d2a60a0a913728e1d555"
-    },
-    {
-      "path": "elder_review/elder_review_sheet.pdf",
-      "size_bytes": 1616479,
-      "sha256": "9a6fce3a7a9dadee9e933bb8d884499f25d4f1ecf3918bac8dc137d12c08525a"
-    },
-    {
-      "path": "elder_review/returned/README.txt",
-      "size_bytes": 2796,
-      "sha256": "01c02fc911c1da184671d15c399e57ffa44e19fc94a75d338afc291929342982"
-    },
-    {
-      "path": "gaade_provenance.csv",
-      "size_bytes": 40640,
-      "sha256": "5bc126e92f9ca9df5d74d51e88cd6563003fe50de7a6334db904b4ffb050bd8d"
-    },
-    {
-      "path": "gaades.csv",
+      "path": "docs/utf8_no_bom/gaades.csv",
       "size_bytes": 83454,
       "sha256": "423ff5eb958b9d370998effb12e2166f0adb8c73cb33bad2ad5ece0c7eb51be4"
     },
     {
-      "path": "situations.csv",
+      "path": "docs/utf8_no_bom/situations.csv",
       "size_bytes": 220384,
       "sha256": "120f4b9b3869f95bb2ada657d0e5c6b88d931ef352c9ed02e14f802fa1c676ea"
+    },
+    {
+      "path": "docs/verification_coverage.md",
+      "size_bytes": 6644,
+      "sha256": "815eb929c084381f757c45b954083f4a110a850390b57e12edd8d020ecdf241d"
+    },
+    {
+      "path": "gaades.csv",
+      "size_bytes": 83457,
+      "sha256": "ac3514ad8370cf14f12fe118f2b68e8f964bcbaeeeaa4126520dae574c3858d3"
+    },
+    {
+      "path": "situations.csv",
+      "size_bytes": 220387,
+      "sha256": "e04290431a9691a717693e458db908217001bc955e701041a98ac3c268f63560"
     }
   ]
 }
