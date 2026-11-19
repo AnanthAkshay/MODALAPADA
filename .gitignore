@@ -66,3 +66,8 @@ desktop.ini
 /docs
 /frontend
 /scripts
+
+# Must be after !data/ to ignore >100MB arrays
+*.npy
+*.bak
+*raw_gaades_dump.json
