@@ -1,14 +1,36 @@
 <!doctype html>
-<html lang="kn">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📜</text></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ಗಾದೆ ಕೋಶ · Gaade Kosha - Proverbs for Every Situation</title>
-    <!-- Google Fonts for Noto Sans Kannada with full conjunct and Unicode support -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Kannada:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Gaade Kosha — describe a situation and find the Kannada gaade that fits it, with human recordings and honest explanations."
+    />
+    <!-- A small kumkum dot and turmeric diamond, no emoji. -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FBF7EE'/%3E%3Crect x='.5' y='.5' width='31' height='31' rx='6.5' fill='none' stroke='%231F2A5C'/%3E%3Cpath d='M16 7l4 5-4 5-4-5z' fill='%23E0A31B'/%3E%3Ccircle cx='16' cy='22.5' r='2.3' fill='%23A8231B'/%3E%3C/svg%3E"
+    />
+    <title>ಗಾದೆ ಕೋಶ · Gaade Kosha</title>
+    <!-- Sets the colour scheme before first paint so there is no flash. -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('gaade_theme');
+          var theme =
+            stored === 'light' || stored === 'dark'
+              ? stored
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light';
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.style.colorScheme = theme;
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
