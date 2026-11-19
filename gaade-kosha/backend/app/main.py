@@ -9,7 +9,7 @@ import os
 import re
 import logging
 from typing import Optional
-from fastapi import FastAPI, HTTPException, Query, Path, Request, status, UploadFile, File
+from fastapi import FastAPI, HTTPException, Query, Path, Request, status, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.exceptions import RequestValidationError
@@ -315,25 +315,35 @@ def match_proverb(request: MatchRequest):
     return result
 
 
-# Optional Backend ASR Fallback Endpoint (Prompt 8 Task 2)
+# Hosted Fallback ASR Endpoint (for Brave, Firefox, Safari, and Web Speech network errors)
+from backend.app.asr import ASRService
+
 @app.post(
     "/api/transcribe",
     response_model=TranscribeResponse,
     status_code=status.HTTP_200_OK,
     tags=["Audio"],
-    summary="Transcribe spoken audio blob (optional fallback ASR)",
+    summary="Transcribe spoken audio blob using hosted ASR fallback",
     responses={
         200: {"model": TranscribeResponse, "description": "Transcription result"},
-        503: {"model": ErrorResponse, "description": "Backend ASR disabled or unavailable"}
+        400: {"model": ErrorResponse, "description": "Audio file empty or missing"},
+        401: {"model": ErrorResponse, "description": "ASR API key not configured"},
+        413: {"model": ErrorResponse, "description": "Audio file exceeds 5 MB limit"},
+        429: {"model": ErrorResponse, "description": "Rate limit exceeded (max 20 req/min)"},
+        502: {"model": ErrorResponse, "description": "Upstream ASR provider error"},
+        504: {"model": ErrorResponse, "description": "Upstream ASR timeout after 20 seconds"}
     }
 )
 async def transcribe_audio(
-    file: Optional[UploadFile] = File(None)
+    request: Request,
+    file: Optional[UploadFile] = File(None),
+    lang: str = Form("kn"),
+    provider: Optional[str] = Form(None)
 ):
     """
-    Optional backend fallback for audio transcription.
-    Disabled by default (ENABLE_BACKEND_ASR=false).
-    Browser Web Speech API is the primary ASR path.
+    Hosted fallback ASR endpoint.
+    Accepts an audio blob (up to 5 MB), rate-limited to 20 requests/minute per client IP,
+    with 20-second upstream timeout. Supports 'groq-whisper', 'sarvam', and 'google'.
     """
     if not settings.ENABLE_BACKEND_ASR:
         return JSONResponse(
@@ -345,26 +355,35 @@ async def transcribe_audio(
             }
         )
 
-    # If backend ASR is enabled, attempt Whisper transcription
-    try:
-        import whisper
-        return JSONResponse(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            content={
-                "error": "Model Unavailable",
-                "detail": "Whisper speech-to-text model could not be loaded. Please use browser Web Speech API.",
-                "code": 503
-            }
+    if file is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No audio file was uploaded. Please provide an audio recording blob."
         )
-    except Exception as e:
-        return JSONResponse(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            content={
-                "error": "ASR Engine Unavailable",
-                "detail": f"Backend ASR error: {str(e)}. Please use browser Web Speech API.",
-                "code": 503
-            }
-        )
+
+    # Determine client IP for rate limiting
+    forwarded_for = request.headers.get("x-forwarded-for")
+    if forwarded_for:
+        client_ip = forwarded_for.split(",")[0].strip()
+    elif request.client:
+        client_ip = request.client.host
+    else:
+        client_ip = "127.0.0.1"
+
+    audio_bytes = await file.read()
+    filename = file.filename or "recording.webm"
+    content_type = file.content_type or "audio/webm"
+
+    result = await ASRService.transcribe(
+        audio_bytes=audio_bytes,
+        filename=filename,
+        content_type=content_type,
+        lang=lang,
+        client_ip=client_ip,
+        provider_override=provider
+    )
+
+    return result
 
 
 # Optional Static Frontend Mount (serves production build if available)

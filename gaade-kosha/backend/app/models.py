@@ -111,8 +111,10 @@ class MatchResponse(BaseModel):
 
 # Audio Transcription (ASR) Models
 class TranscribeResponse(BaseModel):
-    status: str
+    status: str = "success"
+    text: str
     transcript: str
+    provider: str = "groq-whisper"
     language: Optional[str] = "kn"
     confidence: Optional[float] = None
 

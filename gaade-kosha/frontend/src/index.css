@@ -1819,3 +1819,69 @@ html, body {
     text-align: center;
   }
 }
+
+
+/* Fallback MediaRecorder & Transcribing Voice States */
+.mic-btn.recording-active {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: #ef4444;
+  color: #f87171;
+}
+
+.stop-square {
+  fill: currentColor;
+}
+
+.spin-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.recording-timer {
+  margin-left: auto;
+  font-family: monospace;
+  font-size: 0.76rem;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fca5a5;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.recording-tip {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.transcribing-banner {
+  border-left-color: var(--gold-main) !important;
+}
+
+.voice-notice-banner {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  margin-bottom: 0.65rem;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-left: 3px solid var(--gold-main);
+  border-radius: var(--radius-md);
+  padding: 0.55rem 0.85rem;
+  font-size: 0.78rem;
+  color: var(--gold-light);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  z-index: 21;
+}
+
+.notice-sparkle {
+  color: var(--gold-bright);
+  flex-shrink: 0;
+}

@@ -227,11 +227,12 @@ export default function App() {
             handleSend();
           }}
         >
-          {/* Live Web Speech API Voice Input (Prompt 8 Task 1) */}
+          {/* Live Web Speech API Voice Input with Hosted ASR Fallback */}
           <VoiceInput
             onTranscriptChange={(newText) => setInputText(newText)}
             currentText={inputText}
             disabled={isLoading}
+            apiBase={API_BASE}
           />
 
           {/* Situation Textarea (Editable before sending) */}

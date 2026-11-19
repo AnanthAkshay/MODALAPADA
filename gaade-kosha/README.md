@@ -18,7 +18,7 @@
 
 ## 2. Key Features
 
-- **Multimodal Voice & Text Input**: In-browser speech recognition (`webkitSpeechRecognition`) supporting Kannada (`kn-IN`) and English (`en-IN`) with real-time editable transcripts.
+- **Multimodal Voice & Text Input**: In-browser speech recognition (`webkitSpeechRecognition`) supporting Kannada (`kn-IN`) and English (`en-IN`) with real-time editable transcripts, plus an automatic server-side hosted ASR fallback (Groq Whisper / Sarvam AI) for Brave and privacy browsers where native speech services are blocked.
 - **Hybrid Semantic Matcher**: Combines subword character n-grams (2–5) and word n-grams (1–2) with BM25 lexical ranking and thematic signal classification using Reciprocal Rank Fusion (RRF).
 - **Dual-Language Grounded Explanations**: Provides situational justifications grounded in both Kannada and English.
 - **Authentic Elder Audio Streaming**: Streams 224 standardized 16 kHz mono WAV recordings converted from archival recordings.
@@ -147,7 +147,46 @@ python scripts/build_index.py --backend tfidf
 
 ---
 
-## 6. Matching Approach & Measured Accuracy
+## 6. Hosted ASR Fallback & Cloud Deployment (Brave & Privacy Browsers)
+
+### 1. Why Hosted Fallback is Needed
+Brave browser and privacy-focused browsers disable Google's proprietary Web Speech API servers by default, throwing `Network connection error during speech recognition` (`error: 'network'` or `'service-not-allowed'`).
+
+Gaade Kosha solves this transparently with **dual-mode routing**:
+- **Chrome / Edge**: Uses zero-cost, real-time native in-browser `SpeechRecognition`.
+- **Brave / Privacy Browsers**: Automatically routes via `navigator.brave.isBrave()` or on native network error to a server-side transcription endpoint (`/api/transcribe`) using `MediaRecorder` audio capture.
+- **State Persistence**: Once a fallback is triggered, the choice is saved in `sessionStorage` so the user is never prompted repeatedly.
+
+### 2. Supported ASR Providers
+| Provider | Default Model | Latency | Quota / Pricing | Kannada Accuracy |
+| :--- | :--- | :---: | :---: | :---: |
+| **`groq-whisper`** (Default) | `whisper-large-v3` | ~380–500 ms | Generous free tier | High |
+| **`sarvam`** | `saaras:v1` | ~600–900 ms | Pay-per-minute | Specialized Indic |
+| **`google`** | `gemini-1.5-flash` | ~1.2–1.8 s | Generous free tier | Multimodal audio |
+
+### 3. Deployment Configuration
+- **Vercel Frontend** (`https://modalapada.vercel.app`):
+  Set in **Project Settings > Environment Variables**:
+  ```env
+  ASR_PROVIDER=groq-whisper
+  ASR_API_KEY=gsk_your_groq_api_key_here
+  VITE_API_URL=https://modalapada.onrender.com
+  ```
+  *(Vercel deploys the static React app and includes `api/transcribe.js` as a serverless fallback handler)*
+
+- **Render Backend** (`https://modalapada.onrender.com`):
+  Set in **Render Dashboard > Environment**:
+  ```env
+  ASR_PROVIDER=groq-whisper
+  ASR_API_KEY=gsk_your_groq_api_key_here
+  ENABLE_BACKEND_ASR=true
+  ASR_RATE_LIMIT_PER_MINUTE=20
+  ASR_MAX_FILE_SIZE_BYTES=5242880
+  ```
+
+---
+
+## 7. Matching Approach & Measured Accuracy
 
 ### Backend Options
 1. **`tfidf` (Default & Active)**: Hybrid subword character n-grams (2–5) + word n-grams (1–2) + BM25 lexical ranking + thematic classifier. Completely offline with zero downloads.
@@ -171,7 +210,7 @@ python scripts/build_index.py --backend tfidf
 
 ---
 
-## 7. Data Provenance Statement (Anti-Fabrication Policy)
+## 8. Data Provenance Statement (Anti-Fabrication Policy)
 
 In strict adherence to academic ethics and the hackathon rules:
 - **Group 1 (Existing Collection PDF 1–200)**: 176 unique canonical gaades and 24 duplicate cross-references (`dup_id`) extracted from the source PDF document. Status: `unverified`.
@@ -208,7 +247,7 @@ In strict adherence to academic ethics and the hackathon rules:
 
 ---
 
-## 8. Verification & Submission Reports
+## 9. Verification & Submission Reports
 
 - **Full Test Report**: [docs/TEST_REPORT.md](docs/TEST_REPORT.md) – Detailed benchmark numbers, audio hashes, and 30 adversarial stress cases.
 - **Official Submission Checklist**: [docs/SUBMISSION_CHECKLIST.md](docs/SUBMISSION_CHECKLIST.md) – 15/15 requirements verified Done from real script outputs.

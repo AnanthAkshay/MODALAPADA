@@ -46,7 +46,15 @@ class Settings:
         ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:3000", "*"]
     )
 
-    # ASR Fallback Configuration (Disabled by default per prompt specification)
+    # Hosted ASR Provider Configuration
+    ASR_PROVIDER: str = os.getenv("ASR_PROVIDER", "groq-whisper").lower().strip()
+    ASR_API_KEY: Optional[str] = os.getenv("ASR_API_KEY")
+    GROQ_API_KEY: Optional[str] = os.getenv("GROQ_API_KEY")
+    SARVAM_API_KEY: Optional[str] = os.getenv("SARVAM_API_KEY")
+    GOOGLE_API_KEY: Optional[str] = os.getenv("GOOGLE_API_KEY")
+    ASR_MAX_FILE_SIZE_BYTES: int = int(os.getenv("ASR_MAX_FILE_SIZE_BYTES", str(5 * 1024 * 1024)))
+    ASR_TIMEOUT_SECONDS: float = float(os.getenv("ASR_TIMEOUT_SECONDS", "20.0"))
+    ASR_RATE_LIMIT_PER_MINUTE: int = int(os.getenv("ASR_RATE_LIMIT_PER_MINUTE", "20"))
     ENABLE_BACKEND_ASR: bool = os.getenv("ENABLE_BACKEND_ASR", "false").lower() in ("true", "1", "t")
 
 settings = Settings()
