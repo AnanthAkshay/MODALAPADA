@@ -63,6 +63,29 @@ export default function TopBar({
             </span>
           )}
 
+          {/* Search / Home Nav */}
+          <button
+            type="button"
+            onClick={() => onNavigate('home')}
+            aria-current={view === 'home' ? 'page' : undefined}
+            className={`inline-flex min-h-[44px] flex-col justify-center rounded-control px-2 text-left transition-colors hover:text-indigo sm:px-3 ${
+              view === 'home' ? 'text-indigo font-semibold' : 'text-ink'
+            }`}
+          >
+            <span
+              lang={locale}
+              className={`${locale === 'kn' ? 'kn' : ''} whitespace-nowrap text-[13px] leading-[1.5] sm:text-body`}
+            >
+              {t('nav.search')}
+            </span>
+            <span
+              lang={other}
+              className={`${other === 'kn' ? 'kn' : ''} hidden text-[11px] leading-tight text-ink-soft sm:block`}
+            >
+              {sub('nav.search')}
+            </span>
+          </button>
+
           <button
             type="button"
             onClick={() => onNavigate('browse')}

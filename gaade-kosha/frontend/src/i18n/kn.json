@@ -1,6 +1,7 @@
 {
   "brand": "ಗಾದೆ ಕೋಶ",
   "nav": {
+    "search": "ಹುಡುಕಿ",
     "browse": "ಎಲ್ಲಾ ಗಾದೆಗಳು",
     "skip": "ಮುಖ್ಯ ಭಾಗಕ್ಕೆ ಹೋಗಿ",
     "switchToEnglish": "ಇಂಗ್ಲಿಷ್‌ಗೆ ಬದಲಿಸಿ",
@@ -69,6 +70,8 @@
     "alternative": "ಪರ್ಯಾಯ {index} / {total}",
     "showAnother": "ಇನ್ನೊಂದು ತೋರಿಸಿ",
     "newSituation": "ಹೊಸ ಸಂದರ್ಭ",
+    "searchAnother": "ಹೊಸ ಸಂದರ್ಭ ಹುಡುಕಿ",
+    "backToSearch": "ಹುಡುಕಾಟಕ್ಕೆ ಹಿಂತಿರುಗಿ",
     "backToBrowse": "ಎಲ್ಲಾ ಗಾದೆಗಳಿಗೆ ಹಿಂತಿರುಗಿ",
     "othersFit": "ಬೇರೆ ಹೊಂದುವ ಗಾದೆಗಳು",
     "ambiguous": "ಹಲವು ಗಾದೆಗಳು ಹೊಂದುತ್ತವೆ.",

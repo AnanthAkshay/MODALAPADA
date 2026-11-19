@@ -10,49 +10,6 @@ import { fetchHealth, matchSituation } from './lib/api';
 import { applyTheme, readTheme } from './lib/theme';
 import { LocaleProvider, readLocale, useCopy, writeLocale } from './i18n';
 
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
-  static getDerivedStateFromError(error) {
-    return { hasError: true, error };
-  }
-  componentDidCatch(error, errorInfo) {
-    console.error('Captured UI Error:', error, errorInfo);
-  }
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="min-h-screen bg-paper flex items-center justify-center p-6 text-center">
-          <div className="max-w-md rounded-surface border border-line bg-paper-deep p-8 shadow-sm">
-            <h2 className="kn-serif text-title font-bold text-kumkum mb-2">
-              ಪುಟ ತೆರೆಯುವಲ್ಲಿ ದೋಷ ಉಂಟಾಗಿದೆ
-            </h2>
-            <p className="text-body text-ink mb-4">
-              An unexpected error occurred while rendering the view.
-            </p>
-            <p className="text-meta font-mono bg-paper p-3 rounded text-ink-soft mb-6 text-left break-all">
-              {String(this.state.error?.message || this.state.error)}
-            </p>
-            <button
-              type="button"
-              onClick={() => {
-                this.setState({ hasError: false, error: null });
-                window.location.reload();
-              }}
-              className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-control bg-kumkum px-6 text-body font-medium text-on-kumkum"
-            >
-              ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ / Reload
-            </button>
-          </div>
-        </div>
-      );
-    }
-    return this.props.children;
-  }
-}
-
 function SkipLink() {
   const { t } = useCopy();
   return (
@@ -104,31 +61,16 @@ export default function App() {
   }, [locale, speech]);
 
   useEffect(() => {
-    let timerId = null;
-    let aborted = false;
-
-    const checkHealth = () => {
-      const controller = new AbortController();
-      fetchHealth(controller.signal)
-        .then((data) => {
-          if (!aborted && data) {
-            setHealth({ status: data.status === 'healthy' ? 'ok' : 'degraded', gaades: data.gaades_count || 226 });
-          }
-        })
-        .catch((error) => {
-          if (controller.signal.aborted || (error && error.name === 'AbortError') || aborted) return;
-          setHealth((prev) => (prev.status === 'ok' ? prev : { status: 'offline', gaades: prev.gaades || 226 }));
-          // If backend is sleeping (Render cold-start), poll every 8 seconds until it responds
-          timerId = window.setTimeout(checkHealth, 8000);
-        });
-    };
-
-    checkHealth();
-
-    return () => {
-      aborted = true;
-      if (timerId) window.clearTimeout(timerId);
-    };
+    const controller = new AbortController();
+    fetchHealth(controller.signal)
+      .then((data) =>
+        setHealth({ status: data.status === 'healthy' ? 'ok' : 'degraded', gaades: data.gaades_count }),
+      )
+      .catch((error) => {
+        if (controller.signal.aborted || (error && error.name === 'AbortError')) return;
+        setHealth({ status: 'offline', gaades: 226 });
+      });
+    return () => controller.abort();
   }, []);
 
   const runMatch = useCallback(
@@ -149,16 +91,13 @@ export default function App() {
       try {
         const data = await matchSituation(text);
         setMatch({ phase: 'ready', data });
-        setHealth((prev) => ({ ...prev, status: 'ok' }));
       } catch (error) {
         setMatch({
           phase: 'error',
           kind: error?.kind === 'network' ? 'network' : 'http',
           status: error?.status,
         });
-        if (error?.kind === 'network') {
-          setHealth((prev) => (prev.status === 'ok' ? prev : { status: 'offline', gaades: 226 }));
-        }
+        if (error?.kind === 'network') setHealth({ status: 'offline', gaades: 226 });
       } finally {
         busy.current = false;
       }
@@ -174,7 +113,6 @@ export default function App() {
   }, []);
 
   const openGaade = useCallback((item) => {
-    setHealth((prev) => ({ ...prev, status: 'ok' }));
     setMatch({
       phase: 'ready',
       data: {
@@ -191,14 +129,19 @@ export default function App() {
   }, []);
 
   return (
-    <ErrorBoundary>
-      <LocaleProvider locale={locale}>
+    <LocaleProvider locale={locale}>
       <div className="flex min-h-dvh flex-col bg-paper">
         <SkipLink />
 
         <TopBar
           view={view}
-          onNavigate={setView}
+          onNavigate={(target) => {
+            if (target === 'home') {
+              startNewSituation();
+            } else {
+              setView(target);
+            }
+          }}
           theme={theme}
           onToggleTheme={() => setTheme((current) => (current === 'dark' ? 'light' : 'dark'))}
           locale={locale}
@@ -257,6 +200,5 @@ export default function App() {
         )}
       </div>
     </LocaleProvider>
-  </ErrorBoundary>
   );
 }

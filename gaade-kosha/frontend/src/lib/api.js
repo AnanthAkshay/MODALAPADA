@@ -6,7 +6,7 @@ function resolveApiBase() {
     return import.meta.env.VITE_API_URL.replace(/\/+$/, '');
   }
   if (typeof window !== 'undefined' && window.location) {
-    const host = window.location.hostname || '';
+    const host = window.location.hostname;
     if (
       host.includes('vercel.app') ||
       (host !== 'localhost' && host !== '127.0.0.1' && !host.endsWith('.local') && !host.includes('onrender.com'))

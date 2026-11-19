@@ -1,12 +1,12 @@
 import React from 'react';
-import { ArrowLeft, RefreshCw } from 'lucide-react';
+import { ArrowLeft, RefreshCw, Search } from 'lucide-react';
 import AudioPlayer from './AudioPlayer';
 import ExplanationTTS from './ExplanationTTS';
 import Alternatives from './Alternatives';
 import ManuscriptStrip from './ManuscriptStrip';
 import KasutiBorder from './KasutiBorder';
 import ResultSkeleton from './ResultSkeleton';
-import { btnPrimary, btnText } from '../lib/ui';
+import { btnPrimary, btnSecondary, btnText } from '../lib/ui';
 import { useCopy } from '../i18n';
 
 export default function ResultScreen({
@@ -20,19 +20,42 @@ export default function ResultScreen({
   fromBrowse = false,
   onBackToBrowse,
 }) {
-  const { t } = useCopy();
+  const { t, sub, locale, other } = useCopy();
   if (!match) return null;
 
   return (
     <main id="main" className="mx-auto w-full max-w-read px-4 pb-20 pt-8 sm:px-8 sm:pt-12">
-      {fromBrowse && onBackToBrowse ? (
-        <button type="button" onClick={onBackToBrowse} className={`${btnText} mb-6`}>
-          <ArrowLeft size={16} strokeWidth={1.75} aria-hidden="true" />
-          <span lang="kn" className="kn leading-[1.7]">
-            {t('result.backToBrowse')}
+      {/* Top Navigation Bar: Always visible so user can instantly go back / search another gaade */}
+      <nav aria-label="Result navigation" className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4">
+        <button
+          type="button"
+          onClick={fromBrowse && onBackToBrowse ? onBackToBrowse : onNewSituation}
+          className={`${btnSecondary} h-11 px-4 text-meta`}
+          aria-label={fromBrowse ? t('result.backToBrowse') : t('result.searchAnother')}
+        >
+          <ArrowLeft size={16} strokeWidth={2} aria-hidden="true" />
+          <span lang={locale} className={`${locale === 'kn' ? 'kn' : ''} font-medium`}>
+            {fromBrowse ? t('result.backToBrowse') : t('result.searchAnother')}
+          </span>
+          <span lang={other} className={`${other === 'kn' ? 'kn' : ''} text-[11px] text-ink-soft hidden sm:inline`}>
+            ({fromBrowse ? sub('result.backToBrowse') : sub('result.searchAnother')})
           </span>
         </button>
-      ) : null}
+
+        <div className="flex items-center gap-2">
+          {!fromBrowse && onBackToBrowse && (
+            <button
+              type="button"
+              onClick={onBackToBrowse}
+              className="inline-flex min-h-[44px] items-center gap-1.5 text-meta text-ink-soft hover:text-indigo underline underline-offset-4 px-2"
+            >
+              <span lang={locale} className={locale === 'kn' ? 'kn' : ''}>
+                {t('nav.browse')}
+              </span>
+            </button>
+          )}
+        </div>
+      </nav>
 
       {match.phase === 'loading' ? <ResultSkeleton /> : null}
 
@@ -277,13 +300,36 @@ function ReadyView({ data, query, altIndex, onPromote, onSelect, onNewSituation,
         </span>
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center gap-x-8 gap-y-2">
-        <button type="button" onClick={onPromote} disabled={!hasMore} className={btnText}>
-          <ActionLabel k="result.showAnother" />
+      <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-line pt-6">
+        <button
+          type="button"
+          onClick={onNewSituation}
+          className={`${btnPrimary} flex-1 sm:flex-initial`}
+        >
+          <Search size={18} strokeWidth={2} aria-hidden="true" />
+          <ActionLabel k="result.searchAnother" />
         </button>
-        <button type="button" onClick={onNewSituation} className={btnText}>
-          <ActionLabel k="result.newSituation" />
-        </button>
+
+        {hasMore ? (
+          <button
+            type="button"
+            onClick={onPromote}
+            className={`${btnSecondary} flex-1 sm:flex-initial`}
+          >
+            <RefreshCw size={16} strokeWidth={2} aria-hidden="true" />
+            <ActionLabel k="result.showAnother" />
+          </button>
+        ) : null}
+
+        {onBackToBrowse ? (
+          <button
+            type="button"
+            onClick={onBackToBrowse}
+            className={`${btnText} ml-auto`}
+          >
+            <ActionLabel k="result.backToBrowse" />
+          </button>
+        ) : null}
       </div>
 
       {isAmbiguous && alternatives.length ? (
@@ -330,12 +376,17 @@ function NoticeBlock({ status, message, onNewSituation, onBackToBrowse, fromBrow
         </p>
       ) : null}
 
-      <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
-        <button type="button" onClick={onNewSituation} className={btnText}>
-          <ActionLabel k="result.describeAnother" />
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        <button
+          type="button"
+          onClick={onNewSituation}
+          className={`${btnPrimary} flex-1 sm:flex-initial`}
+        >
+          <Search size={18} strokeWidth={2} aria-hidden="true" />
+          <ActionLabel k="result.searchAnother" />
         </button>
         {fromBrowse && onBackToBrowse ? (
-          <button type="button" onClick={onBackToBrowse} className={btnText}>
+          <button type="button" onClick={onBackToBrowse} className={btnSecondary}>
             <ActionLabel k="result.backToBrowse" />
           </button>
         ) : null}

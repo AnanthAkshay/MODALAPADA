@@ -1,6 +1,7 @@
 {
   "brand": "Gaade Kosha",
   "nav": {
+    "search": "Search",
     "browse": "Browse",
     "skip": "Skip to content",
     "switchToEnglish": "Switch to English",
@@ -69,6 +70,8 @@
     "alternative": "Alternative {index} of {total}",
     "showAnother": "Show another match",
     "newSituation": "New situation",
+    "searchAnother": "Search another situation",
+    "backToSearch": "Back to search",
     "backToBrowse": "Browse all gaades",
     "othersFit": "The other gaades that fit",
     "ambiguous": "Multiple proverbs could fit this situation.",
