@@ -51,6 +51,17 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
+# Normalize double slashes in paths (e.g. //api/match -> /api/match) from base URL trailing slashes
+@app.middleware("http")
+async def normalize_path_slashes(request: Request, call_next):
+    path = request.scope.get("path", "")
+    if "//" in path:
+        norm_path = re.sub(r"/+", "/", path)
+        request.scope["path"] = norm_path
+        if "raw_path" in request.scope:
+            request.scope["raw_path"] = norm_path.encode("latin-1")
+    return await call_next(request)
+
 # Enable CORS for frontend integration
 app.add_middleware(
     CORSMiddleware,

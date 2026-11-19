@@ -27,9 +27,10 @@ export default function VoiceInput({
   const timerIntervalRef = useRef(null);
   const streamRef = useRef(null);
 
-  const API_BASE = propApiBase !== null
+  const rawApiBase = propApiBase !== null
     ? propApiBase
     : (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_BASE_URL) || '';
+  const API_BASE = String(rawApiBase).replace(/\/+$/, '');
 
   // 1. Detection: Check Web Speech API support, Brave browser, and session memory
   useEffect(() => {

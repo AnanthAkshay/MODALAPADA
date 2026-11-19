@@ -1,4 +1,5 @@
-const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+const RAW_BASE = import.meta.env.VITE_API_BASE_URL || '';
+const API_BASE = RAW_BASE.replace(/\/+$/, '');
 
 /** Resolve a server-relative media path (e.g. /api/audio/G007) against the API base. */
 export function mediaUrl(path) {

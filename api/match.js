@@ -49,7 +49,7 @@ export default async function handler(req, res) {
   }
 
   // If backend service URL is configured (e.g. Render), proxy directly to full FastAPI backend
-  const backendBase = process.env.VITE_API_URL || process.env.RENDER_BACKEND_URL;
+  const backendBase = process.env.VITE_API_BASE_URL || process.env.VITE_API_URL || process.env.RENDER_BACKEND_URL;
   if (backendBase) {
     try {
       const upstreamResp = await fetch(`${backendBase.replace(/\/$/, '')}/api/match`, {
