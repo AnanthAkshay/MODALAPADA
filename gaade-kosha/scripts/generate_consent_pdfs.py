@@ -374,3 +374,4 @@ if __name__ == "__main__":
     DOCS_CONSENT_DIR.mkdir(parents=True, exist_ok=True)
     generate_blank_template(DOCS_CONSENT_DIR / "consent_form_template.pdf")
     generate_consent_summary(DOCS_CONSENT_DIR / "Consent_Summary.pdf")
+

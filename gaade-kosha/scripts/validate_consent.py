@@ -55,3 +55,4 @@ def validate_consent():
 if __name__ == "__main__":
     success = validate_consent()
     sys.exit(0 if success else 1)
+
