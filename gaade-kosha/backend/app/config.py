@@ -5,7 +5,7 @@ Loads environment variables with robust fallback defaults.
 """
 
 import os
-from typing import List
+from typing import List, Optional
 
 # Base directory is gaade-kosha root
 candidate_1 = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
