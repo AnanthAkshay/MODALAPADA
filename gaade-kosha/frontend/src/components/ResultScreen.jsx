@@ -57,13 +57,19 @@ export default function ResultScreen({
 }
 
 function SectionTitle({ k }) {
-  const { t, sub, other } = useCopy();
+  const { t, sub, locale, other } = useCopy();
   return (
     <h3 className="flex flex-col">
-      <span lang="kn" className="kn text-body font-semibold leading-[1.7] text-indigo">
+      <span
+        lang={locale}
+        className={`${locale === 'kn' ? 'kn' : ''} text-body font-semibold leading-[1.7] text-indigo`}
+      >
         {t(k)}
       </span>
-      <span lang={other} className="text-[13px] leading-tight text-ink-soft">
+      <span
+        lang={other}
+        className={`${other === 'kn' ? 'kn' : ''} text-[13px] leading-tight text-ink-soft`}
+      >
         {sub(k)}
       </span>
     </h3>
@@ -71,13 +77,19 @@ function SectionTitle({ k }) {
 }
 
 function ActionLabel({ k, vars }) {
-  const { t, sub, other } = useCopy();
+  const { t, sub, locale, other } = useCopy();
   return (
     <span className="flex flex-col items-start">
-      <span lang="kn" className="kn leading-[1.5]">
+      <span
+        lang={locale}
+        className={`${locale === 'kn' ? 'kn' : ''} leading-[1.5]`}
+      >
         {t(k, vars)}
       </span>
-      <span lang={other} className="text-[0.8em] leading-tight opacity-80">
+      <span
+        lang={other}
+        className={`${other === 'kn' ? 'kn' : ''} text-[0.8em] leading-tight opacity-80`}
+      >
         {sub(k, vars)}
       </span>
     </span>
@@ -213,32 +225,54 @@ function ReadyView({ data, query, altIndex, onPromote, onSelect, onNewSituation,
 
         {confidenceVal !== null && confidenceVal > 0 ? (
           <span className="flex flex-col">
-            <span lang="kn" className="kn text-meta leading-[1.7] text-ink-soft">
-              ವಿಶ್ವಾಸಾರ್ಹತೆ: {digits(Math.round(confidenceVal * 100))}%
+            <span
+              lang={locale}
+              className={`${locale === 'kn' ? 'kn' : ''} text-meta leading-[1.7] text-ink-soft`}
+            >
+              {locale === 'kn' ? 'ವಿಶ್ವಾಸಾರ್ಹತೆ' : 'Confidence'}: {locale === 'kn' ? digits(Math.round(confidenceVal * 100)) : Math.round(confidenceVal * 100)}%
             </span>
-            <span lang={other} className="text-[12px] leading-tight text-ink-soft">
-              confidence: {Math.round(confidenceVal * 100)}%
+            <span
+              lang={other}
+              className={`${other === 'kn' ? 'kn' : ''} text-[12px] leading-tight text-ink-soft`}
+            >
+              {other === 'kn' ? 'ವಿಶ್ವಾಸಾರ್ಹತೆ' : 'Confidence'}: {other === 'kn' ? digits(Math.round(confidenceVal * 100)) : Math.round(confidenceVal * 100)}%
             </span>
           </span>
         ) : null}
 
         <span className="flex flex-col">
-          <span lang="kn" className="kn text-meta leading-[1.7] text-ink-soft">
-            {digits(item.gaade_id)}
+          <span
+            lang={locale}
+            className={`${locale === 'kn' ? 'kn' : ''} text-meta leading-[1.7] text-ink-soft`}
+          >
+            {locale === 'kn' ? digits(item.gaade_id) : item.gaade_id}
           </span>
           {index > 0 ? (
-            <span lang="kn" className="kn text-[12px] leading-tight text-ink-soft">
+            <span
+              lang={locale}
+              className={`${locale === 'kn' ? 'kn' : ''} text-[12px] leading-tight text-ink-soft`}
+            >
               {t('result.alternative', { index: digits(index + 1), total: digits(pool.length) })}
             </span>
           ) : null}
         </span>
 
         <span className="flex flex-col">
-          <span lang="kn" className="kn text-meta leading-[1.7] text-ink-soft">
-            ಸ್ಥಿತಿ: {item.provenance || 'ಅಧಿಕೃತ (Canonical)'}
+          <span
+            lang={locale}
+            className={`${locale === 'kn' ? 'kn' : ''} text-meta leading-[1.7] text-ink-soft`}
+          >
+            {locale === 'kn'
+              ? `ಸ್ಥಿತಿ: ${item.provenance || 'ಅಧಿಕೃತ (Canonical)'}`
+              : `Status: ${item.status === 'synthetic' ? 'Archival addition' : 'Verified canonical'}`}
           </span>
-          <span lang={other} className="text-[12px] leading-tight text-ink-soft">
-            Status: {item.status === 'synthetic' ? 'Archival addition' : 'Verified canonical'}
+          <span
+            lang={other}
+            className={`${other === 'kn' ? 'kn' : ''} text-[12px] leading-tight text-ink-soft`}
+          >
+            {other === 'kn'
+              ? `ಸ್ಥಿತಿ: ${item.provenance || 'ಅಧಿಕೃತ (Canonical)'}`
+              : `Status: ${item.status === 'synthetic' ? 'Archival addition' : 'Verified canonical'}`}
           </span>
         </span>
       </div>
@@ -311,7 +345,7 @@ function NoticeBlock({ status, message, onNewSituation, onBackToBrowse, fromBrow
 }
 
 function ErrorBlock({ match, query, onRetry, onNewSituation }) {
-  const { t, sub, other } = useCopy();
+  const { t, sub, locale, other } = useCopy();
   const isNetwork = match.kind === 'network';
   const titleKey = isNetwork ? 'result.errorNetworkTitle' : 'result.errorHttpTitle';
   const bodyKey = isNetwork ? 'result.errorNetworkBody' : 'result.errorHttpBody';
@@ -319,19 +353,31 @@ function ErrorBlock({ match, query, onRetry, onNewSituation }) {
   return (
     <section role="alert" className="animate-fade-in border-l-2 border-kumkum pl-5 motion-reduce:animate-none">
       <h2 className="flex flex-col">
-        <span lang="kn" className="kn-serif text-title font-bold leading-[1.7] text-indigo">
+        <span
+          lang={locale}
+          className={`${locale === 'kn' ? 'kn-serif' : 'font-serif'} text-title font-bold leading-[1.7] text-indigo`}
+        >
           {t(titleKey)}
         </span>
-        <span lang={other} className="text-meta leading-tight text-ink-soft">
+        <span
+          lang={other}
+          className={`${other === 'kn' ? 'kn' : ''} text-meta leading-tight text-ink-soft`}
+        >
           {sub(titleKey)}
         </span>
       </h2>
 
       <p className="mt-3 flex max-w-[54ch] flex-col">
-        <span lang="kn" className="kn text-body leading-[1.7] text-ink-soft">
+        <span
+          lang={locale}
+          className={`${locale === 'kn' ? 'kn' : ''} text-body leading-[1.7] text-ink-soft`}
+        >
           {t(bodyKey, { status: match.status })}
         </span>
-        <span lang={other} className="mt-1 text-meta leading-[1.6] text-ink-soft">
+        <span
+          lang={other}
+          className={`${other === 'kn' ? 'kn' : ''} mt-1 text-meta leading-[1.6] text-ink-soft`}
+        >
           {sub(bodyKey, { status: match.status })}
         </span>
       </p>
@@ -345,7 +391,10 @@ function ErrorBlock({ match, query, onRetry, onNewSituation }) {
       <div className="mt-6 flex flex-wrap items-center gap-4">
         <button type="button" onClick={onRetry} className={btnPrimary}>
           <RefreshCw size={16} strokeWidth={1.75} aria-hidden="true" />
-          <span lang="kn" className="kn leading-[1.7]">
+          <span
+            lang={locale}
+            className={`${locale === 'kn' ? 'kn' : ''} leading-[1.7]`}
+          >
             {t('result.tryAgain')}
           </span>
         </button>

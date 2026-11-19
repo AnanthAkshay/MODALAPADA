@@ -9,7 +9,8 @@ import os
 import re
 import logging
 from typing import Optional
-from fastapi import FastAPI, HTTPException, Query, Path, Request, status, UploadFile, File, Form
+import random
+from fastapi import FastAPI, HTTPException, Query, Path, Request, status, UploadFile, File, Form, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.exceptions import RequestValidationError
@@ -168,6 +169,55 @@ def get_gaades(
             offset=offset,
             items=items
         )
+    finally:
+        conn.close()
+
+
+@app.get(
+    "/api/gaades/random",
+    response_model=GaadeDetailResponse,
+    tags=["Gaades"],
+    responses={
+        404: {"model": ErrorResponse, "description": "No proverb with audio found"}
+    }
+)
+def get_random_gaade(
+    response: Response,
+    exclude: Optional[str] = Query(None, description="Comma-separated gaade_ids to avoid repeating")
+):
+    """
+    Retrieve a random canonical Kannada proverb that has an existing audio WAV file.
+    Guarantees Cache-Control: no-store and avoids repeating IDs in `exclude`.
+    """
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate"
+    conn = get_db_connection()
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT gaade_id, gaade, meaning, english, example, region, theme, audio_file FROM gaades;")
+        rows = cur.fetchall()
+
+        candidates = []
+        for r in rows:
+            gid = r["gaade_id"]
+            wav_path = os.path.join(settings.AUDIO_DIR, f"{gid}.wav")
+            if os.path.isfile(wav_path):
+                candidates.append(r)
+
+        if not candidates:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="No canonical gaades with valid audio recordings found."
+            )
+
+        excluded_set = set(x.strip() for x in (exclude or "").split(",") if x.strip())
+        filtered = [c for c in candidates if c["gaade_id"] not in excluded_set]
+        pool = filtered if filtered else candidates
+
+        chosen = random.choice(pool)
+        item_dict = dict(chosen)
+        item_dict["audio_url"] = f"/api/audio/{chosen['gaade_id']}"
+        item_dict["situations_count"] = 2
+        return item_dict
     finally:
         conn.close()
 

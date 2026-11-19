@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { determineAsrRoute } from '../utils/asrRouter';
+import { API_BASE } from '../lib/api';
 
 // Error codes mapped to i18n keys in src/i18n/strings.js
 const ERROR_CODES = {
@@ -9,9 +10,6 @@ const ERROR_CODES = {
   network: 'network',
   'audio-capture': 'audio-capture',
 };
-
-const RAW_API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || '';
-const API_BASE = RAW_API_BASE.replace(/\/+$/, '');
 
 /**
  * Resilient Dual-Mode Speech Recognition Hook

@@ -86,7 +86,7 @@ export default function ConsentModal({ isOpen, onClose }) {
             ref={closeRef}
             type="button"
             onClick={onClose}
-            aria-label="Close dialog"
+            aria-label={t('consent.closeDialog')}
             className="flex h-10 w-10 items-center justify-center rounded-control text-ink-soft hover:bg-paper-deep hover:text-ink focus-visible:outline-offset-2"
           >
             <X size={20} strokeWidth={1.75} />

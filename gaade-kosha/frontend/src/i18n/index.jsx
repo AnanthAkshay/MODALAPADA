@@ -1,9 +1,19 @@
 import React, { createContext, useCallback, useContext, useMemo } from 'react';
-import { COPY } from './strings';
+import knData from './kn.json';
+import enData from './en.json';
+
+const DICTIONARIES = {
+  kn: knData,
+  en: enData,
+};
 
 const KANNADA_DIGITS = '೦೧೨೩೪೫೬೭೮೯';
 const STORAGE_KEY = 'gaade_locale';
 
+/**
+ * Default language = Kannada if navigator.language starts with "kn", otherwise English.
+ * Follows explicitly stored choice in localStorage if present.
+ */
 export function readLocale() {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -11,7 +21,10 @@ export function readLocale() {
   } catch (_) {
     /* storage unavailable */
   }
-  return 'kn';
+  if (typeof navigator !== 'undefined' && navigator.language) {
+    return navigator.language.toLowerCase().startsWith('kn') ? 'kn' : 'en';
+  }
+  return 'en';
 }
 
 export function writeLocale(locale) {
@@ -22,8 +35,9 @@ export function writeLocale(locale) {
   }
 }
 
-function lookup(path) {
-  return path.split('.').reduce((node, key) => (node && node[key] !== undefined ? node[key] : undefined), COPY);
+function lookup(dict, path) {
+  if (!dict || !path) return undefined;
+  return path.split('.').reduce((node, key) => (node && node[key] !== undefined ? node[key] : undefined), dict);
 }
 
 function interpolate(template, vars) {
@@ -35,12 +49,12 @@ function interpolate(template, vars) {
 const noopContext = {
   locale: 'kn',
   other: 'en',
-  t: (path) => interpolate(lookup(path)?.kn, undefined),
-  sub: (path) => interpolate(lookup(path)?.en, undefined),
+  t: (path, vars) => interpolate(lookup(DICTIONARIES.kn, path), vars) || path,
+  sub: (path, vars) => interpolate(lookup(DICTIONARIES.en, path), vars) || '',
   num: (value) => String(value),
   digits: (value) => String(value),
-  themeName: (name) => name,
-  themeSub: (name) => name,
+  themeName: (name) => lookup(DICTIONARIES.kn, `themeNames.${name}`) || name,
+  themeSub: (name) => lookup(DICTIONARIES.en, `themeNames.${name}`) || name,
 };
 
 const LocaleContext = createContext(noopContext);
@@ -59,16 +73,25 @@ export function LocaleProvider({ locale, children }) {
         ? String(input).replace(/[0-9]/g, (digit) => KANNADA_DIGITS[Number(digit)])
         : String(input);
 
+    const activeDict = DICTIONARIES[locale] || DICTIONARIES.en;
+    const secondaryDict = DICTIONARIES[other] || DICTIONARIES.kn;
+
     return {
       locale,
       other,
-      t: (path, vars) => interpolate(lookup(path)?.[locale], vars),
-      sub: (path, vars) => interpolate(lookup(path)?.[other], vars),
+      t: (path, vars) => {
+        const val = lookup(activeDict, path);
+        return val !== undefined ? interpolate(val, vars) : path;
+      },
+      sub: (path, vars) => {
+        const val = lookup(secondaryDict, path);
+        return val !== undefined ? interpolate(val, vars) : '';
+      },
       num: (input) => formatter.format(input),
       digits,
-      // Theme names arrive from the API in English; show Kannada first.
-      themeName: (name) => lookup(`themeNames.${name}`)?.[locale] || name,
-      themeSub: (name) => lookup(`themeNames.${name}`)?.[other] || name,
+      // Theme names arrive from the API in English; show Kannada or English as per locale
+      themeName: (name) => lookup(activeDict, `themeNames.${name}`) || name,
+      themeSub: (name) => lookup(secondaryDict, `themeNames.${name}`) || name,
     };
   }, [locale, other]);
 
@@ -80,7 +103,7 @@ export function useCopy() {
 }
 
 /**
- * Kannada primary line with the English line at ~80% beneath it.
+ * Primary line in active site language with the secondary line at ~80% beneath it.
  * Inherits size/colour from the caller.
  */
 export function Bi({ k, vars, className = '', primaryClass = '', secondaryClass = 'text-meta text-ink-soft' }) {

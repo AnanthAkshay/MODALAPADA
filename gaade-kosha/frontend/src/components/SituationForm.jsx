@@ -1,12 +1,12 @@
 import React from 'react';
-import { Mic, MicOff } from 'lucide-react';
+import { Mic, MicOff, Globe } from 'lucide-react';
 import { btnPrimary } from '../lib/ui';
 import { useCopy } from '../i18n';
 
 const segmentBase =
   'inline-flex min-h-[40px] items-center rounded-[9px] px-3 text-meta font-medium transition-colors';
 
-export default function SituationForm({ value, onChange, onSubmit, speech, inputRef }) {
+export default function SituationForm({ value, onChange, onSubmit, speech, inputRef, onSelectLocale }) {
   const { t, sub, locale, other } = useCopy();
   const {
     supported,
@@ -19,8 +19,17 @@ export default function SituationForm({ value, onChange, onSubmit, speech, input
     toggle,
     timerSeconds,
     isTranscribing,
-    notice
+    notice,
   } = speech;
+
+  const handleLanguageChange = (newLocale) => {
+    if (onSelectLocale) {
+      onSelectLocale(newLocale);
+    }
+    if (setLang) {
+      setLang(newLocale === 'kn' ? 'kn-IN' : 'en-IN');
+    }
+  };
 
   return (
     <form
@@ -73,63 +82,64 @@ export default function SituationForm({ value, onChange, onSubmit, speech, input
           disabled={!value.trim()}
           className={`${btnPrimary} order-3 ml-auto h-14 flex-col gap-0 px-5 sm:ml-0`}
         >
-          <span lang="kn" className="kn leading-tight">
+          <span lang={locale} className={`${locale === 'kn' ? 'kn' : ''} leading-tight`}>
             {t('home.find')}
           </span>
-          {/* Inherits the button's colour so it follows the disabled state too:
-              text-on-kumkum would stay near-paper and vanish on paper-deep. */}
-          <span lang={other} className="text-[0.8em] leading-tight">
+          <span lang={other} className={`${other === 'kn' ? 'kn' : ''} text-[0.8em] leading-tight`}>
             {sub('home.find')}
           </span>
         </button>
       </div>
 
-      {supported ? (
-        <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
-          <span className="flex flex-col text-meta text-ink">
-            <span lang="kn" className="kn leading-[1.7]">
-              {t('home.speak')}:
-            </span>
-            <span lang={other} className="text-[0.8em] leading-tight text-ink-soft">
-              {sub('home.speak')}:
-            </span>
+      {/* Whole-site language switch replacing separate 'Speak in' toggle */}
+      <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
+        <label className="flex items-center gap-1.5 text-meta text-ink">
+          <Globe size={16} strokeWidth={1.75} aria-hidden="true" className="text-ink-soft" />
+          <span className="font-medium">
+            <span lang="kn" className="kn">ಭಾಷೆ</span>
+            <span className="mx-1 text-ink-soft">/</span>
+            <span lang="en">Language</span>:
           </span>
+        </label>
 
-          <div
-            role="group"
-            aria-label="Speech recognition language"
-            className="inline-flex rounded-control border border-line bg-paper-deep p-1"
+        <div
+          role="group"
+          aria-label={t('common.languageSelect')}
+          className="inline-flex rounded-control border border-line bg-paper-deep p-1"
+        >
+          <button
+            type="button"
+            onClick={() => handleLanguageChange('kn')}
+            aria-pressed={locale === 'kn'}
+            className={`${segmentBase} ${
+              locale === 'kn' ? 'bg-turmeric-wash text-ink font-semibold' : 'text-ink-soft hover:text-ink'
+            }`}
           >
-            <button
-              type="button"
-              onClick={() => setLang('kn-IN')}
-              aria-pressed={lang === 'kn-IN'}
-              className={`${segmentBase} ${
-                lang === 'kn-IN' ? 'bg-turmeric-wash text-ink' : 'text-ink-soft hover:text-ink'
-              }`}
-            >
-              <span lang="kn" className="kn leading-tight">
-                ಕನ್ನಡ
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setLang('en-IN')}
-              aria-pressed={lang === 'en-IN'}
-              className={`${segmentBase} ${
-                lang === 'en-IN' ? 'bg-turmeric-wash text-ink' : 'text-ink-soft hover:text-ink'
-              }`}
-            >
+            <span lang="kn" className="kn leading-tight">
+              ಕನ್ನಡ
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={() => handleLanguageChange('en')}
+            aria-pressed={locale === 'en'}
+            className={`${segmentBase} ${
+              locale === 'en' ? 'bg-turmeric-wash text-ink font-semibold' : 'text-ink-soft hover:text-ink'
+            }`}
+          >
+            <span lang="en" className="leading-tight">
               English
-            </button>
-          </div>
+            </span>
+          </button>
         </div>
-      ) : (
-        <p className="mt-4 text-meta leading-[1.6] text-ink-soft">
-          <span lang="kn" className="kn block leading-[1.7]">
+      </div>
+
+      {!supported && (
+        <p className="mt-3 text-meta leading-[1.6] text-ink-soft">
+          <span lang={locale} className={`${locale === 'kn' ? 'kn' : ''} block leading-[1.7]`}>
             {t('home.voiceUnsupported')}
           </span>
-          <span lang={other} className="block text-[0.8em]">
+          <span lang={other} className={`${other === 'kn' ? 'kn' : ''} block text-[0.8em]`}>
             {sub('home.voiceUnsupported')}
           </span>
         </p>
@@ -143,8 +153,10 @@ export default function SituationForm({ value, onChange, onSubmit, speech, input
                 aria-hidden="true"
                 className="h-2 w-2 shrink-0 rounded-full bg-kumkum animate-mic-dot motion-reduce:animate-none"
               />
-              <span lang="kn" className="kn leading-[1.7]">
-                {isTranscribing ? 'ಧ್ವನಿಯನ್ನು ಪರಿವರ್ತಿಸಲಾಗುತ್ತಿದೆ...' : t('home.listening')}
+              <span lang={locale} className={`${locale === 'kn' ? 'kn' : ''} leading-[1.7]`}>
+                {isTranscribing
+                  ? (locale === 'kn' ? 'ಧ್ವನಿಯನ್ನು ಪರಿವರ್ತಿಸಲಾಗುತ್ತಿದೆ...' : 'Transcribing audio...')
+                  : t('home.listening')}
               </span>
             </p>
             {timerSeconds > 0 ? (
@@ -153,8 +165,10 @@ export default function SituationForm({ value, onChange, onSubmit, speech, input
               </span>
             ) : null}
           </div>
-          <p lang={other} className="text-[0.8em] text-ink-soft">
-            {isTranscribing ? 'Transcribing via hosted ASR...' : sub('home.listening')}
+          <p lang={other} className={`${other === 'kn' ? 'kn' : ''} text-[0.8em] text-ink-soft`}>
+            {isTranscribing
+              ? (other === 'kn' ? 'ಧ್ವನಿಯನ್ನು ಪರಿವರ್ತಿಸಲಾಗುತ್ತಿದೆ...' : 'Transcribing audio...')
+              : sub('home.listening')}
           </p>
           {notice ? (
             <p className="mt-1 text-[12px] font-medium text-turmeric">{notice}</p>
@@ -168,10 +182,10 @@ export default function SituationForm({ value, onChange, onSubmit, speech, input
             {interim || t('home.speakNow')}
           </p>
           <p className="mt-1 text-meta leading-[1.6] text-ink-soft">
-            <span lang="kn" className="kn block leading-[1.7]">
+            <span lang={locale} className={`${locale === 'kn' ? 'kn' : ''} block leading-[1.7]`}>
               {t('home.transcriptHint')}
             </span>
-            <span lang={other} className="block text-[0.8em]">
+            <span lang={other} className={`${other === 'kn' ? 'kn' : ''} block text-[0.8em]`}>
               {sub('home.transcriptHint')}
             </span>
           </p>
@@ -188,10 +202,10 @@ export default function SituationForm({ value, onChange, onSubmit, speech, input
           className="mt-3 flex flex-wrap items-start gap-x-3 gap-y-1 border-l-2 border-kumkum pl-3 text-meta text-ink"
         >
           <span className="max-w-[52ch]">
-            <span lang="kn" className="kn block leading-[1.7]">
+            <span lang={locale} className={`${locale === 'kn' ? 'kn' : ''} block leading-[1.7]`}>
               {t(`speech.${error}`)}
             </span>
-            <span lang={other} className="block text-[0.8em] text-ink-soft">
+            <span lang={other} className={`${other === 'kn' ? 'kn' : ''} block text-[0.8em] text-ink-soft`}>
               {sub(`speech.${error}`)}
             </span>
           </span>

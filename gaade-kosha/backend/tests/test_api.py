@@ -82,6 +82,37 @@ def test_api_get_gaade_by_id():
     assert data["provenance"]["source_pdf_number"] == 1
     assert data["situations_count"] == 2
 
+def test_api_get_random_gaade_success():
+    """Verify random gaade endpoint returns a canonical proverb with existing audio and no-store headers."""
+    res = client.get("/api/gaades/random")
+    assert res.status_code == 200
+    assert "no-store" in res.headers.get("cache-control", "").lower()
+    data = res.json()
+    assert data["gaade_id"].startswith("G")
+    assert data["gaade_id"] not in ("G251", "G252")  # Never text-only entries
+    assert len(data["gaade"]) > 3
+    assert data["audio_url"] == f"/api/audio/{data['gaade_id']}"
+    # Verify the WAV file actually exists on disk
+    wav_path = os.path.join(settings.AUDIO_DIR, f"{data['gaade_id']}.wav")
+    assert os.path.isfile(wav_path), f"Audio file for {data['gaade_id']} must exist"
+
+def test_api_get_random_gaade_exclude():
+    """Verify random gaade avoids returning IDs in the exclude parameter."""
+    res1 = client.get("/api/gaades/random")
+    gid1 = res1.json()["gaade_id"]
+    res2 = client.get(f"/api/gaades/random?exclude={gid1}")
+    gid2 = res2.json()["gaade_id"]
+    assert gid2 != gid1, f"Expected different gaade than excluded {gid1}, got {gid2}"
+
+def test_api_get_random_gaade_variance():
+    """Verify 10 consecutive random calls produce variance across the collection."""
+    ids = set()
+    for _ in range(10):
+        res = client.get("/api/gaades/random")
+        assert res.status_code == 200
+        ids.add(res.json()["gaade_id"])
+    assert len(ids) > 1, f"Expected multiple distinct gaades across 10 calls, got {ids}"
+
 def test_api_get_gaade_by_id_404():
     """Verify 404 response for nonexistent gaade."""
     res = client.get("/api/gaades/G999")

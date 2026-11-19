@@ -5,7 +5,7 @@ import { fetchGaades, fetchThemes } from '../lib/api';
 import { useCopy } from '../i18n';
 
 export default function BrowseScreen({ onOpen }) {
-  const { t, sub, other, num, digits, themeName, themeSub } = useCopy();
+  const { t, sub, locale, other, num, digits, themeName, themeSub } = useCopy();
   const [query, setQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [theme, setTheme] = useState('');
@@ -57,21 +57,33 @@ export default function BrowseScreen({ onOpen }) {
     <main id="main" className="mx-auto w-full max-w-content px-4 pb-20 pt-8 sm:px-8 sm:pt-12">
       <div className="mx-auto max-w-read">
         <h1 className="flex flex-col">
-          <span lang="kn" className="kn-serif break-words text-headline font-bold leading-[1.7] text-indigo">
+          <span
+            lang={locale}
+            className={`${locale === 'kn' ? 'kn-serif' : 'font-serif'} break-words text-headline font-bold leading-[1.7] text-indigo`}
+          >
             {t('browse.title')}
           </span>
-          <span lang={other} className="text-body leading-tight text-ink-soft">
+          <span
+            lang={other}
+            className={`${other === 'kn' ? 'kn' : ''} text-body leading-tight text-ink-soft`}
+          >
             {sub('browse.title')}
           </span>
         </h1>
 
         <p className="mt-4 flex flex-col">
-          <span lang="kn" className="kn text-body leading-[1.7] text-ink-soft">
+          <span
+            lang={locale}
+            className={`${locale === 'kn' ? 'kn' : ''} text-body leading-[1.7] text-ink-soft`}
+          >
             {state.phase === 'ready'
               ? t('browse.intro', { count: num(state.total) })
               : t('browse.introPending')}
           </span>
-          <span lang={other} className="text-[0.8em] leading-[1.6] text-ink-soft">
+          <span
+            lang={other}
+            className={`${other === 'kn' ? 'kn' : ''} text-[0.8em] leading-[1.6] text-ink-soft`}
+          >
             {state.phase === 'ready'
               ? sub('browse.intro', { count: num(state.total) })
               : sub('browse.introPending')}
@@ -106,10 +118,16 @@ export default function BrowseScreen({ onOpen }) {
               className={chipClass(theme === '')}
             >
               <span className="flex flex-col">
-                <span lang="kn" className="kn text-meta leading-[1.5]">
+                <span
+                  lang={locale}
+                  className={`${locale === 'kn' ? 'kn' : ''} text-meta leading-[1.5]`}
+                >
                   {t('browse.allThemes')}
                 </span>
-                <span lang={other} className="text-[11px] leading-tight text-ink-soft">
+                <span
+                  lang={other}
+                  className={`${other === 'kn' ? 'kn' : ''} text-[11px] leading-tight text-ink-soft`}
+                >
                   {sub('browse.allThemes')}
                 </span>
               </span>
@@ -124,10 +142,16 @@ export default function BrowseScreen({ onOpen }) {
                 className={chipClass(theme === entry.theme)}
               >
                 <span className="flex flex-col">
-                  <span lang="kn" className="kn text-meta leading-[1.5]">
+                  <span
+                    lang={locale}
+                    className={`${locale === 'kn' ? 'kn' : ''} text-meta leading-[1.5]`}
+                  >
                     {themeName(entry.theme)} {num(entry.count)}
                   </span>
-                  <span lang={other} className="text-[11px] leading-tight text-ink-soft">
+                  <span
+                    lang={other}
+                    className={`${other === 'kn' ? 'kn' : ''} text-[11px] leading-tight text-ink-soft`}
+                  >
                     {themeSub(entry.theme)}
                   </span>
                 </span>
@@ -141,7 +165,10 @@ export default function BrowseScreen({ onOpen }) {
                 aria-expanded={allThemesShown}
                 className="min-h-[44px] rounded-control px-1 text-left text-meta text-indigo underline underline-offset-4"
               >
-                <span lang="kn" className="kn leading-[1.7]">
+                <span
+                  lang={locale}
+                  className={`${locale === 'kn' ? 'kn' : ''} leading-[1.7]`}
+                >
                   {allThemesShown
                     ? t('browse.showFewerThemes')
                     : t('browse.showAllThemes', { count: num(themes.length) })}
@@ -169,10 +196,16 @@ export default function BrowseScreen({ onOpen }) {
 
         {state.phase === 'error' ? (
           <p role="alert" className="border-l-2 border-kumkum pl-4 text-body text-ink">
-            <span lang="kn" className="kn block leading-[1.7]">
+            <span
+              lang={locale}
+              className={`${locale === 'kn' ? 'kn' : ''} block leading-[1.7]`}
+            >
               {t('browse.loadError')}
             </span>
-            <span lang={other} className="block text-[0.8em] text-ink-soft">
+            <span
+              lang={other}
+              className={`${other === 'kn' ? 'kn' : ''} block text-[0.8em] text-ink-soft`}
+            >
               {sub('browse.loadError')}
             </span>
           </p>
@@ -181,10 +214,16 @@ export default function BrowseScreen({ onOpen }) {
         {state.phase === 'ready' && state.items.length === 0 ? (
           <div className="border-l-2 border-turmeric pl-4">
             <p className="text-body text-ink">
-              <span lang="kn" className="kn block leading-[1.7]">
+              <span
+                lang={locale}
+                className={`${locale === 'kn' ? 'kn' : ''} block leading-[1.7]`}
+              >
                 {t('browse.empty', { query: query.trim() })}
               </span>
-              <span lang={other} className="block text-[0.8em] text-ink-soft">
+              <span
+                lang={other}
+                className={`${other === 'kn' ? 'kn' : ''} block text-[0.8em] text-ink-soft`}
+              >
                 {sub('browse.empty', { query: query.trim() })}
               </span>
             </p>

@@ -9,12 +9,12 @@ function storedTheme() {
   }
 }
 
-function systemTheme() {
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-}
-
+/**
+ * Default to LIGHT theme on first visit (do not follow OS dark mode preference).
+ * If the user has explicitly chosen light or dark, use that preference.
+ */
 export function readTheme() {
-  return storedTheme() || systemTheme();
+  return storedTheme() || 'light';
 }
 
 export function applyTheme(theme, { persist = true } = {}) {
@@ -28,15 +28,4 @@ export function applyTheme(theme, { persist = true } = {}) {
       /* storage unavailable — the session still renders */
     }
   }
-}
-
-/** Follow the OS setting until the user picks a theme themselves. */
-export function watchSystemTheme(onChange) {
-  const query = window.matchMedia('(prefers-color-scheme: dark)');
-  const handle = (event) => {
-    if (storedTheme()) return;
-    onChange(event.matches ? 'dark' : 'light');
-  };
-  query.addEventListener('change', handle);
-  return () => query.removeEventListener('change', handle);
 }

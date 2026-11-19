@@ -1,5 +1,23 @@
-const RAW_BASE = import.meta.env.VITE_API_BASE_URL || '';
-const API_BASE = RAW_BASE.replace(/\/+$/, '');
+function resolveApiBase() {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL.replace(/\/+$/, '');
+  }
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL.replace(/\/+$/, '');
+  }
+  if (typeof window !== 'undefined' && window.location) {
+    const host = window.location.hostname || '';
+    if (
+      host.includes('vercel.app') ||
+      (host !== 'localhost' && host !== '127.0.0.1' && !host.endsWith('.local') && !host.includes('onrender.com'))
+    ) {
+      return 'https://modalapada.onrender.com';
+    }
+  }
+  return '';
+}
+
+export const API_BASE = resolveApiBase();
 
 /** Resolve a server-relative media path (e.g. /api/audio/G007) against the API base. */
 export function mediaUrl(path) {
@@ -42,6 +60,18 @@ export function fetchGaades({ q = '', theme = '', limit = 300, offset = 0 } = {}
   if (q) params.set('q', q);
   if (theme) params.set('theme', theme);
   return request(`/api/gaades?${params.toString()}`, { signal });
+}
+
+/** GET /api/gaades/random — random canonical gaade with audio, excluding recent IDs. */
+export function fetchRandomGaade(exclude = '', signal) {
+  const params = new URLSearchParams();
+  if (exclude) params.set('exclude', exclude);
+  const query = params.toString() ? `?${params.toString()}` : '';
+  return request(`/api/gaades/random${query}`, {
+    signal,
+    cache: 'no-store',
+    headers: { 'Cache-Control': 'no-store' },
+  });
 }
 
 /** GET /api/themes — theme names with counts. */
