@@ -137,7 +137,7 @@ def generate_checklist():
     checklist.append(("Interactive Web UI", "frontend/src/App.jsx, frontend/src/index.css", status, detail))
 
     # 10. Voice Input & Playback UI
-    voice_file = REPO_ROOT / "frontend" / "src" / "components" / "VoiceInput.jsx"
+    voice_file = REPO_ROOT / "frontend" / "src" / "hooks" / "useSpeechRecognition.js"
     player_file = REPO_ROOT / "frontend" / "src" / "components" / "AudioPlayer.jsx"
     tts_file = REPO_ROOT / "frontend" / "src" / "components" / "ExplanationTTS.jsx"
     if voice_file.is_file() and player_file.is_file() and tts_file.is_file():
@@ -146,7 +146,7 @@ def generate_checklist():
     else:
         status = "Partial"
         detail = "Voice components present"
-    checklist.append(("Voice Input & Audio Playback UI", "VoiceInput.jsx, AudioPlayer.jsx, ExplanationTTS.jsx", status, detail))
+    checklist.append(("Voice Input & Audio Playback UI", "useSpeechRecognition.js, AudioPlayer.jsx, ExplanationTTS.jsx", status, detail))
 
     # 11. Precomputed Search Index
     idx_dir = REPO_ROOT / "data" / "index" / "tfidf"

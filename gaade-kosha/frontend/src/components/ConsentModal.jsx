@@ -1,328 +1,223 @@
-import React, { useEffect } from 'react';
-import { X, ShieldCheck, Users, FileSignature, MapPin, Calendar, BookOpen, CheckCircle2, Mic } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { X, ShieldCheck, BookOpen, Mic, Code2 } from 'lucide-react';
 import { consentData } from '../data/consentData';
+import { useCopy } from '../i18n';
+
+function Signatory({ item, meta }) {
+  return (
+    <li className="border-b border-line py-4 last:border-b-0">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="min-w-0">
+          <p className="text-body font-medium text-ink">
+            {item.name}
+            <span lang="kn" className="kn ml-2 text-meta text-ink-soft">
+              ({item.name_kn})
+            </span>
+          </p>
+          <p className="mt-0.5 text-meta text-ink-soft">{meta}</p>
+        </div>
+
+        <figure className="shrink-0">
+          <img
+            src={item.signatureImage}
+            alt={item.altText}
+            className="h-14 w-auto rounded-[6px] border border-line bg-white object-contain px-2 py-1 shadow-sm"
+            loading="lazy"
+          />
+          <figcaption className="mt-1 text-center text-[12px] text-ink-soft">
+            {item.date}
+          </figcaption>
+        </figure>
+      </div>
+    </li>
+  );
+}
 
 export default function ConsentModal({ isOpen, onClose }) {
+  const { t, sub, other } = useCopy();
+  const closeRef = useRef(null);
+
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && isOpen) {
-        onClose();
-      }
+    if (!isOpen) return undefined;
+    const handleKey = (event) => {
+      if (event.key === 'Escape') onClose();
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKey);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeRef.current?.focus();
+
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+      document.body.style.overflow = previousOverflow;
+    };
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return (
     <div
-      className="modal-backdrop"
-      onClick={onClose}
       role="dialog"
       aria-modal="true"
-      aria-labelledby="consent-modal-title"
+      aria-labelledby="consent-title"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
     >
       <div
-        className="consent-modal-card"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Modal Top Header */}
-        <div className="consent-modal-header">
-          <div className="consent-header-left">
-            <div className="consent-icon-badge">
-              <ShieldCheck size={24} />
-            </div>
+        className="fixed inset-0 bg-ink/50 backdrop-blur-sm transition-opacity"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+
+      <div className="relative flex max-h-[90vh] w-full max-w-2xl flex-col rounded-hero border border-line bg-paper shadow-2xl">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-line px-5 py-4 sm:px-7">
+          <div className="flex items-center gap-2.5">
+            <ShieldCheck size={22} className="text-turmeric" aria-hidden="true" />
             <div>
-              <h2 id="consent-modal-title" className="consent-header-title">
-                {consentData.title.en}
+              <h2 id="consent-title" className="text-title font-bold text-ink">
+                Informed Consent & Contributor Declarations
               </h2>
-              <p className="consent-header-subtitle kannada-text" lang="kn">
-                {consentData.title.kn}
+              <p lang="kn" className="kn text-meta text-ink-soft">
+                ಮಾಹಿತಿಯುಕ್ತ ಒಪ್ಪಿಗೆ ಮತ್ತು ಕೊಡುಗೆದಾರರ ಘೋಷಣೆಗಳು
               </p>
             </div>
           </div>
           <button
+            ref={closeRef}
             type="button"
-            className="consent-close-btn"
             onClick={onClose}
-            aria-label="Close consent declaration modal"
-            title="Close (Esc)"
+            aria-label="Close dialog"
+            className="flex h-10 w-10 items-center justify-center rounded-control text-ink-soft hover:bg-paper-deep hover:text-ink focus-visible:outline-offset-2"
           >
-            <X size={20} />
+            <X size={20} strokeWidth={1.75} />
           </button>
         </div>
 
-        {/* Modal Body */}
-        <div className="consent-modal-body">
+        {/* Body */}
+        <div className="overflow-y-auto px-5 py-6 sm:px-7">
           {/* Summary Banner */}
-          <div className="consent-summary-banner">
-            <div className="summary-left">
-              <div className="summary-headline">
-                <CheckCircle2 size={20} className="summary-icon" />
-                <span className="summary-text-en">{consentData.summaryLine.en}</span>
-              </div>
-              <div className="summary-text-kn kannada-text" lang="kn">
-                {consentData.summaryLine.kn}
-              </div>
-            </div>
-            <div className="summary-meta">
-              <span className="summary-date-badge">
-                <Calendar size={13} />
-                <span>Date: {consentData.dateOfConsent}</span>
-              </span>
-              <span className="summary-inst-badge">
-                Modalapada 2.0 • RIT CSE&E
-              </span>
-            </div>
+          <div className="rounded-control border border-turmeric/30 bg-turmeric-wash p-4">
+            <p className="text-body font-medium text-ink">{consentData.summaryLine.en}</p>
+            <p lang="kn" className="kn mt-1 text-meta text-ink-soft">
+              {consentData.summaryLine.kn}
+            </p>
+            <p className="mt-2 text-[12px] text-ink-soft">
+              {consentData.institution.en} · {consentData.institution.kn} · {consentData.dateOfConsent}
+            </p>
           </div>
 
-          {/* Part A: Gaade Contributors (Total 250 Gaade) */}
-          <section className="consent-section" aria-labelledby="gaade-contributors-heading">
-            <div className="consent-section-header">
-              <div className="section-title-wrap">
-                <BookOpen size={18} className="section-icon" />
-                <h3 id="gaade-contributors-heading" className="section-title">
-                  {consentData.gaadeContributorsGroup.title.en}
-                </h3>
-              </div>
-              <div className="section-title-kn kannada-text" lang="kn">
-                {consentData.gaadeContributorsGroup.title.kn}
-              </div>
+          {/* Part A: Gaade Contributors */}
+          <section className="mt-8">
+            <div className="flex items-center gap-2">
+              <BookOpen size={18} className="text-indigo" aria-hidden="true" />
+              <h3 className="text-body font-semibold text-ink">
+                {consentData.gaadeContributorsGroup.title.en}
+              </h3>
             </div>
+            <p lang="kn" className="kn text-meta font-medium text-ink-soft">
+              {consentData.gaadeContributorsGroup.title.kn}
+            </p>
+            <p className="mt-2 border-l-2 border-turmeric pl-4 text-meta leading-[1.7] text-ink-soft">
+              {consentData.gaadeContributorsGroup.declaration.en}
+            </p>
+            <p
+              lang="kn"
+              className="kn mt-2 border-l-2 border-turmeric pl-4 text-meta text-ink-soft"
+            >
+              {consentData.gaadeContributorsGroup.declaration.kn}
+            </p>
 
-            {/* Formal Declaration Paragraph */}
-            <div className="consent-declaration-box">
-              <p className="declaration-text-en">
-                <strong>Declaration:</strong> {consentData.gaadeContributorsGroup.declaration.en}
-              </p>
-              <p className="declaration-text-kn kannada-text" lang="kn">
-                <strong>ಘೋಷಣೆ:</strong> {consentData.gaadeContributorsGroup.declaration.kn}
-              </p>
-            </div>
-
-            {/* Gaade Contributors Cards Grid */}
-            <div className="consent-cards-grid">
-              {consentData.gaadeContributorsGroup.items.map((contributor) => (
-                <div key={contributor.id} className="contributor-card">
-                  <div className="card-top-row">
-                    <div className="contributor-num">#{contributor.id}</div>
-                    <div className="gaade-count-badge">
-                      <strong>{contributor.gaadeCount}</strong> Gaades ({contributor.gaadeRange})
-                    </div>
-                  </div>
-
-                  <div className="card-identity">
-                    <h4 className="contributor-name">
-                      {contributor.name}
-                      <span className="contributor-name-kn kannada-text" lang="kn">
-                        ({contributor.name_kn})
-                      </span>
-                    </h4>
-                    <p className="contributor-role">
-                      <span>{contributor.relationship}</span> •{' '}
-                      <span className="kannada-text" lang="kn">{contributor.relationship_kn}</span>
-                    </p>
-                  </div>
-
-                  <div className="card-meta-row">
-                    <span className="meta-pill">
-                      <MapPin size={13} />
-                      <span>{contributor.place} ({contributor.place_kn})</span>
-                    </span>
-                    <span className="meta-pill">
-                      <Calendar size={13} />
-                      <span>{contributor.date}</span>
-                    </span>
-                  </div>
-
-                  {/* Signature Box */}
-                  <div className="signature-container">
-                    <div className="signature-label">
-                      <FileSignature size={12} />
-                      <span>Verified Signature</span>
-                    </div>
-                    <div className="signature-image-wrapper">
-                      <img
-                        src={contributor.signatureImage}
-                        alt={contributor.altText}
-                        className="signature-image"
-                        loading="lazy"
-                      />
-                    </div>
-                  </div>
-                </div>
+            <ul className="mt-4 border-t border-line">
+              {consentData.gaadeContributorsGroup.items.map((item) => (
+                <Signatory
+                  key={item.id}
+                  item={item}
+                  meta={`${item.relationship} · ${item.place} · ${item.gaadeCount} gaades (${item.gaadeRange})`}
+                />
               ))}
-            </div>
+            </ul>
           </section>
 
-          {/* Part B: Audio / Voice Contributors (Total 250 Recordings) */}
-          <section className="consent-section" aria-labelledby="audio-contributors-heading">
-            <div className="consent-section-header">
-              <div className="section-title-wrap">
-                <Mic size={18} className="section-icon" />
-                <h3 id="audio-contributors-heading" className="section-title">
-                  {consentData.audioContributorsGroup.title.en}
-                </h3>
-              </div>
-              <div className="section-title-kn kannada-text" lang="kn">
-                {consentData.audioContributorsGroup.title.kn}
-              </div>
+          {/* Part B: Audio / Voice Contributors */}
+          <section className="mt-10">
+            <div className="flex items-center gap-2">
+              <Mic size={18} className="text-kumkum" aria-hidden="true" />
+              <h3 className="text-body font-semibold text-ink">
+                {consentData.audioContributorsGroup.title.en}
+              </h3>
             </div>
+            <p lang="kn" className="kn text-meta font-medium text-ink-soft">
+              {consentData.audioContributorsGroup.title.kn}
+            </p>
+            <p className="mt-2 border-l-2 border-kumkum pl-4 text-meta leading-[1.7] text-ink-soft">
+              {consentData.audioContributorsGroup.declaration.en}
+            </p>
+            <p
+              lang="kn"
+              className="kn mt-2 border-l-2 border-kumkum pl-4 text-meta text-ink-soft"
+            >
+              {consentData.audioContributorsGroup.declaration.kn}
+            </p>
 
-            {/* Formal Declaration Paragraph */}
-            <div className="consent-declaration-box">
-              <p className="declaration-text-en">
-                <strong>Audio Consent:</strong> {consentData.audioContributorsGroup.declaration.en}
-              </p>
-              <p className="declaration-text-kn kannada-text" lang="kn">
-                <strong>ಧ್ವನಿ ಒಪ್ಪಿಗೆ ಘೋಷಣೆ:</strong> {consentData.audioContributorsGroup.declaration.kn}
-              </p>
-            </div>
-
-            {/* Audio Contributors Cards Grid */}
-            <div className="consent-cards-grid">
-              {consentData.audioContributorsGroup.items.map((voice) => (
-                <div key={voice.id} className="contributor-card audio-card">
-                  <div className="card-top-row">
-                    <div className="contributor-num">#{voice.id}</div>
-                    <div className="gaade-count-badge audio-count-badge">
-                      <strong>{voice.recordingCount}</strong> Recordings ({voice.audioRange})
-                    </div>
-                  </div>
-
-                  <div className="card-identity">
-                    <h4 className="contributor-name">
-                      {voice.name}
-                      <span className="contributor-name-kn kannada-text" lang="kn">
-                        ({voice.name_kn})
-                      </span>
-                    </h4>
-                    <p className="contributor-role">
-                      <span>{voice.relationship}</span> •{' '}
-                      <span className="kannada-text" lang="kn">{voice.relationship_kn}</span>
-                    </p>
-                  </div>
-
-                  <div className="card-meta-row">
-                    <span className="meta-pill">
-                      <MapPin size={13} />
-                      <span>{voice.place} ({voice.place_kn})</span>
-                    </span>
-                    <span className="meta-pill">
-                      <Calendar size={13} />
-                      <span>{voice.date}</span>
-                    </span>
-                  </div>
-
-                  {/* Signature Box */}
-                  <div className="signature-container">
-                    <div className="signature-label">
-                      <FileSignature size={12} />
-                      <span>Verified Signature</span>
-                    </div>
-                    <div className="signature-image-wrapper">
-                      <img
-                        src={voice.signatureImage}
-                        alt={voice.altText}
-                        className="signature-image"
-                        loading="lazy"
-                      />
-                    </div>
-                  </div>
-                </div>
+            <ul className="mt-4 border-t border-line">
+              {consentData.audioContributorsGroup.items.map((item) => (
+                <Signatory
+                  key={item.id}
+                  item={item}
+                  meta={`${item.relationship} · ${item.place} · ${item.recordingsCount} recordings (${item.gaadeRange})`}
+                />
               ))}
-            </div>
+            </ul>
           </section>
 
           {/* Part C: App Developers */}
-          <section className="consent-section" aria-labelledby="developers-heading">
-            <div className="consent-section-header">
-              <div className="section-title-wrap">
-                <Users size={18} className="section-icon" />
-                <h3 id="developers-heading" className="section-title">
-                  {consentData.developersGroup.title.en}
-                </h3>
-              </div>
-              <div className="section-title-kn kannada-text" lang="kn">
-                {consentData.developersGroup.title.kn}
-              </div>
+          <section className="mt-10">
+            <div className="flex items-center gap-2">
+              <Code2 size={18} className="text-indigo" aria-hidden="true" />
+              <h3 className="text-body font-semibold text-ink">
+                {consentData.developersGroup.title.en}
+              </h3>
             </div>
+            <p lang="kn" className="kn text-meta font-medium text-ink-soft">
+              {consentData.developersGroup.title.kn}
+            </p>
+            <p className="mt-2 border-l-2 border-indigo pl-4 text-meta leading-[1.7] text-ink-soft">
+              {consentData.developersGroup.declaration.en}
+            </p>
+            <p
+              lang="kn"
+              className="kn mt-2 border-l-2 border-indigo pl-4 text-meta text-ink-soft"
+            >
+              {consentData.developersGroup.declaration.kn}
+            </p>
 
-            {/* Formal Declaration Paragraph */}
-            <div className="consent-declaration-box">
-              <p className="declaration-text-en">
-                <strong>Authorization:</strong> {consentData.developersGroup.declaration.en}
-              </p>
-              <p className="declaration-text-kn kannada-text" lang="kn">
-                <strong>ದೃಢೀಕರಣ:</strong> {consentData.developersGroup.declaration.kn}
-              </p>
-            </div>
-
-            {/* Developers Cards Grid */}
-            <div className="consent-cards-grid developers-grid">
-              {consentData.developersGroup.items.map((dev) => (
-                <div key={dev.id} className="contributor-card dev-card">
-                  <div className="card-top-row">
-                    <div className="contributor-num">#{dev.id}</div>
-                    <div className="dev-role-badge">
-                      <span>{dev.role}</span>
-                    </div>
-                  </div>
-
-                  <div className="card-identity">
-                    <h4 className="contributor-name">
-                      {dev.name}
-                      <span className="contributor-name-kn kannada-text" lang="kn">
-                        ({dev.name_kn})
-                      </span>
-                    </h4>
-                    <p className="contributor-role kannada-text" lang="kn">
-                      {dev.role_kn}
-                    </p>
-                  </div>
-
-                  <div className="card-meta-row">
-                    <span className="meta-pill">
-                      <MapPin size={13} />
-                      <span>{dev.place} ({dev.place === 'Bengaluru' ? 'ಬೆಂಗಳೂರು' : dev.place})</span>
-                    </span>
-                    <span className="meta-pill">
-                      <Calendar size={13} />
-                      <span>{dev.date}</span>
-                    </span>
-                  </div>
-
-                  {/* Signature Box */}
-                  <div className="signature-container">
-                    <div className="signature-label">
-                      <FileSignature size={12} />
-                      <span>Verified Signature</span>
-                    </div>
-                    <div className="signature-image-wrapper">
-                      <img
-                        src={dev.signatureImage}
-                        alt={dev.altText}
-                        className="signature-image"
-                        loading="lazy"
-                      />
-                    </div>
-                  </div>
-                </div>
+            <ul className="mt-4 border-t border-line">
+              {consentData.developersGroup.items.map((item) => (
+                <Signatory
+                  key={item.id}
+                  item={item}
+                  meta={`${item.role} · ${item.place}`}
+                />
               ))}
-            </div>
+            </ul>
           </section>
+
+          <p className="mt-8 flex flex-col text-meta text-ink-soft">
+            <span lang="kn" className="kn leading-[1.7]">
+              {t('consent.note')}
+            </span>
+            <span lang={other} className="mt-1 text-[0.8em] leading-[1.6]">
+              {sub('consent.note')}
+            </span>
+          </p>
         </div>
 
-        {/* Modal Footer */}
-        <div className="consent-modal-footer">
-          <p className="footer-inst-note kannada-text" lang="kn">
-            {consentData.institution.kn}
-          </p>
+        {/* Footer */}
+        <div className="flex items-center justify-end border-t border-line px-5 py-4 sm:px-7">
           <button
             type="button"
-            className="consent-confirm-btn"
             onClick={onClose}
+            className="rounded-control bg-paper-deep px-4 py-2 text-body font-medium text-ink hover:bg-line focus-visible:outline-offset-2"
           >
             Close / ಮುಚ್ಚಿರಿ
           </button>

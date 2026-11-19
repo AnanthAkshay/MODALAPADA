@@ -38,12 +38,21 @@ def test_backend_transcribe_fallback_503():
 
 
 def test_voice_input_source_contract():
-    """Verify VoiceInput component source conforms to all Web Speech API requirements."""
-    vi_path = os.path.join(ROOT_DIR, "frontend", "src", "components", "VoiceInput.jsx")
-    assert os.path.isfile(vi_path), "VoiceInput.jsx does not exist"
+    """Verify the Web Speech API hook and its UI conform to every voice requirement."""
+    hook_path = os.path.join(ROOT_DIR, "frontend", "src", "hooks", "useSpeechRecognition.js")
+    form_path = os.path.join(ROOT_DIR, "frontend", "src", "components", "SituationForm.jsx")
+    copy_path = os.path.join(ROOT_DIR, "frontend", "src", "i18n", "strings.js")
+    assert os.path.isfile(hook_path), "useSpeechRecognition.js does not exist"
+    assert os.path.isfile(form_path), "SituationForm.jsx does not exist"
+    assert os.path.isfile(copy_path), "i18n strings.js does not exist"
 
-    with open(vi_path, "r", encoding="utf-8") as f:
-        src = f.read()
+    with open(hook_path, "r", encoding="utf-8") as f:
+        hook_src = f.read()
+    with open(form_path, "r", encoding="utf-8") as f:
+        form_src = f.read()
+    with open(copy_path, "r", encoding="utf-8") as f:
+        copy_src = f.read()
+    src = hook_src + form_src + copy_src
 
     # Web Speech API references
     assert "SpeechRecognition" in src and "webkitSpeechRecognition" in src, "Web Speech API recognition missing"
@@ -51,7 +60,7 @@ def test_voice_input_source_contract():
     assert "en-IN" in src, "English toggle lang 'en-IN' missing"
     assert "interimResults = true" in src, "Interim results missing"
     assert "onresult" in src, "Result handler missing"
-    assert "onTranscriptChange" in src, "Transcript update callback missing"
+    assert "onTranscript" in src, "Transcript update callback missing"
 
     # Error handling
     assert "not-allowed" in src, "Permission denied error handling missing"
@@ -60,7 +69,11 @@ def test_voice_input_source_contract():
     assert "audio-capture" in src, "Audio capture error handling missing"
 
     # Editable transcript notice
-    assert "edit the transcript" in src.lower(), "Editable transcript guidance missing"
+    assert "transcript is editable" in src.lower(), "Editable transcript guidance missing"
+
+    # Copy is centralised: the form must not carry its own strings
+    assert "home.transcriptHint" in form_src, "Transcript hint must come from i18n"
+    assert "ಮಾತನಾಡಿ" in copy_src, "Kannada speak label missing from i18n"
 
     # Mutual exclusivity event
     assert "gaade:stop-playback" in src, "Stop playback event on mic start missing"
@@ -68,30 +81,28 @@ def test_voice_input_source_contract():
     print("PASS: Verified VoiceInput component Web Speech API integration, kn-IN/en-IN toggle, and error handlers.")
 
 
-def test_gaade_audio_and_autoplay_contract():
-    """Verify Gaade audio player uses human recordings, auto-play toggle, play/stop/replay."""
+def test_gaade_audio_and_waveform_contract():
+    """Verify the gaade player uses human recordings with a playing waveform."""
     ap_path = os.path.join(ROOT_DIR, "frontend", "src", "components", "AudioPlayer.jsx")
-    hdr_path = os.path.join(ROOT_DIR, "frontend", "src", "components", "Header.jsx")
+    wave_path = os.path.join(ROOT_DIR, "frontend", "src", "components", "Waveform.jsx")
+    copy_path = os.path.join(ROOT_DIR, "frontend", "src", "i18n", "strings.js")
 
     with open(ap_path, "r", encoding="utf-8") as f:
         ap_src = f.read()
-    with open(hdr_path, "r", encoding="utf-8") as f:
-        hdr_src = f.read()
+    with open(wave_path, "r", encoding="utf-8") as f:
+        wave_src = f.read()
+    with open(copy_path, "r", encoding="utf-8") as f:
+        copy_src = f.read()
 
-    # Audio player features
-    assert "autoPlay" in ap_src, "AudioPlayer autoPlay prop missing"
-    assert "handlePlay" in ap_src, "handlePlay missing"
-    assert "handleStop" in ap_src, "handleStop missing"
-    assert "handleReplay" in ap_src, "handleReplay missing"
-    assert "audio-wave-bars" in ap_src, "Playing state wave animation missing"
+    assert "mediaUrl" in ap_src, "AudioPlayer must resolve the /api/audio path"
+    assert "toggle" in ap_src, "Play/pause handler missing"
     assert "gaade:stop-playback" in ap_src, "Stop event listener missing"
     assert "gaade:stop-recording" in ap_src, "Stop recording event trigger missing"
+    assert "result.noRecording" in ap_src, "Missing-audio copy missing"
+    assert "No recording for this gaade" in copy_src, "Missing-audio copy missing from i18n"
+    assert "animate-wave-bar" in wave_src, "Playing state wave animation missing"
 
-    # Autoplay toggle in Header
-    assert "autoplay-toggle-btn" in hdr_src, "Autoplay toggle button in Header missing"
-    assert "Auto-play Gaade" in hdr_src, "Autoplay Gaade label in Header missing"
-
-    print("PASS: Verified Gaade Audio Player human recording playback, play/stop/replay, and auto-play toggle.")
+    print("PASS: Verified Gaade Audio Player human recording playback, waveform, and no-recording state.")
 
 
 def test_explanation_tts_contract():
@@ -104,9 +115,15 @@ def test_explanation_tts_contract():
 
     assert "speechSynthesis" in src, "speechSynthesis missing in ExplanationTTS"
     assert "kn-IN" in src or "kn" in src, "Kannada voice check missing"
-    assert "hasKannadaVoice" in src, "Voice existence check missing"
-    assert "!hasKannadaVoice" in src and "return null" in src, "Hidden when voice missing rule missing"
-    assert "machine voice" in src, "Must be clearly labeled 'machine voice'"
+    copy_path = os.path.join(ROOT_DIR, "frontend", "src", "i18n", "strings.js")
+    with open(copy_path, "r", encoding="utf-8") as f:
+        copy_src = f.read()
+
+    assert "getVoices" in src, "Voice discovery missing"
+    assert "if (!voice || !text) return null" in src, "Hidden when voice missing rule missing"
+    assert "result.machineVoice" in src, "Machine voice label must come from i18n"
+    assert "machine voice" in copy_src.lower(), "Must be clearly labeled 'machine voice'"
+    assert "ಯಂತ್ರ ಧ್ವನಿ" in copy_src, "Kannada machine-voice label missing"
     assert "gaade:stop-playback" in src, "TTS mutual exclusivity trigger missing"
 
     print("PASS: Verified ExplanationTTS speechSynthesis integration, voice discovery, and 'machine voice' label.")
@@ -114,13 +131,13 @@ def test_explanation_tts_contract():
 
 def test_no_tts_for_gaade_heading():
     """Verify that gaade proverb itself NEVER uses TTS."""
-    pc_path = os.path.join(ROOT_DIR, "frontend", "src", "components", "ProverbCard.jsx")
-    with open(pc_path, "r", encoding="utf-8") as f:
+    rs_path = os.path.join(ROOT_DIR, "frontend", "src", "components", "ResultScreen.jsx")
+    with open(rs_path, "r", encoding="utf-8") as f:
         src = f.read()
 
     # The audio button next to the gaade heading must be AudioPlayer (human recording)
-    assert "<AudioPlayer audioUrl={item.audio_url}" in src, "ProverbCard must use human AudioPlayer for gaade"
-    assert "ExplanationTTS" in src, "ExplanationTTS must be used for explanation only"
+    assert "<AudioPlayer audioUrl={item.audio_url}" in src, "ResultScreen must use human AudioPlayer for gaade"
+    assert "<ExplanationTTS text={item.explanation" in src, "ExplanationTTS must be used for the explanation only"
 
     print("PASS: Verified Gaade proverb strictly uses original human recording via /api/audio/, zero TTS for gaade.")
 
@@ -129,7 +146,7 @@ def main():
     print("=== GAADE KOSHA VOICE FEATURES VERIFICATION (PROMPT 8) ===")
     test_backend_transcribe_fallback_503()
     test_voice_input_source_contract()
-    test_gaade_audio_and_autoplay_contract()
+    test_gaade_audio_and_waveform_contract()
     test_explanation_tts_contract()
     test_no_tts_for_gaade_heading()
     print("=== ALL VOICE FEATURE VERIFICATIONS PASSED SUCCESSFULLY! ===")
