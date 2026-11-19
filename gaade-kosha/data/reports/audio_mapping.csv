@@ -249,5 +249,5 @@ source_ogg,gaade_id,wav_file,gaade_text,is_canonical
 248.ogg,G248,audio/wav/G248.wav,ಸಣ್ಣ ಜವಾಬ್ದಾರಿಯೂ ದೊಡ್ಡ ನಂಬಿಕೆಗೆ ಕಾರಣ.,True
 249.ogg,G249,audio/wav/G249.wav,ನಿಯಮ ಪಾಲಿಸಿದರೆ ನೆಮ್ಮದಿ.,True
 250.ogg,G250,audio/wav/G250.wav,ಇಂದಿನ ಕರ್ತವ್ಯವನ್ನು ಇಂದೇ ಮಾಡಬೇಕು.,True
-MISSING,G251,MISSING,ಬೆಂಕಿ ಬಂದಾಗ ಬಾವಿ ತೋಡಿದಂತೆ.,True
-MISSING,G252,MISSING,ಎಲ್ಲರ ಮನೆ ದೋಸೆಯೂ ತೂತು.,True
+251.ogg,G251,audio/wav/G251.wav,ಬೆಂಕಿ ಬಂದಾಗ ಬಾವಿ ತೋಡಿದಂತೆ.,True
+252.ogg,G252,audio/wav/G252.wav,ಎಲ್ಲರ ಮನೆ ದೋಸೆಯೂ ತೂತು.,True

@@ -21,7 +21,7 @@
 - **Multimodal Voice & Text Input**: In-browser speech recognition (`webkitSpeechRecognition`) supporting Kannada (`kn-IN`) and English (`en-IN`) with real-time editable transcripts, plus an automatic server-side hosted ASR fallback (Groq Whisper / Sarvam AI) for Brave and privacy browsers where native speech services are blocked.
 - **Hybrid Semantic Matcher**: Combines subword character n-grams (2–5) and word n-grams (1–2) with BM25 lexical ranking and thematic signal classification using Reciprocal Rank Fusion (RRF).
 - **Dual-Language Grounded Explanations**: Provides situational justifications grounded in both Kannada and English.
-- **Authentic Elder Audio Streaming**: Streams 224 standardized 16 kHz mono WAV recordings converted from archival recordings.
+- **Authentic Elder Audio Streaming**: Streams 226 standardized 16 kHz mono WAV recordings (100% human audio coverage) converted from archival recordings.
 - **Zero-Download Offline Operation**: Includes precomputed TF-IDF vectors and SQLite database (`gaade_kosha.db`); starts instantly offline without downloading external ML checkpoints.
 - **Pluggable Architecture with Resilient Fallback**: Easily switch between `tfidf`, `local` (SentenceTransformers), and `api` (Gemini `text-embedding-004`). If an external backend fails, it automatically recovers to `tfidf` with zero 500 errors.
 - **Mobile-Responsive Kannada UI**: Custom web interface styled for readability down to 360px viewport widths with generous line heights (`1.65`) preventing conjunct clipping (*ottakshara* like `ರ್ಥ`, `ಸ್ತ್ರ`, `ಷ್ಟ`).

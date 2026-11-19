@@ -1,9 +1,9 @@
 # Gaade Kosha - Audio Conversion & Technical Validation Report
 
-- **Timestamp**: 2026-11-19 12:33:04
-- **Source Folder**: `audio\original_ogg`
-- **Canonical WAV Folder**: `audio\wav`
-- **Unused Duplicates WAV Folder**: `audio\wav_unused_duplicates`
+- **Timestamp**: 2026-11-20 03:34:20
+- **Source Folder**: `Audio`
+- **Canonical WAV Folder**: `gaade-kosha\audio\wav`
+- **Unused Duplicates WAV Folder**: `gaade-kosha\audio\wav_unused_duplicates`
 - **Overall Conversion Status**: **PASS**
 
 ---
@@ -12,16 +12,16 @@
 
 | Metric | Expected | Actual | Status |
 | :--- | :--- | :--- | :--- |
-| Source OGG Files Discovered | 250 | 250 | PASS |
-| Numeric Naming Sequence | 1.ogg to 250.ogg | 1.ogg to 250.ogg (0 gaps) | PASS |
-| Converted Canonical WAVs (`audio/wav/`) | 224 | 224 | PASS |
+| Source OGG Files Discovered | 252 | 252 | PASS |
+| Numeric Naming Sequence | 1.ogg to 252.ogg | 1.ogg to 252.ogg (0 gaps) | PASS |
+| Converted Canonical WAVs (`audio/wav/`) | 226 | 226 | PASS |
 | Converted Duplicate WAVs (`audio/wav_unused_duplicates/`) | 26 | 26 | PASS |
-| Canonical Gaades Missing Audio | 2 (G251, G252) | 2 (G251, G252) | PASS |
+| Canonical Gaades Missing Audio | 0 | 0 (None - 100% Complete) | PASS |
 | Conversion Failures | 0 | 0 | PASS |
-| Target Format Compliance (16 kHz / Mono / PCM-16) | 100% | 100% (250/250) | PASS |
+| Target Format Compliance (16 kHz / Mono / PCM-16) | 100% | 100% (252/252) | PASS |
 | Duration Tolerance Compliance (|Δt| <= 20 ms) | 100% | 100% (Max: 13.00 ms) | PASS |
 | Zero-Byte / Corrupted Files | 0 | 0 | PASS |
-| Source OGG Integrity (SHA-256 Before vs After) | 100% Match | 100% Match (250/250) | PASS |
+| Source OGG Integrity (SHA-256 Before vs After) | 100% Match | 100% Match (252/252) | PASS |
 
 ---
 

@@ -699,9 +699,9 @@ def verify_zip_packages():
             abort_with_error("README does not reference 226 canonical gaades!")
         if "452" not in readme_text:
             abort_with_error("README does not reference 452 situations!")
-        if "224" not in readme_text:
-            abort_with_error("README does not reference 224 WAV recordings!")
-        print("  [✓] README counts agree with CSV counts (226 canonical gaades, 452 situations, 224 WAVs).")
+        if "226" not in readme_text:
+            abort_with_error("README does not reference 226 WAV recordings!")
+        print("  [✓] README counts agree with CSV counts (226 canonical gaades, 452 situations, 226 WAVs).")
 
 
 if __name__ == "__main__":

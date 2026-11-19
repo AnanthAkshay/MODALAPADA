@@ -84,7 +84,7 @@ def test_audio_dataset():
     assert os.path.isdir(unused_dir), "audio/wav_unused_duplicates missing"
     
     wav_files = [f for f in os.listdir(wav_dir) if f.endswith('.wav')]
-    assert len(wav_files) == 224, f"Expected 224 canonical WAV files, found {len(wav_files)}"
+    assert len(wav_files) == 226, f"Expected 226 canonical WAV files, found {len(wav_files)}"
     
     unused_files = [f for f in os.listdir(unused_dir) if f.endswith('.wav')]
     assert len(unused_files) == 26, f"Expected 26 unused duplicate WAV files, found {len(unused_files)}"
@@ -96,11 +96,8 @@ def test_audio_dataset():
     for row in reader:
         gid = row['gaade_id']
         audio_file = row['audio_file']
-        if gid in ("G251", "G252"):
-            assert audio_file == "MISSING"
-        else:
-            assert audio_file == f"audio/wav/{gid}.wav"
-            full_path = os.path.join(base_dir, audio_file)
-            assert os.path.isfile(full_path), f"Audio file not found: {full_path}"
+        assert audio_file == f"audio/wav/{gid}.wav"
+        full_path = os.path.join(base_dir, audio_file)
+        assert os.path.isfile(full_path), f"Audio file not found: {full_path}"
 
 

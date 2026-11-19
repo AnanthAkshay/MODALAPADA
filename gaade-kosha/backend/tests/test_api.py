@@ -333,15 +333,12 @@ def test_all_canonical_gaades_retrievable_and_audio():
         assert len(data_item["gaade"]) > 0
         assert data_item["situations_count"] == 2
         
-        # 2. Audio URL verification: canonical gaades with audio (G251/G252 text-only)
-        if gid in ("G251", "G252"):
-            assert data_item["audio_url"] is None
-        else:
-            assert data_item["audio_url"] == f"/api/audio/{gid}"
-            res_audio = client.get(f"/api/audio/{gid}")
-            assert res_audio.status_code == 200
-            assert "audio/wav" in res_audio.headers["content-type"].lower()
-            assert len(res_audio.content) > 100
+        # 2. Audio URL verification: all 226 canonical gaades have working human audio
+        assert data_item["audio_url"] == f"/api/audio/{gid}"
+        res_audio = client.get(f"/api/audio/{gid}")
+        assert res_audio.status_code == 200
+        assert "audio/wav" in res_audio.headers["content-type"].lower()
+        assert len(res_audio.content) > 100
 
 def test_api_transcribe_disabled_503():
     """Verify POST /api/transcribe returns 503 when ENABLE_BACKEND_ASR=false."""
