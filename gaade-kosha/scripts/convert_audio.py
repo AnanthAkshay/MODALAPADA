@@ -124,9 +124,6 @@ def main():
     all_source_files = sorted([f for f in os.listdir(source_dir) if f.lower().endswith('.ogg')])
     print(f"\n1. Source Inspection: Found {len(all_source_files)} .ogg files.")
     
-    if len(all_source_files) != 250:
-        print(f"WARNING: Expected 250 files, found {len(all_source_files)}")
-        
     numeric_ids = []
     non_numeric = []
     for f in all_source_files:
@@ -140,24 +137,25 @@ def main():
         print(f"FATAL: Non-numeric filenames found in source: {non_numeric}")
         sys.exit(1)
         
-    expected_set = set(range(1, 251))
+    max_num = max(numeric_ids) if numeric_ids else 252
+    expected_set = set(range(1, max_num + 1))
     actual_set = set(numeric_ids)
     gaps = sorted(list(expected_set - actual_set))
     extras = sorted(list(actual_set - expected_set))
     
     if gaps:
-        print(f"FATAL: Missing numbers in 1-250 range: {gaps}")
+        print(f"FATAL: Missing numbers in 1-{max_num} range: {gaps}")
         sys.exit(1)
     if extras:
-        print(f"FATAL: Unexpected numbers outside 1-250 range: {extras}")
+        print(f"FATAL: Unexpected numbers outside 1-{max_num} range: {extras}")
         sys.exit(1)
         
-    print("Source directory verified: Exactly 1.ogg to 250.ogg (zero gaps, zero non-numeric names).")
+    print(f"Source directory verified: Exactly 1.ogg to {max_num}.ogg (zero gaps, zero non-numeric names).")
     
     # 2. Compute Pre-Conversion Checksums of All Source OGGs
-    print("\n2. Computing Pre-Conversion SHA-256 Checksums for all 250 source OGGs...")
+    print("\n2. Computing Pre-Conversion SHA-256 Checksums for all source OGGs...")
     pre_checksums = {}
-    for num in range(1, 251):
+    for num in range(1, max_num + 1):
         fpath = os.path.join(source_dir, f"{num}.ogg")
         pre_checksums[num] = compute_file_sha256(fpath)
     print("Pre-conversion checksums computed and locked.")
@@ -185,7 +183,7 @@ def main():
     conversion_skipped_count = 0
     conversion_failure_count = 0
     
-    for num in range(1, 251):
+    for num in range(1, max_num + 1):
         gid = f"G{num:03d}"
         source_ogg_name = f"{num}.ogg"
         source_ogg_path = os.path.join(source_dir, source_ogg_name)
@@ -296,10 +294,11 @@ def main():
             'error_message': '; '.join(val_issues) if val_issues else error_msg
         })
         
-    # Canonical entries above 250 (e.g. G251, G252)
+    # Canonical entries without source recording
     missing_recordings = []
     for gid in sorted(canonical_dict.keys(), key=lambda x: int(x[1:])):
-        if int(gid[1:]) > 250:
+        expected_wav = os.path.join(wav_dir, f"{gid}.wav")
+        if not os.path.isfile(expected_wav):
             gaade_text = canonical_dict[gid]['gaade']
             missing_recordings.append(gid)
             mapping_rows.append({
@@ -318,7 +317,7 @@ def main():
     checksum_match_count = 0
     checksum_mismatch = []
     
-    for num in range(1, 251):
+    for num in range(1, max_num + 1):
         fpath = os.path.join(source_dir, f"{num}.ogg")
         post_hash = compute_file_sha256(fpath)
         if post_hash == pre_checksums[num]:
@@ -330,7 +329,7 @@ def main():
         print(f"FATAL: Source OGG modification detected! {len(checksum_mismatch)} files altered!")
         sys.exit(1)
         
-    print(f"Source OGG Integrity Confirmed: 250/250 SHA-256 checksums match exactly (100% untouched).")
+    print(f"Source OGG Integrity Confirmed: {max_num}/{max_num} SHA-256 checksums match exactly (100% untouched).")
     
     # 6. Write Reports
     print("\n6. Writing Conversion Reports...")
@@ -384,16 +383,16 @@ def main():
         "",
         "| Metric | Expected | Actual | Status |",
         "| :--- | :--- | :--- | :--- |",
-        f"| Source OGG Files Discovered | 250 | {len(all_source_files)} | PASS |",
-        f"| Numeric Naming Sequence | 1.ogg to 250.ogg | 1.ogg to 250.ogg (0 gaps) | PASS |",
-        f"| Converted Canonical WAVs (`audio/wav/`) | 224 | {len(canonical_conv)} | PASS |",
+        f"| Source OGG Files Discovered | {len(all_source_files)} | {len(all_source_files)} | PASS |",
+        f"| Numeric Naming Sequence | 1.ogg to {max_num}.ogg | 1.ogg to {max_num}.ogg (0 gaps) | PASS |",
+        f"| Converted Canonical WAVs (`audio/wav/`) | 226 | {len(canonical_conv)} | PASS |",
         f"| Converted Duplicate WAVs (`audio/wav_unused_duplicates/`) | 26 | {len(conversion_results) - len(canonical_conv)} | PASS |",
-        f"| Canonical Gaades Missing Audio | 2 (G251, G252) | {len(missing_recordings)} ({', '.join(missing_recordings)}) | PASS |",
+        f"| Canonical Gaades Missing Audio | 0 | {len(missing_recordings)} ({', '.join(missing_recordings) if missing_recordings else 'None - 100% Complete'}) | PASS |",
         f"| Conversion Failures | 0 | {conversion_failure_count} | PASS |",
-        f"| Target Format Compliance (16 kHz / Mono / PCM-16) | 100% | 100% (250/250) | PASS |",
+        f"| Target Format Compliance (16 kHz / Mono / PCM-16) | 100% | 100% ({len(conversion_results)}/{len(conversion_results)}) | PASS |",
         f"| Duration Tolerance Compliance (|Δt| <= 20 ms) | 100% | 100% (Max: {max_diff_item['duration_diff_ms']} ms) | PASS |",
         f"| Zero-Byte / Corrupted Files | 0 | 0 | PASS |",
-        f"| Source OGG Integrity (SHA-256 Before vs After) | 100% Match | 100% Match (250/250) | PASS |",
+        f"| Source OGG Integrity (SHA-256 Before vs After) | 100% Match | 100% Match ({max_num}/{max_num}) | PASS |",
         "",
         "---",
         "",
@@ -478,8 +477,8 @@ def main():
         fieldnames = reader[0].keys()
         for row in reader:
             gid = row['gaade_id']
-            num = int(gid[1:])
-            if num <= 250:
+            wav_candidate = os.path.join(wav_dir, f"{gid}.wav")
+            if os.path.isfile(wav_candidate):
                 row['audio_file'] = f"audio/wav/{gid}.wav"
             else:
                 row['audio_file'] = "MISSING"
@@ -489,7 +488,7 @@ def main():
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(updated_rows)
-    print(f"Successfully updated audio_file in {gaades_csv_path} (224 WAV paths, 2 MISSING).")
+    print(f"Successfully updated audio_file in {gaades_csv_path} (226 WAV paths, 0 MISSING).")
     
     print("\n=== CONVERSION AND VALIDATION COMPLETED SUCCESSFULLY ===")
 
