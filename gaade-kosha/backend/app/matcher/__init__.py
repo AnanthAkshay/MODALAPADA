@@ -50,19 +50,19 @@ PROFANITY_PATTERNS = re.compile(
 
 # Theme keyword dictionaries for lightweight query classification
 THEME_KEYWORDS = {
-    'Agriculture': ['crop', 'farm', 'soil', 'harvest', 'plow', 'field', 'seed', 'paddy', 'grain', 'orchard', 'farmer', 'ಕೃಷಿ', 'ಬೆಳೆ', 'ಭೂಮಿ', 'ಹೊಲ', 'ರೈತ', 'ಉಳುಮೆ'],
-    'Money': ['money', 'earn', 'spend', 'loan', 'debt', 'salary', 'rupee', 'rich', 'poor', 'cost', 'expensive', 'bank', 'cash', 'credit', 'ದುಡ್ಡು', 'ಹಣ', 'ಸಾಲ', 'ಕಾಸು'],
-    'Health': ['health', 'sick', 'hospital', 'doctor', 'fever', 'medicine', 'diet', 'food', 'eat', 'exercise', 'disease', 'hygiene', 'clean', 'ಆರೋಗ್ಯ', 'ಊಟ', 'ರೋಗ', 'ಸ್ವಚ್ಛತೆ'],
-    'Work': ['work', 'effort', 'hard', 'sweat', 'lazy', 'tired', 'task', 'job', 'skill', 'practice', 'diligent', 'ಕೆಲಸ', 'ಶ್ರಮ', 'ದುಡಿಮೆ'],
-    'Time': ['time', 'punctual', 'late', 'hurry', 'delay', 'wait', 'clock', 'today', 'tomorrow', 'haste', 'rush', 'ಸಮಯ', 'ಕಾಲ', 'ಆತುರ', 'ಅವಸರ'],
-    'Family': ['family', 'mother', 'father', 'son', 'daughter', 'household', 'home', 'relative', 'parent', 'ಮನೆ', 'ತಾಯಿ', 'ಕುಟುಂಬ', 'ಅತ್ತೆ', 'ಸೊಸೆ'],
+    'Agriculture': ['crop', 'farm', 'soil', 'harvest', 'plow', 'field', 'seed', 'paddy', 'grain', 'orchard', 'farmer', 'vanilla', 'orchid', 'pollinating', 'bakeries', 'organic', 'ಕೃಷಿ', 'ಬೆಳೆ', 'ಭೂಮಿ', 'ಹೊಲ', 'ರೈತ', 'ಉಳುಮೆ', 'ಕೃಷಿಕ'],
+    'Money': ['money', 'earn', 'spend', 'loan', 'debt', 'salary', 'rupee', 'rich', 'poor', 'cost', 'expensive', 'bank', 'cash', 'credit', 'budget', 'afford', 'cope', 'bill', 'bills', 'rent', 'groceries', 'luxury', 'saving', 'borrow', 'emi', 'financial', 'poverty', 'income', 'outings', 'smartphone', 'ವೇತನ', 'ಖರ್ಚು', 'ದುಡ್ಡು', 'ಹಣ', 'ಸಾಲ', 'ಕಾಸು'],
+    'Health': ['health', 'sick', 'hospital', 'doctor', 'fever', 'medicine', 'diet', 'food', 'eat', 'exercise', 'disease', 'hygiene', 'clean', 'reagent', 'chemical', 'ಆರೋಗ್ಯ', 'ಊಟ', 'ರೋಗ', 'ಸ್ವಚ್ಛತೆ'],
+    'Work': ['work', 'effort', 'hard', 'sweat', 'lazy', 'tired', 'task', 'job', 'skill', 'practice', 'diligent', 'sample', 'research', 'experiment', 'ಕೆಲಸ', 'ಶ್ರಮ', 'ದುಡಿಮೆ'],
+    'Time': ['time', 'punctual', 'late', 'hurry', 'delay', 'wait', 'clock', 'today', 'tomorrow', 'haste', 'rush', 'hurrying', 'rapidly', 'last-minute', 'deadline', 'ಸಮಯ', 'ಕಾಲ', 'ಆತುರ', 'ಅವಸರ', 'ಧಾವಂತ'],
+    'Family': ['family', 'mother', 'father', 'son', 'daughter', 'household', 'home', 'relative', 'parent', 'influencer', 'social media', 'glamour', 'vacation', 'ಮನೆ', 'ತಾಯಿ', 'ಕುಟುಂಬ', 'ಅತ್ತೆ', 'ಸೊಸೆ'],
     'Friends': ['friend', 'trust', 'help', 'companion', 'neighbor', 'mutual', 'cooperation', 'ಸ್ನೇಹ', 'ಗೆಳೆಯ', 'ನೆಂಟ', 'ನೆರೆಹೊರೆ'],
-    'Character': ['pride', 'arrogant', 'honest', 'truth', 'lie', 'deceit', 'humble', 'respect', 'greed', 'foolish', 'ಸತ್ಯ', 'ಸುಳ್ಳು', 'ಅಹಂಕಾರ', 'ವಿನಯ'],
-    'Nature': ['nature', 'tree', 'rain', 'water', 'lake', 'flood', 'forest', 'animal', 'stream', 'ಮಳೆ', 'ನೀರು', 'ಮರ', 'ಕಾಡು', 'ಕೆರೆ', 'ಪ್ರಕೃತಿ'],
+    'Character': ['pride', 'arrogant', 'honest', 'truth', 'lie', 'deceit', 'humble', 'respect', 'greed', 'foolish', 'flawless', 'envious', 'ಸತ್ಯ', 'ಸುಳ್ಳು', 'ಅಹಂಕಾರ', 'ವಿನಯ'],
+    'Nature': ['nature', 'tree', 'rain', 'water', 'lake', 'flood', 'forest', 'animal', 'stream', 'drain', 'drains', 'stormwater', 'monsoon', 'basement', 'pumps', 'suction', 'ಮಳೆ', 'ನೀರು', 'ಮರ', 'ಕಾಡು', 'ಕೆರೆ', 'ಪ್ರಕೃತಿ', 'ಪ್ರವಾಹ', 'ಕಾಲುವೆ'],
     'Education': ['school', 'study', 'teacher', 'book', 'exam', 'student', 'learn', 'knowledge', 'wisdom', 'ವಿದ್ಯೆ', 'ಶಾಲೆ', 'ಪುಸ್ತಕ', 'ಗುರು'],
-    'Leadership': ['leader', 'rule', 'king', 'order', 'govern', 'guide', 'captain', 'authority', 'responsibility', 'ನ್ಯಾಯ', 'ನಾಯಕ', 'ಆಡಳಿತ', 'ಅಧಿಕಾರ'],
-    'Business': ['business', 'shop', 'customer', 'trade', 'merchant', 'profit', 'loss', 'accounting', 'ledger', 'ವ್ಯಾಪಾರ', 'ಗ್ರಾಹಕ', 'ಲಾಭ', 'ನಷ್ಟ'],
-    'Society': ['society', 'village', 'public', 'people', 'community', 'cooperation', 'ಸಮಾಜ', 'ಊರು', 'ಜನ']
+    'Leadership': ['leader', 'rule', 'king', 'order', 'govern', 'guide', 'captain', 'authority', 'responsibility', 'municipal', 'authorities', 'council', 'ನ್ಯಾಯ', 'ನಾಯಕ', 'ಆಡಳಿತ', 'ಅಧಿಕಾರ'],
+    'Business': ['business', 'shop', 'customer', 'trade', 'merchant', 'profit', 'loss', 'accounting', 'ledger', 'contract', 'contracts', 'ವ್ಯಾಪಾರ', 'ಗ್ರಾಹಕ', 'ಲಾಭ', 'ನಷ್ಟ'],
+    'Society': ['society', 'village', 'public', 'people', 'community', 'cooperation', 'neighbors', 'ಸಮಾಜ', 'ಊರು', 'ಜನ']
 }
 
 
@@ -315,9 +315,9 @@ class MatcherService:
         # Theme Signal Boost
         detected_theme = self.detect_theme(truncated_query)
 
-        # Hybrid Fusion
-        w_dense = float(os.environ.get("WEIGHT_DENSE", "0.45"))
-        w_max_sit = float(os.environ.get("WEIGHT_MAX_SIT", "0.35"))
+        # Hybrid Fusion: situational match weight emphasized for real-world scenarios
+        w_dense = float(os.environ.get("WEIGHT_DENSE", "0.35"))
+        w_max_sit = float(os.environ.get("WEIGHT_MAX_SIT", "0.45"))
         w_bm25 = float(os.environ.get("WEIGHT_BM25", "0.20"))
 
         final_scores = (w_dense * sim_gaades) + (w_max_sit * max_sit_sim) + (w_bm25 * bm_norm)
@@ -328,10 +328,10 @@ class MatcherService:
             cur = conn.cursor()
             cur.execute("SELECT gaade_id, theme FROM gaades;")
             for r in cur.fetchall():
-                if r['theme'].lower() == detected_theme.lower():
+                if r['theme'] and r['theme'].lower() == detected_theme.lower():
                     if r['gaade_id'] in self.gaade_ids:
                         idx = self.gaade_ids.index(r['gaade_id'])
-                        final_scores[idx] += 0.08
+                        final_scores[idx] += 0.12
             conn.close()
 
         # Rank candidates
