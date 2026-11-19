@@ -25,19 +25,19 @@ export default function ResultScreen({
 
   return (
     <main id="main" className="mx-auto w-full max-w-read px-4 pb-20 pt-8 sm:px-8 sm:pt-12">
-      {/* Top Navigation Bar: Always visible so user can instantly go back / search another gaade */}
+      {/* Top Navigation Bar: Big, neat and visible red button */}
       <nav aria-label="Result navigation" className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4">
         <button
           type="button"
           onClick={fromBrowse && onBackToBrowse ? onBackToBrowse : onNewSituation}
-          className={`${btnSecondary} h-11 px-4 text-meta`}
+          className="inline-flex min-h-[48px] items-center gap-2.5 rounded-control bg-kumkum px-5 py-2.5 text-on-kumkum shadow-sm transition-all hover:bg-kumkum-hover hover:shadow-md focus-visible:outline-offset-2"
           aria-label={fromBrowse ? t('result.backToBrowse') : t('result.searchAnother')}
         >
-          <ArrowLeft size={16} strokeWidth={2} aria-hidden="true" />
-          <span lang={locale} className={`${locale === 'kn' ? 'kn' : ''} font-medium`}>
+          <ArrowLeft size={18} strokeWidth={2.2} aria-hidden="true" />
+          <span lang={locale} className={`${locale === 'kn' ? 'kn text-[16px]' : 'text-[15px]'} font-semibold`}>
             {fromBrowse ? t('result.backToBrowse') : t('result.searchAnother')}
           </span>
-          <span lang={other} className={`${other === 'kn' ? 'kn' : ''} text-[11px] text-ink-soft hidden sm:inline`}>
+          <span lang={other} className={`${other === 'kn' ? 'kn text-[12px]' : 'text-[12px]'} text-on-kumkum/85 hidden sm:inline`}>
             ({fromBrowse ? sub('result.backToBrowse') : sub('result.searchAnother')})
           </span>
         </button>
@@ -286,7 +286,7 @@ function ReadyView({ data, query, altIndex, onPromote, onSelect, onNewSituation,
             className={`${locale === 'kn' ? 'kn' : ''} text-meta leading-[1.7] text-ink-soft`}
           >
             {locale === 'kn'
-              ? `ಸ್ಥಿತಿ: ${item.provenance || 'ಅಧಿಕೃತ (Canonical)'}`
+              ? `ಸ್ಥಿತಿ: ${item.status === 'synthetic' ? 'ಸಂಗ್ರಹದ ಸೇರ್ಪಡೆ' : 'ಅಧಿಕೃತ (Canonical)'}`
               : `Status: ${item.status === 'synthetic' ? 'Archival addition' : 'Verified canonical'}`}
           </span>
           <span
@@ -294,30 +294,57 @@ function ReadyView({ data, query, altIndex, onPromote, onSelect, onNewSituation,
             className={`${other === 'kn' ? 'kn' : ''} text-[12px] leading-tight text-ink-soft`}
           >
             {other === 'kn'
-              ? `ಸ್ಥಿತಿ: ${item.provenance || 'ಅಧಿಕೃತ (Canonical)'}`
+              ? `ಸ್ಥಿತಿ: ${item.status === 'synthetic' ? 'ಸಂಗ್ರಹದ ಸೇರ್ಪಡೆ' : 'ಅಧಿಕೃತ (Canonical)'}`
               : `Status: ${item.status === 'synthetic' ? 'Archival addition' : 'Verified canonical'}`}
           </span>
         </span>
       </div>
 
-      <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-line pt-6">
+      {/* Prominent Action Bar with Big Red Box Button */}
+      <div className="mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 border-t border-line pt-7">
         <button
           type="button"
           onClick={onNewSituation}
-          className={`${btnPrimary} flex-1 sm:flex-initial`}
+          className="inline-flex min-h-[58px] items-center justify-center gap-3.5 rounded-control bg-kumkum px-8 py-3.5 text-on-kumkum shadow-md transition-all hover:bg-kumkum-hover hover:shadow-lg focus-visible:outline-offset-4"
         >
-          <Search size={18} strokeWidth={2} aria-hidden="true" />
-          <ActionLabel k="result.searchAnother" />
+          <Search size={22} strokeWidth={2.2} aria-hidden="true" />
+          <span className="flex flex-col items-start text-left">
+            <span
+              lang={locale}
+              className={`${locale === 'kn' ? 'kn text-[18px]' : 'text-[17px]'} font-semibold leading-tight`}
+            >
+              {locale === 'kn' ? 'ಹೊಸ ಸಂದರ್ಭ ಹುಡುಕಿ' : 'Search another situation'}
+            </span>
+            <span
+              lang={other}
+              className={`${other === 'kn' ? 'kn text-[12px]' : 'text-[12px]'} text-on-kumkum/85 leading-tight`}
+            >
+              {other === 'kn' ? 'ಹೊಸ ಸಂದರ್ಭ ಹುಡುಕಿ' : 'Search another situation'}
+            </span>
+          </span>
         </button>
 
         {hasMore ? (
           <button
             type="button"
             onClick={onPromote}
-            className={`${btnSecondary} flex-1 sm:flex-initial`}
+            className="inline-flex min-h-[58px] items-center justify-center gap-3 rounded-control border-2 border-indigo bg-paper px-6 py-3.5 text-indigo shadow-sm transition-all hover:bg-indigo hover:text-white hover:shadow-md focus-visible:outline-offset-4"
           >
-            <RefreshCw size={16} strokeWidth={2} aria-hidden="true" />
-            <ActionLabel k="result.showAnother" />
+            <RefreshCw size={20} strokeWidth={2} aria-hidden="true" />
+            <span className="flex flex-col items-start text-left">
+              <span
+                lang={locale}
+                className={`${locale === 'kn' ? 'kn text-[17px]' : 'text-[16px]'} font-semibold leading-tight`}
+              >
+                {t('result.showAnother')}
+              </span>
+              <span
+                lang={other}
+                className={`${other === 'kn' ? 'kn text-[12px]' : 'text-[12px]'} opacity-80 leading-tight`}
+              >
+                {sub('result.showAnother')}
+              </span>
+            </span>
           </button>
         ) : null}
 
@@ -325,9 +352,11 @@ function ReadyView({ data, query, altIndex, onPromote, onSelect, onNewSituation,
           <button
             type="button"
             onClick={onBackToBrowse}
-            className={`${btnText} ml-auto`}
+            className="sm:ml-auto inline-flex min-h-[48px] items-center justify-center gap-2 rounded-control px-4 py-2 text-meta font-medium text-ink-soft hover:text-indigo hover:underline underline-offset-4"
           >
-            <ActionLabel k="result.backToBrowse" />
+            <span lang={locale} className={locale === 'kn' ? 'kn' : ''}>
+              {t('result.backToBrowse')}
+            </span>
           </button>
         ) : null}
       </div>
@@ -376,17 +405,30 @@ function NoticeBlock({ status, message, onNewSituation, onBackToBrowse, fromBrow
         </p>
       ) : null}
 
-      <div className="mt-6 flex flex-wrap items-center gap-3">
+      <div className="mt-8 flex flex-wrap items-center gap-4">
         <button
           type="button"
           onClick={onNewSituation}
-          className={`${btnPrimary} flex-1 sm:flex-initial`}
+          className="inline-flex min-h-[56px] items-center justify-center gap-3 rounded-control bg-kumkum px-8 py-3.5 text-on-kumkum shadow-md transition-all hover:bg-kumkum-hover hover:shadow-lg focus-visible:outline-offset-4"
         >
-          <Search size={18} strokeWidth={2} aria-hidden="true" />
-          <ActionLabel k="result.searchAnother" />
+          <Search size={22} strokeWidth={2.2} aria-hidden="true" />
+          <span className="flex flex-col items-start text-left">
+            <span
+              lang={locale}
+              className={`${locale === 'kn' ? 'kn text-[18px]' : 'text-[17px]'} font-semibold leading-tight`}
+            >
+              {locale === 'kn' ? 'ಹೊಸ ಸಂದರ್ಭ ಹುಡುಕಿ' : 'Search another situation'}
+            </span>
+            <span
+              lang={other}
+              className={`${other === 'kn' ? 'kn text-[12px]' : 'text-[12px]'} text-on-kumkum/85 leading-tight`}
+            >
+              {other === 'kn' ? 'ಹೊಸ ಸಂದರ್ಭ ಹುಡುಕಿ' : 'Search another situation'}
+            </span>
+          </span>
         </button>
         {fromBrowse && onBackToBrowse ? (
-          <button type="button" onClick={onBackToBrowse} className={btnSecondary}>
+          <button type="button" onClick={onBackToBrowse} className={`${btnSecondary} min-h-[56px] px-6`}>
             <ActionLabel k="result.backToBrowse" />
           </button>
         ) : null}
@@ -449,8 +491,9 @@ function ErrorBlock({ match, query, onRetry, onNewSituation }) {
             {t('result.tryAgain')}
           </span>
         </button>
-        <button type="button" onClick={onNewSituation} className={btnText}>
-          <ActionLabel k="result.newSituation" />
+        <button type="button" onClick={onNewSituation} className={btnSecondary}>
+          <Search size={16} strokeWidth={2} aria-hidden="true" />
+          <ActionLabel k="result.searchAnother" />
         </button>
       </div>
     </section>
