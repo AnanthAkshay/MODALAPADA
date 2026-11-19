@@ -1,0 +1,253 @@
+gaade_id,source_pdf_number,source_type,verification_status,duplicate_of,consent_ref,notes,example_source
+G001,1,existing_collection_pdf,unverified,,,usage_context: Use when someone keeps wanting more and ignores the risks.,team_drafted
+G002,2,existing_collection_pdf,unverified,,,usage_context: Use to encourage someone to work instead of waiting for results.,team_drafted
+G003,3,existing_collection_pdf,unverified,,,usage_context: Use when someone faces the result of their own actions.,team_drafted
+G004,4,existing_collection_pdf,unverified,,,usage_context: Use when advising someone to learn good habits while young.,team_drafted
+G005,5,existing_collection_pdf,unverified,,,usage_context: Use when saving money or making steady progress.,team_drafted
+G006,6,existing_collection_pdf,unverified,,,usage_context: Use when someone is becoming impatient.,team_drafted
+G007,7,existing_collection_pdf,unverified,,,usage_context: Use when someone spends beyond their budget.,team_drafted
+G008,8,existing_collection_pdf,unverified,,,usage_context: Use when someone rushes a decision.,team_drafted
+G009,9,existing_collection_pdf,unverified,,,usage_context: Use when talking about effort and consequences.,team_drafted
+G010,10,existing_collection_pdf,unverified,,,usage_context: Use when someone keeps postponing important work.,team_drafted
+G011,11,existing_collection_pdf,unverified,,,usage_context: Use to remind someone to value time.,team_drafted
+G012,12,existing_collection_pdf,unverified,,,usage_context: Use when circumstances change and a new approach is needed.,team_drafted
+G013,13,existing_collection_pdf,unverified,,,usage_context: Use to motivate someone facing a difficult task.,team_drafted
+G014,14,existing_collection_pdf,unverified,,,usage_context: Use to praise sincere and dedicated work.,team_drafted
+G015,15,existing_collection_pdf,unverified,,,usage_context: Use when someone makes promises but does not act.,team_drafted
+G016,16,existing_collection_pdf,unverified,,,usage_context: Use when someone keeps delaying a task.,team_drafted
+G017,17,existing_collection_pdf,unverified,,,usage_context: Use when someone expects rewards without effort.,team_drafted
+G018,18,existing_collection_pdf,unverified,,,usage_context: Use to encourage persistence.,team_drafted
+G019,19,existing_collection_pdf,unverified,,,usage_context: Use when someone feels stuck.,team_drafted
+G020,20,existing_collection_pdf,unverified,,,usage_context: Use to encourage someone going through a difficult phase.,team_drafted
+G021,21,existing_collection_pdf,unverified,,,usage_context: Use when planning a project or task.,team_drafted
+G022,22,existing_collection_pdf,unverified,,,usage_context: Use when timing matters.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G023,23,existing_collection_pdf,unverified,,,usage_context: Use when someone failed to prepare in advance.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G024,24,existing_collection_pdf,unverified,,,usage_context: Use when help comes too late.,team_drafted
+G025,25,existing_collection_pdf,unverified,,,usage_context: Use when someone prepares after the problem has started.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G026,26,existing_collection_pdf,unverified,,,usage_context: Use when warning someone against repeating a known mistake.,team_drafted
+G027,27,existing_collection_pdf,unverified,,,usage_context: Use when someone is hesitating over a valuable chance.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G028,28,existing_collection_pdf,unverified,,,usage_context: Use when encouraging someone to deal with reality.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G029,29,existing_collection_pdf,unverified,,,usage_context: Use when praising quiet confidence.,team_drafted
+G030,30,existing_collection_pdf,unverified,,,usage_context: Use when praising humility.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G031,31,existing_collection_pdf,unverified,,,usage_context: Use when someone overcomplicates a simple matter.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G032,32,existing_collection_pdf,unverified,,,usage_context: Use when someone idealises what they do not have.,team_drafted
+G033,33,existing_collection_pdf,unverified,,,usage_context: Use when an overlooked person finally gets a chance.,team_drafted
+G034,34,existing_collection_pdf,unverified,,,usage_context: Use when explaining why practical needs come first.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G035,35,existing_collection_pdf,unverified,,,usage_context: Use when someone is constantly dissatisfied.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G036,36,existing_collection_pdf,unverified,,,usage_context: Use when someone wants more and more.,team_drafted
+G037,37,existing_collection_pdf,unverified,,,usage_context: Use to value sincere labour.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G038,38,existing_collection_pdf,unverified,,,usage_context: Use when someone forgets those who helped them.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G039,39,existing_collection_pdf,unverified,,,usage_context: Use to motivate someone to keep trying.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G040,40,existing_collection_pdf,unverified,,,usage_context: Use when an old approach no longer works.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G041,41,existing_collection_pdf,unverified,,,usage_context: Use when someone is trying to do too many things.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G042,42,existing_collection_pdf,unverified,,,usage_context: Use when someone is reacting too quickly.,team_drafted
+G043,43,existing_collection_pdf,unverified,,,usage_context: Use when appreciating someone's good work.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G044,44,existing_collection_pdf,unverified,,,usage_context: Use when explaining that success needs work.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G045,45,existing_collection_pdf,unverified,,,usage_context: Use when someone takes an opportunity for granted.,team_drafted
+G046,46,existing_collection_pdf,unverified,,,usage_context: Use when accepting that situations change.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G047,47,existing_collection_pdf,unverified,,,usage_context: Use when someone avoids responsibility.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G048,48,existing_collection_pdf,unverified,,,usage_context: Use when encouraging someone to take responsibility.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G049,49,existing_collection_pdf,unverified,,,usage_context: Use when motivating a team to cooperate.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G050,50,existing_collection_pdf,unverified,,,usage_context: Use when encouraging people to share a task.,team_drafted
+G051,51,existing_collection_pdf,unverified,,,usage_context: Use when appreciating someone who stood by you.,team_drafted
+G052,52,existing_collection_pdf,unverified,,,usage_context: Use when recognising genuine friendship.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G053,53,existing_collection_pdf,unverified,,,usage_context: Use when both people share responsibility.,team_drafted
+G054,54,existing_collection_pdf,unverified,,,usage_context: Use when an argument is going nowhere.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G055,55,existing_collection_pdf,unverified,,,usage_context: Use when someone is biased towards their own work or family.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G056,56,existing_collection_pdf,unverified,,,usage_context: Use when timing goes wrong.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G057,57,existing_collection_pdf,unverified,,,usage_context: Use when someone expects others to solve everything.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G058,58,existing_collection_pdf,unverified,,,usage_context: Use when discussing personal responsibility.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G059,59,existing_collection_pdf,unverified,,,usage_context: Use when warning someone to speak carefully.,team_drafted
+G060,60,existing_collection_pdf,unverified,,,usage_context: Use when someone repeatedly refuses to improve.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G061,61,existing_collection_pdf,unverified,,,usage_context: Use when local talent or help is ignored.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G062,62,existing_collection_pdf,unverified,,,usage_context: Use when family members disagree.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G063,63,existing_collection_pdf,unverified,,,usage_context: Use when explaining differences between people.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G064,64,existing_collection_pdf,unverified,,,usage_context: Use when someone reacts nervously to a general accusation.,team_drafted
+G065,65,existing_collection_pdf,unverified,,,usage_context: Use when a person is generous outside but unhelpful at home.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G066,66,existing_collection_pdf,unverified,,,usage_context: Use when reminding people not to judge from appearances.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G067,67,existing_collection_pdf,unverified,,,usage_context: Use when encouraging reconciliation.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G068,68,existing_collection_pdf,unverified,,,usage_context: Use when someone dismisses experienced advice.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G069,69,existing_collection_pdf,unverified,,,usage_context: Use when speaking about the importance of children.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G070,70,existing_collection_pdf,unverified,,,usage_context: Use when discussing upbringing.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G071,71,existing_collection_pdf,unverified,,,usage_context: Use when appreciating a mother's care.,team_drafted
+G072,72,existing_collection_pdf,unverified,,,usage_context: Use when advising careful choices.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G073,73,existing_collection_pdf,unverified,,,usage_context: Use when family members think differently.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G074,74,existing_collection_pdf,unverified,,,usage_context: Use when speaking about a mother's comfort.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G075,75,existing_collection_pdf,unverified,,,usage_context: Use when praising someone who supports their family.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G076,76,existing_collection_pdf,unverified,,,usage_context: Use when encouraging family harmony.,team_drafted
+G077,77,existing_collection_pdf,unverified,,,usage_context: Use when friends are fighting over a small issue.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G078,78,existing_collection_pdf,unverified,,,usage_context: Use when warning people not to publicise family disputes.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G079,79,existing_collection_pdf,unverified,,,usage_context: Use when speaking about a mother's affection.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G080,80,existing_collection_pdf,unverified,,,usage_context: Use when encouraging cooperation among relatives.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G081,81,existing_collection_pdf,unverified,,,usage_context: Use when someone criticises others without self reflection.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G082,82,existing_collection_pdf,unverified,,,usage_context: Use when someone refuses to accept their part in a problem.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G083,83,existing_collection_pdf,unverified,,,usage_context: Use when someone is about to act in anger.,team_drafted
+G084,84,existing_collection_pdf,unverified,,,usage_context: Use when warning someone about harsh speech.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G085,85,existing_collection_pdf,unverified,,,usage_context: Use when seeking a diplomatic solution.,team_drafted
+G086,86,existing_collection_pdf,unverified,G042,,usage_context: Use when a family disagreement is escalating.; english_equivalent: fallback_to_pdf_meaning; duplicate_of: G042; excluded from canonical gaades.csv,team_drafted
+G087,87,existing_collection_pdf,unverified,,,usage_context: Use when encouraging respectful communication.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G088,88,existing_collection_pdf,unverified,,,usage_context: Use when motivating family members to cooperate.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G089,89,existing_collection_pdf,unverified,,,usage_context: Use when encouraging people to help one another.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G090,90,existing_collection_pdf,unverified,,,usage_context: Use when a friendship is becoming transactional.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G091,91,existing_collection_pdf,unverified,,,usage_context: Use when discussing honesty in relationships.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G092,92,existing_collection_pdf,unverified,,,usage_context: Use when appreciating helpful neighbours.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G093,93,existing_collection_pdf,unverified,,,usage_context: Use when trying to repair a relationship.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G094,94,existing_collection_pdf,unverified,,,usage_context: Use when someone tries to control others.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G095,95,existing_collection_pdf,unverified,,,usage_context: Use when discussing respectful behaviour.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G096,96,existing_collection_pdf,unverified,,,usage_context: Use when resolving recurring disagreements.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G097,97,existing_collection_pdf,unverified,,,usage_context: Use when appreciating dependable people.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G098,98,existing_collection_pdf,unverified,,,usage_context: Use when reminding someone to honour their word.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G099,99,existing_collection_pdf,unverified,,,usage_context: Use when valuing relationships over possessions.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G100,100,existing_collection_pdf,unverified,,,usage_context: Use when encouraging empathy.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G101,101,existing_collection_pdf,unverified,,,usage_context: Use when someone makes excuses instead of improving.,team_drafted
+G102,102,existing_collection_pdf,unverified,,,usage_context: Use when advice is repeatedly ignored.,team_drafted
+G103,103,existing_collection_pdf,unverified,,,usage_context: Use when someone misuses a valuable opportunity or resource.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G104,104,existing_collection_pdf,unverified,,,usage_context: Use when someone fails to value something precious.,team_drafted
+G105,105,existing_collection_pdf,unverified,,,usage_context: Use when an offer or explanation cannot help the recipient.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G106,106,existing_collection_pdf,unverified,,,usage_context: Use when someone is talking without knowing the facts.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G107,107,existing_collection_pdf,unverified,,,usage_context: Use when someone makes confident claims with incomplete knowledge.,team_drafted
+G108,108,existing_collection_pdf,unverified,,,usage_context: Use in a learning or mentoring situation.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G109,109,existing_collection_pdf,unverified,,,usage_context: Use when gossip or arguments are growing.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G110,110,existing_collection_pdf,unverified,,,usage_context: Use when warning someone about careless speech.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G111,111,existing_collection_pdf,unverified,,,usage_context: Use when someone aggravates a conflict.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G112,112,existing_collection_pdf,unverified,,,usage_context: Use when someone is trying to cover up dishonesty.,team_drafted
+G113,113,existing_collection_pdf,unverified,,,usage_context: Use when someone ignores repeated guidance.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G114,114,existing_collection_pdf,unverified,,,usage_context: Use when someone boasts but does little.,team_drafted
+G115,115,existing_collection_pdf,unverified,,,usage_context: Use when encouraging polite speech.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G116,116,existing_collection_pdf,unverified,,,usage_context: Use when gossip or loose talk creates problems.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G117,117,existing_collection_pdf,unverified,G083,,usage_context: Use when someone is about to react impulsively.; english_equivalent: fallback_to_pdf_meaning; duplicate_of: G083; excluded from canonical gaades.csv,team_drafted
+G118,118,existing_collection_pdf,unverified,,,usage_context: Use when someone seems anxious about being exposed.,team_drafted
+G119,119,existing_collection_pdf,unverified,,,usage_context: Use when someone repeatedly gives flimsy explanations.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G120,120,existing_collection_pdf,unverified,,,usage_context: Use when one person's behaviour affects a whole group.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G121,121,existing_collection_pdf,unverified,,,usage_context: Use when someone fails to value a good opportunity.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G122,122,existing_collection_pdf,unverified,,,usage_context: Use when someone is blind to their own behaviour.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G123,123,existing_collection_pdf,unverified,,,usage_context: Use humorously when someone benefits from chaos.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G124,124,existing_collection_pdf,unverified,,,usage_context: Use when continuing the argument will not help.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G125,125,existing_collection_pdf,unverified,G085,,usage_context: Use when resolving a sensitive disagreement.; duplicate_of: G085; excluded from canonical gaades.csv,team_drafted
+G126,126,existing_collection_pdf,unverified,,,usage_context: Use when someone makes big claims without proof.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G127,127,existing_collection_pdf,unverified,,,usage_context: Use when someone trusts appearances too quickly.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G128,128,existing_collection_pdf,unverified,,,usage_context: Use when a situation may be misleading.,team_drafted
+G129,129,existing_collection_pdf,unverified,,,usage_context: Use when something looks attractive but may lack value.,team_drafted
+G130,130,existing_collection_pdf,unverified,,,usage_context: Use when warning about appearances.,team_drafted
+G131,131,existing_collection_pdf,unverified,G029,,usage_context: Use when praising a person who does not show off.; english_equivalent: fallback_to_pdf_meaning; duplicate_of: G029; excluded from canonical gaades.csv,team_drafted
+G132,132,existing_collection_pdf,unverified,,,usage_context: Use when someone boasts without ability.,team_drafted
+G133,133,existing_collection_pdf,unverified,,,usage_context: Use when someone becomes arrogant.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G134,134,existing_collection_pdf,unverified,,,usage_context: Use when someone misuses authority.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G135,135,existing_collection_pdf,unverified,G104,,usage_context: Use when good work is dismissed by someone.; duplicate_of: G104; excluded from canonical gaades.csv,team_drafted
+G136,136,existing_collection_pdf,unverified,,,usage_context: Use when someone misses the significance of an issue.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G137,137,existing_collection_pdf,unverified,,,usage_context: Use when encouraging someone to ask questions.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G138,138,existing_collection_pdf,unverified,,,usage_context: Use when discussing honesty and reliability.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G139,139,existing_collection_pdf,unverified,,,usage_context: Use when someone has lost trust through exaggeration.,team_drafted
+G140,140,existing_collection_pdf,unverified,,,usage_context: Use when someone is nervous after wrongdoing.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G141,141,existing_collection_pdf,unverified,,,usage_context: Use when one bad influence affects a group.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G142,142,existing_collection_pdf,unverified,,,usage_context: Use when someone is careful because of past trouble.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G143,143,existing_collection_pdf,unverified,,,usage_context: Use when discussing the value of trust.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G144,144,existing_collection_pdf,unverified,,,usage_context: Use when encouraging someone to stand by the truth.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G145,145,existing_collection_pdf,unverified,,,usage_context: Use when reassuring someone who is being honest.,team_drafted
+G146,146,existing_collection_pdf,unverified,,,usage_context: Use when discussing how someone communicates.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G147,147,existing_collection_pdf,unverified,,,usage_context: Use when encouraging accountability.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G148,148,existing_collection_pdf,unverified,,,usage_context: Use when someone reflects on a past mistake.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G149,149,existing_collection_pdf,unverified,,,usage_context: Use when encouraging improvement.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G150,150,existing_collection_pdf,unverified,,,usage_context: Use when someone learns a lesson through life.,team_drafted
+G151,151,existing_collection_pdf,unverified,,,usage_context: Use when discussing how money affects decisions.,team_drafted
+G152,152,existing_collection_pdf,unverified,,,usage_context: Use when someone spends beyond their means.,team_drafted
+G153,153,existing_collection_pdf,unverified,,,usage_context: Use when talking about the comfort wealth can bring.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G154,154,existing_collection_pdf,unverified,,,usage_context: Use when discussing the power of wealth.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G155,155,existing_collection_pdf,unverified,,,usage_context: Use when someone pretends to be wealthy.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G156,156,existing_collection_pdf,unverified,,,usage_context: Use when someone cares more about appearances than needs.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G157,157,existing_collection_pdf,unverified,,,usage_context: Use when someone expects benefits without effort.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G158,158,existing_collection_pdf,unverified,,,usage_context: Use when discussing financial security.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G159,159,existing_collection_pdf,unverified,,,usage_context: Use when generosity is being exploited.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G160,160,existing_collection_pdf,unverified,,,usage_context: Use when someone damages their reputation.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G161,161,existing_collection_pdf,unverified,,,usage_context: Use when encouraging someone to stay honest.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G162,162,existing_collection_pdf,unverified,,,usage_context: Use when someone is caught in their own dishonesty.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G163,163,existing_collection_pdf,unverified,G130,,usage_context: Use when a person or product looks better than it is.; english_equivalent: fallback_to_pdf_meaning; duplicate_of: G130; excluded from canonical gaades.csv,team_drafted
+G164,164,existing_collection_pdf,unverified,G139,,usage_context: Use when someone has exaggerated too often.; duplicate_of: G139; excluded from canonical gaades.csv,team_drafted
+G165,165,existing_collection_pdf,unverified,,,usage_context: Use when someone cannot escape responsibility.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G166,166,existing_collection_pdf,unverified,,,usage_context: Use when something suspicious happens verify before judging.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G167,167,existing_collection_pdf,unverified,,,usage_context: Use when encouraging honesty.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G168,168,existing_collection_pdf,unverified,G128,,usage_context: Use when checking a claim before believing it.; english_equivalent: fallback_to_pdf_meaning; duplicate_of: G128; excluded from canonical gaades.csv,team_drafted
+G169,169,existing_collection_pdf,unverified,G129,,usage_context: Use when a flashy offer may be misleading.; english_equivalent: fallback_to_pdf_meaning; duplicate_of: G129; excluded from canonical gaades.csv,team_drafted
+G170,170,existing_collection_pdf,unverified,G123,,usage_context: Use humorously when someone benefits from confusion.; english_equivalent: fallback_to_pdf_meaning; duplicate_of: G123; excluded from canonical gaades.csv,team_drafted
+G171,171,existing_collection_pdf,unverified,,,usage_context: Use when someone plans beyond their capacity.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G172,172,existing_collection_pdf,unverified,,,usage_context: Use when someone assumes success too early.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G173,173,existing_collection_pdf,unverified,,,usage_context: Use when a nearly completed plan fails.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G174,174,existing_collection_pdf,unverified,G032,,usage_context: Use when someone undervalues what they already have.; duplicate_of: G032; excluded from canonical gaades.csv,team_drafted
+G175,175,existing_collection_pdf,unverified,,,usage_context: Use when kindness is being misused.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G176,176,existing_collection_pdf,unverified,,,usage_context: Use when someone jokes at another person's expense.,team_drafted
+G177,177,existing_collection_pdf,unverified,G036,,usage_context: Use when greed is causing problems.; english_equivalent: fallback_to_pdf_meaning; duplicate_of: G036; excluded from canonical gaades.csv,team_drafted
+G178,178,existing_collection_pdf,unverified,,,usage_context: Use when discussing greed or influence.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G179,179,existing_collection_pdf,unverified,G118,,usage_context: Use when someone is anxious after doing wrong.; english_equivalent: fallback_to_pdf_meaning; duplicate_of: G118; excluded from canonical gaades.csv,team_drafted
+G180,180,existing_collection_pdf,unverified,G119,,usage_context: Use when someone repeatedly avoids responsibility.; english_equivalent: fallback_to_pdf_meaning; duplicate_of: G119; excluded from canonical gaades.csv,team_drafted
+G181,181,existing_collection_pdf,unverified,G138,,usage_context: Use when someone breaks a promise.; english_equivalent: fallback_to_pdf_meaning; duplicate_of: G138; excluded from canonical gaades.csv,team_drafted
+G182,182,existing_collection_pdf,unverified,G059,,usage_context: Use when someone speaks without thinking.; english_equivalent: fallback_to_pdf_meaning; duplicate_of: G059; excluded from canonical gaades.csv,team_drafted
+G183,183,existing_collection_pdf,unverified,G023,,usage_context: Use when someone acts only after a problem appears.; english_equivalent: fallback_to_pdf_meaning; duplicate_of: G023; excluded from canonical gaades.csv,team_drafted
+G184,184,existing_collection_pdf,unverified,G033,,usage_context: Use when someone finally gets recognition.; english_equivalent: fallback_to_pdf_meaning; duplicate_of: G033; excluded from canonical gaades.csv,team_drafted
+G185,185,existing_collection_pdf,unverified,,,usage_context: Use when people follow the example or direction set by an influential person.; replacement entry in revised edition for earlier duplicate,team_drafted
+G186,186,existing_collection_pdf,unverified,,,usage_context: Use when reminding someone that situations and roles can change over time.; replacement entry in revised edition for earlier duplicate,team_drafted
+G187,187,existing_collection_pdf,unverified,,,usage_context: Use when someone wrongly assumes that one event caused another.; replacement entry in revised edition for earlier duplicate,team_drafted
+G188,188,existing_collection_pdf,unverified,,,usage_context: Use when a fact is already clear and needs no additional demonstration.; replacement entry in revised edition for earlier duplicate,team_drafted
+G189,189,existing_collection_pdf,unverified,,,usage_context: Use when encouraging someone to speak up and ask for necessary help.; replacement entry in revised edition for earlier duplicate,team_drafted
+G190,190,existing_collection_pdf,unverified,G013,,usage_context: Use when someone expects an easy shortcut.; english_equivalent: fallback_to_pdf_meaning; duplicate_of: G013; excluded from canonical gaades.csv,team_drafted
+G191,191,existing_collection_pdf,unverified,,,usage_context: Use when advising moderation in food and care in choosing words.; replacement entry in revised edition for earlier duplicate,team_drafted
+G192,192,existing_collection_pdf,unverified,,,usage_context: Use when appreciating practical skills and competence in managing a household.; replacement entry in revised edition for earlier duplicate,team_drafted
+G193,193,existing_collection_pdf,unverified,G053,,usage_context: Use when resolving a two sided conflict.; duplicate_of: G053; excluded from canonical gaades.csv,team_drafted
+G194,194,existing_collection_pdf,unverified,,,usage_context: Use when describing an order or decision that is considered final.; replacement entry in revised edition for earlier duplicate,team_drafted
+G195,195,existing_collection_pdf,unverified,G132,,usage_context: Use when someone talks big without results.; duplicate_of: G132; excluded from canonical gaades.csv,team_drafted
+G196,196,existing_collection_pdf,unverified,G103,,usage_context: Use when someone mishandles an opportunity.; duplicate_of: G103; excluded from canonical gaades.csv,team_drafted
+G197,197,existing_collection_pdf,unverified,G101,,usage_context: Use when someone refuses to accept responsibility.; duplicate_of: G101; excluded from canonical gaades.csv,team_drafted
+G198,198,existing_collection_pdf,unverified,G107,,usage_context: Use when someone gives advice without understanding.; duplicate_of: G107; excluded from canonical gaades.csv,team_drafted
+G199,199,existing_collection_pdf,unverified,G145,,usage_context: Use when encouraging honesty during a difficult situation.; english_equivalent: fallback_to_pdf_meaning; duplicate_of: G145; excluded from canonical gaades.csv,team_drafted
+G200,200,existing_collection_pdf,unverified,G150,,usage_context: Use when reflecting on a lesson learned.; duplicate_of: G150; excluded from canonical gaades.csv,team_drafted
+G201,201,newly_drafted,unverified,,,usage_context: Use when explaining that knowledge stays valuable throughout life.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G202,202,newly_drafted,unverified,,,usage_context: Use when encouraging someone to keep learning.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G203,203,newly_drafted,unverified,,,usage_context: Use when appreciating a teacher or mentor.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G204,204,newly_drafted,unverified,,,usage_context: Use when encouraging reading and self education.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G205,205,newly_drafted,unverified,,,usage_context: Use when reminding educated people to remain humble.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G206,206,newly_drafted,unverified,,,usage_context: Use when speaking about the value of patient agricultural work.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G207,207,newly_drafted,unverified,,,usage_context: Use when warning against missing the right season or opportunity.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G208,208,newly_drafted,unverified,,,usage_context: Use when explaining the importance of local knowledge in agriculture.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G209,209,newly_drafted,unverified,,,usage_context: Use when discussing the importance of farming to livelihoods.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G210,210,newly_drafted,unverified,,,usage_context: Use when showing that productive work reveals the value of a resource.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G211,211,newly_drafted,unverified,,,usage_context: Use when encouraging tree conservation.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G212,212,newly_drafted,unverified,,,usage_context: Use when discussing the importance of plants and green spaces.,team_drafted
+G213,213,newly_drafted,unverified,,,usage_context: Use when encouraging water conservation.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G214,214,newly_drafted,unverified,,,usage_context: Use when explaining why environmental responsibility matters.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G215,215,newly_drafted,unverified,,,usage_context: Use when describing how community water resources support everyone.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G216,216,newly_drafted,unverified,,,usage_context: Use when reminding someone to value their health.,team_drafted
+G217,217,newly_drafted,unverified,,,usage_context: Use when advising moderation in eating.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G218,218,newly_drafted,unverified,,,usage_context: Use when discussing balanced food habits.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G219,219,newly_drafted,unverified,,,usage_context: Use when discouraging overeating.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G220,220,newly_drafted,unverified,,,usage_context: Use when encouraging personal and public hygiene.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G221,221,newly_drafted,unverified,,,usage_context: Use when explaining the importance of honesty in business.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G222,222,newly_drafted,unverified,,,usage_context: Use when advising people to keep accurate business records.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G223,223,newly_drafted,unverified,,,usage_context: Use when emphasizing customer care and service.,team_drafted
+G224,224,newly_drafted,unverified,,,usage_context: Use when encouraging steady and sustainable business growth.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G225,225,newly_drafted,unverified,,,usage_context: Use when appreciating honestly earned money.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G226,226,newly_drafted,unverified,,,usage_context: Use when encouraging people to think about the common good.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G227,227,newly_drafted,unverified,,,usage_context: Use when praising acts of service and kindness.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G228,228,newly_drafted,unverified,,,usage_context: Use when appreciating supportive neighbours.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G229,229,newly_drafted,unverified,,,usage_context: Use when encouraging people to work together.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G230,230,newly_drafted,unverified,,,usage_context: Use when encouraging generosity and sharing.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G231,231,newly_drafted,unverified,,,usage_context: Use when discussing the influence of a good leader.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G232,232,newly_drafted,unverified,,,usage_context: Use when explaining a leader's responsibility to guide others.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G233,233,newly_drafted,unverified,,,usage_context: Use when reminding someone that leadership brings duties.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G234,234,newly_drafted,unverified,,,usage_context: Use when discussing fairness in decisions.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G235,235,newly_drafted,unverified,,,usage_context: Use when appreciating responsible public leadership.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G236,236,newly_drafted,unverified,,,usage_context: Use when encouraging someone facing a difficult challenge.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G237,237,newly_drafted,unverified,,,usage_context: Use when encouraging someone to act despite fear.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G238,238,newly_drafted,unverified,,,usage_context: Use when motivating someone to learn from difficulties.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G239,239,newly_drafted,unverified,,,usage_context: Use when encouraging someone after a setback.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G240,240,newly_drafted,unverified,,,usage_context: Use when praising perseverance.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G241,241,newly_drafted,unverified,,,usage_context: Use when discussing character and good manners.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G242,242,newly_drafted,unverified,,,usage_context: Use when encouraging the protection of a language.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G243,243,newly_drafted,unverified,,,usage_context: Use when appreciating guidance from older people.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G244,244,newly_drafted,unverified,,,usage_context: Use when explaining the connection between traditions and culture.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G245,245,newly_drafted,unverified,,,usage_context: Use when appreciating one's mother tongue.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G246,246,newly_drafted,unverified,,,usage_context: Use when encouraging regular habits and self control.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G247,247,newly_drafted,unverified,,,usage_context: Use when reminding someone to respect time.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G248,248,newly_drafted,unverified,,,usage_context: Use when encouraging someone to fulfil even small duties.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G249,249,newly_drafted,unverified,,,usage_context: Use when explaining the value of following shared rules.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G250,250,newly_drafted,unverified,,,usage_context: Use when discouraging procrastination.; english_equivalent: fallback_to_pdf_meaning,team_drafted
+G251,,newly_drafted,unverified,,,usage_context: Use when someone tries to make emergency arrangements after a crisis has already begun.; from official hackathon slide; needs elder confirmation; team-drafted meaning and english,team_drafted
+G252,,newly_drafted,unverified,,,usage_context: Use when reminding someone that everyone faces their own hidden difficulties.; from official hackathon slide; needs elder confirmation; team-drafted meaning and english,team_drafted

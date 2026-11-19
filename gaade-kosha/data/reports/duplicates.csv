@@ -1,0 +1,27 @@
+duplicate_id,canonical_id,duplicate_text,canonical_text,duplicate_type,similarity_ratio,notes
+G086,G042,ತಾಳ್ಮೆ ಇದ್ದರೆ ತೊಂದರೆ ಇಲ್ಲ.,ತಾಳ್ಮೆ ಇದ್ದರೆ ತೊಂದರೆ ಇಲ್ಲ.,exact,1.00,Later duplicate in collection mapped to canonical G042
+G117,G083,ಕೋಪದಲ್ಲಿ ಕೊಯ್ದ ಮೂಗು ಶಾಂತಿಯಲ್ಲಿ ಸಿಗುವುದಿಲ್ಲ.,ಕೋಪದಲ್ಲಿ ಕೊಯ್ದ ಮೂಗು ಶಾಂತಿಯಲ್ಲಿ ಸಿಗುವುದಿಲ್ಲ.,exact,1.00,Later duplicate in collection mapped to canonical G083
+G125,G085,"ಹಾವು ಸಾಯಬೇಕು, ಕೋಲು ಮುರಿಯಬಾರದು.","ಹಾವು ಸಾಯಬೇಕು, ಕೋಲು ಮುರಿಯಬಾರದು.",exact,1.00,Later duplicate in collection mapped to canonical G085
+G131,G029,ತುಂಬಿದ ಕೊಡ ತುಳುಕುವುದಿಲ್ಲ.,ತುಂಬಿದ ಕೊಡ ತುಳುಕುವುದಿಲ್ಲ.,exact,1.00,Later duplicate in collection mapped to canonical G029
+G135,G104,ಕತ್ತೆಗೆ ಏನು ಗೊತ್ತು ಕಸ್ತೂರಿ ಪರಿಮಳ?,ಕತ್ತೆಗೆ ಕಸ್ತೂರಿ ವಾಸನೆ ಗೊತ್ತೇ?,near_exact_variant,0.53,Later duplicate in collection mapped to canonical G104
+G163,G130,"ಹೊರಗೆ ಬಂಗಾರ, ಒಳಗೆ ಕಲ್ಲು.","ಹೊರಗೆ ಬಂಗಾರ, ಒಳಗೆ ಕಲ್ಲು.",exact,1.00,Later duplicate in collection mapped to canonical G130
+G164,G139,ಹುಲಿ ಬಂತು ಹುಲಿ ಎಂದರೆ ಯಾರೂ ನಂಬುವುದಿಲ್ಲ.,ಹುಲಿ ಬಂತು ಹುಲಿ ಎಂದರೆ ಯಾರೂ ನಂಬುವುದಿಲ್ಲ.,exact,1.00,Later duplicate in collection mapped to canonical G139
+G168,G128,ಕಣ್ಣಿಗೆ ಕಾಣುವುದೆಲ್ಲ ಸತ್ಯವಲ್ಲ.,ಕಣ್ಣಿಗೆ ಕಾಣುವುದೆಲ್ಲ ಸತ್ಯವಲ್ಲ.,exact,1.00,Later duplicate in collection mapped to canonical G128
+G169,G129,ಮಿಂಚುವುದೆಲ್ಲ ಚಿನ್ನವಲ್ಲ.,ಮಿಂಚುವುದೆಲ್ಲ ಚಿನ್ನವಲ್ಲ.,exact,1.00,Later duplicate in collection mapped to canonical G129
+G170,G123,ಹುಚ್ಚನ ಮದುವೆಯಲ್ಲಿ ಉಂಡವನೇ ಜಾಣ.,ಹುಚ್ಚನ ಮದುವೆಯಲ್ಲಿ ಉಂಡವನೇ ಜಾಣ.,exact,1.00,Later duplicate in collection mapped to canonical G123
+G174,G032,ದೂರದ ಬೆಟ್ಟ ಕಣ್ಣಿಗೆ ನುಣ್ಣಗೆ.,ದೂರದ ಬೆಟ್ಟ ಕಣ್ಣಿಗೆ ನುಣ್ಣಗೆ.,exact,1.00,Later duplicate in collection mapped to canonical G032
+G177,G036,ಆಸೆಗೊಂದು ಮಿತಿ ಇರಬೇಕು.,ಆಸೆಗೊಂದು ಮಿತಿ ಇರಬೇಕು.,exact,1.00,Later duplicate in collection mapped to canonical G036
+G179,G118,ಕಳ್ಳನ ಮನಸ್ಸು ಹುಳ್ಳುಳ್ಳಗೆ.,ಕಳ್ಳನ ಮನಸ್ಸು ಹುಳ್ಳುಳ್ಳಗೆ.,exact,1.00,Later duplicate in collection mapped to canonical G118
+G180,G119,ಕಳ್ಳನಿಗೆ ಒಂದು ಪಿಳ್ಳೆ ನೆವ.,ಕಳ್ಳನಿಗೆ ಒಂದು ಪಿಳ್ಳೆ ನೆವ.,exact,1.00,Later duplicate in collection mapped to canonical G119
+G181,G138,ನಂಬಿಕೆ ಕಳೆದುಕೊಂಡರೆ ಎಲ್ಲವನ್ನೂ ಕಳೆದುಕೊಂಡಂತೆ.,ನಂಬಿಕೆ ಕಳೆದುಕೊಂಡರೆ ಎಲ್ಲವನ್ನೂ ಕಳೆದುಕೊಂಡಂತೆ.,exact,1.00,Later duplicate in collection mapped to canonical G138
+G182,G059,"ಮಾತು ಆಡಿದರೆ ಹೋಯಿತು, ಮುತ್ತು ಒಡೆದರೆ ಹೋಯಿತು.","ಮಾತು ಆಡಿದರೆ ಹೋಯಿತು, ಮುತ್ತು ಒಡೆದರೆ ಹೋಯಿತು.",exact,1.00,Later duplicate in collection mapped to canonical G059
+G183,G023,ಮಳೆ ಬರುವಾಗ ಕೊಡೆ ಹಿಡಿದರೆ ಪ್ರಯೋಜನವಿಲ್ಲ.,ಮಳೆ ಬರುವಾಗ ಕೊಡೆ ಹಿಡಿದರೆ ಪ್ರಯೋಜನವಿಲ್ಲ.,exact,1.00,Later duplicate in collection mapped to canonical G023
+G184,G033,ಕಾಲ ಬಂದಾಗ ಕಲ್ಲೂ ಮಾತನಾಡುತ್ತದೆ.,ಕಾಲ ಬಂದಾಗ ಕಲ್ಲೂ ಮಾತನಾಡುತ್ತದೆ.,exact,1.00,Later duplicate in collection mapped to canonical G033
+G190,G013,ಕಷ್ಟವಿಲ್ಲದೆ ಫಲವಿಲ್ಲ.,ಕಷ್ಟವಿಲ್ಲದೆ ಫಲವಿಲ್ಲ.,exact,1.00,Later duplicate in collection mapped to canonical G013
+G193,G053,ಒಂದು ಕೈಯಿಂದ ಚಪ್ಪಾಳೆ ಆಗುವುದಿಲ್ಲ.,ಒಂದು ಕೈಯಿಂದ ಚಪ್ಪಾಳೆ ಆಗುವುದಿಲ್ಲ.,exact,1.00,Later duplicate in collection mapped to canonical G053
+G195,G132,ಖಾಲಿ ಕೊಡ ಹೆಚ್ಚು ಸದ್ದು ಮಾಡುತ್ತದೆ.,ಖಾಲಿ ಕೊಡ ಹೆಚ್ಚು ಸದ್ದು ಮಾಡುತ್ತದೆ.,exact,1.00,Later duplicate in collection mapped to canonical G132
+G196,G103,ಕೋತಿಯ ಕೈಗೆ ಮಾಣಿಕ್ಯ ಕೊಟ್ಟಂತೆ.,ಕೋತಿಯ ಕೈಗೆ ಮಾಣಿಕ್ಯ ಕೊಟ್ಟಂತೆ.,exact,1.00,Later duplicate in collection mapped to canonical G103
+G197,G101,ಕುಣಿಯಲಾರದವಳು ನೆಲ ಡೊಂಕು ಅಂದಳು.,ಕುಣಿಯಲಾರದವಳು ನೆಲ ಡೊಂಕು ಅಂದಳು.,exact,1.00,Later duplicate in collection mapped to canonical G101
+G198,G107,ಅರ್ಧ ಜ್ಞಾನ ಅಪಾಯಕ್ಕೆ ದಾರಿ.,ಅರ್ಧ ಜ್ಞಾನ ಅಪಾಯಕ್ಕೆ ದಾರಿ.,exact,1.00,Later duplicate in collection mapped to canonical G107
+G199,G145,ಸತ್ಯಕ್ಕೆ ಜಯ.,ಸತ್ಯಕ್ಕೆ ಜಯ.,exact,1.00,Later duplicate in collection mapped to canonical G145
+G200,G150,ಅನುಭವವೇ ದೊಡ್ಡ ಗುರು.,ಅನುಭವವೇ ದೊಡ್ಡ ಗುರು.,exact,1.00,Later duplicate in collection mapped to canonical G150
