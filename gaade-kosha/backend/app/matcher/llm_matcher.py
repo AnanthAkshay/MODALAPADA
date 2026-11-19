@@ -373,6 +373,19 @@ class LLMMatcher:
 
         if resp.status_code != 200:
             logger.error(f"Groq API returned HTTP {resp.status_code}: {resp.text[:300]}")
+            # If 429 rate limit (TPM), immediately try fallback to high-throughput llama-3.1-8b-instant
+            if resp.status_code == 429 and model != "llama-3.1-8b-instant":
+                logger.info("Retrying Groq with high-throughput model 'llama-3.1-8b-instant'...")
+                payload["model"] = "llama-3.1-8b-instant"
+                try:
+                    resp2 = self.session.post(url, headers=headers, json=payload, timeout=timeout)
+                    if resp2.status_code == 200:
+                        data2 = resp2.json()
+                        choices2 = data2.get("choices", [])
+                        if choices2:
+                            return choices2[0].get("message", {}).get("content"), (time.perf_counter() - t0) * 1000.0, None
+                except Exception as e:
+                    logger.warning(f"Groq alternate model call failed: {e}")
             return None, lat_ms, None
 
         data = resp.json()
@@ -512,10 +525,15 @@ class LLMMatcher:
             "reason_kn": reason_kn.strip()
         }
 
-    def _build_user_prompt(self, situation_text: str) -> str:
+    def _build_user_prompt(self, situation_text: str, candidate_prompt_text: Optional[str] = None) -> str:
         """Construct secure user prompt with clear boundaries to thwart injection attacks."""
+        catalog = (
+            candidate_prompt_text.strip()
+            if candidate_prompt_text and candidate_prompt_text.strip()
+            else self.registry.compact_prompt_text
+        )
         return f"""Here is the canonical catalog of Kannada proverbs:
-{self.registry.compact_prompt_text}
+{catalog}
 
 ---
 Analyze the user's situation narrative below.
@@ -532,7 +550,8 @@ Return ONLY the single JSON object conforming to the required schema.
         self,
         text: str,
         lang: str = "auto",
-        client_ip: Optional[str] = None
+        client_ip: Optional[str] = None,
+        candidate_prompt_text: Optional[str] = None
     ) -> Optional[Dict[str, Any]]:
         """
         Match situation narrative using LLM.
@@ -562,8 +581,8 @@ Return ONLY the single JSON object conforming to the required schema.
             logger.info("Serving match from LLM in-memory cache.")
             return cached
 
-        # Construct Prompt
-        user_prompt = self._build_user_prompt(text)
+        # Construct Prompt (using focused candidates if provided to save TPM)
+        user_prompt = self._build_user_prompt(text, candidate_prompt_text=candidate_prompt_text)
 
         # 1. First Attempt
         raw_output, provider, lat_ms, tokens = self._dispatch_call(user_prompt)

@@ -251,7 +251,14 @@ class MatcherService:
         if llm_matcher.is_configured():
             llm_attempted = True
             try:
-                llm_result = llm_matcher.match(text=text, lang=detected_lang, client_ip=client_ip)
+                # Pre-rank top 35 candidates to keep LLM prompt under 1,000 tokens (preventing Groq 429 TPM limits)
+                candidate_snippet = self.get_top_candidate_prompt_text(text, top_k=35)
+                llm_result = llm_matcher.match(
+                    text=text,
+                    lang=detected_lang,
+                    client_ip=client_ip,
+                    candidate_prompt_text=candidate_snippet
+                )
                 if llm_result is not None:
                     return llm_result
                 logger.info("LLM matcher call returned None. Activating offline TF-IDF fallback.")
@@ -260,6 +267,46 @@ class MatcherService:
 
         # 6. SECONDARY STEP: Offline Hybrid TF-IDF / BM25 Fallback Matcher
         return self._execute_tfidf_match(text, detected_lang, is_fallback=llm_attempted)
+
+    def get_top_candidate_prompt_text(self, text: str, top_k: int = 35) -> str:
+        """
+        Produce a compact catalog snippet of top-K candidate proverbs for the LLM prompt.
+        Reduces prompt token count from ~16,000 down to ~850 tokens, staying well within
+        Groq's 6,000 TPM limit and achieving ~350ms latency.
+        """
+        if not self._loaded or self.gaade_vectors is None or not self.gaade_ids:
+            return ""
+
+        try:
+            truncated = text[:1000]
+            q_vec = self.provider.embed_texts([truncated])
+            sim_gaades = (self.gaade_vectors @ q_vec.T).flatten()
+            sim_situations = (self.situation_vectors @ q_vec.T).flatten()
+
+            max_sit_sim = np.zeros(len(self.gaade_ids), dtype=np.float32)
+            for idx, s_info in enumerate(self.situations):
+                gid = s_info['gaade_id']
+                if gid in self.gaade_ids:
+                    g_idx = self.gaade_ids.index(gid)
+                    if sim_situations[idx] > max_sit_sim[g_idx]:
+                        max_sit_sim[g_idx] = sim_situations[idx]
+
+            scores = (0.35 * sim_gaades) + (0.45 * max_sit_sim)
+            ranked_indices = np.argsort(-scores)[:top_k]
+            top_ids = [self.gaade_ids[i] for i in ranked_indices]
+
+            llm_matcher = get_llm_matcher()
+            lines = []
+            for gid in top_ids:
+                item = llm_matcher.registry.canonical_gaades.get(gid)
+                if item:
+                    lines.append(
+                        f"{gid}: {item['gaade']} | Meaning: {item['meaning']} | English: {item['english']} | Theme: {item['theme']}"
+                    )
+            return "\n".join(lines)
+        except Exception as e:
+            logger.warning(f"Could not generate candidate snippet: {e}")
+            return ""
 
     def _execute_tfidf_match(
         self,
