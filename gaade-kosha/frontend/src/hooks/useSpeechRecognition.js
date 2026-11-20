@@ -34,6 +34,9 @@ export default function useSpeechRecognition({ onTranscript }) {
   const timerIntervalRef = useRef(null);
   const recordingStartTimeRef = useRef(null);
   const streamRef = useRef(null);
+  const onTranscriptRef = useRef(onTranscript);
+  onTranscriptRef.current = onTranscript;
+  const latestInterimRef = useRef('');
 
   const langRef = useRef(lang);
   langRef.current = lang;
@@ -109,10 +112,19 @@ export default function useSpeechRecognition({ onTranscript }) {
       const targetLang = langRef.current.startsWith('en') ? 'en' : 'kn';
       const endpoint = `${API_BASE}/api/transcribe?lang=${targetLang}`;
 
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        body: formData
-      });
+      let res;
+      try {
+        res = await fetch(endpoint, {
+          method: 'POST',
+          body: formData
+        });
+      } catch (networkErr) {
+        // Direct fallback to Render cloud backend if relative proxy fails
+        res = await fetch(`https://modalapada.onrender.com/api/transcribe?lang=${targetLang}`, {
+          method: 'POST',
+          body: formData
+        });
+      }
 
       if (!res.ok) {
         const errJson = await res.json().catch(() => ({}));
@@ -123,7 +135,7 @@ export default function useSpeechRecognition({ onTranscript }) {
       const text = (data.text || data.transcript || '').trim();
 
       if (text) {
-        onTranscript(text);
+        if (onTranscriptRef.current) onTranscriptRef.current(text);
         setInterim('');
         setError(null);
       } else {
@@ -250,8 +262,12 @@ export default function useSpeechRecognition({ onTranscript }) {
         if (result.isFinal) finalChunk += result[0].transcript;
         else interimChunk += result[0].transcript;
       }
+      latestInterimRef.current = interimChunk;
       setInterim(interimChunk);
-      if (finalChunk.trim()) onTranscript(finalChunk.trim());
+      if (finalChunk.trim()) {
+        latestInterimRef.current = '';
+        if (onTranscriptRef.current) onTranscriptRef.current(finalChunk.trim());
+      }
     };
 
     recognition.onerror = (event) => {
@@ -263,8 +279,19 @@ export default function useSpeechRecognition({ onTranscript }) {
           sessionStorage.setItem('gaade_asr_force_fallback', 'true');
         } catch (_) {}
         setNotice("Switching to audio recording mode...");
-        recognition.stop();
+        try { recognition.stop(); } catch (_) {}
         startMediaRecorderFallback();
+        return;
+      }
+
+      if (event.error === 'no-speech') {
+        // Natural pause / silence: quietly finish listening without jarring error banner
+        if (latestInterimRef.current && latestInterimRef.current.trim()) {
+          if (onTranscriptRef.current) onTranscriptRef.current(latestInterimRef.current.trim());
+          latestInterimRef.current = '';
+        }
+        setListening(false);
+        setInterim('');
         return;
       }
 
@@ -274,6 +301,11 @@ export default function useSpeechRecognition({ onTranscript }) {
     };
 
     recognition.onend = () => {
+      // Commit any remaining unfinalized speech before closing
+      if (latestInterimRef.current && latestInterimRef.current.trim()) {
+        if (onTranscriptRef.current) onTranscriptRef.current(latestInterimRef.current.trim());
+        latestInterimRef.current = '';
+      }
       setListening(false);
       setInterim('');
     };
@@ -320,6 +352,8 @@ export default function useSpeechRecognition({ onTranscript }) {
 
   const setLang = useCallback(
     (nextLang) => {
+      if (!nextLang || nextLang === langRef.current) return;
+      langRef.current = nextLang;
       setLangState(nextLang);
       if (listening) {
         stop();

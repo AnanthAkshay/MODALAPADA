@@ -55,10 +55,15 @@ export default function App() {
   useEffect(() => {
     writeLocale(locale);
     document.documentElement.lang = locale;
-    if (speech?.setLang) {
-      speech.setLang(locale === 'kn' ? 'kn-IN' : 'en-IN');
+  }, [locale]);
+
+  // Sync speech recognition language when locale changes without re-triggering on speech state updates
+  const setSpeechLang = speech.setLang;
+  useEffect(() => {
+    if (setSpeechLang) {
+      setSpeechLang(locale === 'kn' ? 'kn-IN' : 'en-IN');
     }
-  }, [locale, speech]);
+  }, [locale, setSpeechLang]);
 
   useEffect(() => {
     const controller = new AbortController();
