@@ -374,7 +374,7 @@ function ReadyView({ data, query, altIndex, onPromote, onSelect, onNewSituation,
 }
 
 function NoticeBlock({ status, message, onNewSituation, onBackToBrowse, fromBrowse }) {
-  const { t, sub, other } = useCopy();
+  const { t, sub, locale, other } = useCopy();
   const titleKey = `result.notice.${status}`;
   const known = ['no_good_match', 'invalid_input', 'inappropriate_input', 'greeting', 'error'].includes(status);
   const resolved = known ? titleKey : 'result.notice.fallback';
