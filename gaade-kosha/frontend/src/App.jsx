@@ -81,7 +81,7 @@ export default function App() {
   const runMatch = useCallback(
     async (rawText) => {
       const text = (rawText ?? inputText).trim();
-      if (!text || busy.current) return;
+      if (text.length < 4 || busy.current) return;
 
       busy.current = true;
       stopListening();

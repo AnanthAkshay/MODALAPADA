@@ -17,6 +17,7 @@
     "subline": "Tell us what’s happening. We’ll find the gaade for it.",
     "placeholder": "Describe the situation…",
     "inputLabel": "Your situation",
+    "minimumLength": "Please enter at least a few words.",
     "find": "Find gaade",
     "speak": "Speak in",
     "micStart": "Speak your situation",

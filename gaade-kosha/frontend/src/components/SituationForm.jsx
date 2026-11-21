@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Mic, MicOff, Globe } from 'lucide-react';
 import { btnPrimary } from '../lib/ui';
 import { useCopy } from '../i18n';
@@ -8,6 +8,7 @@ const segmentBase =
 
 export default function SituationForm({ value, onChange, onSubmit, speech, inputRef, onSelectLocale }) {
   const { t, sub, locale, other } = useCopy();
+  const [showMinimumLengthError, setShowMinimumLengthError] = useState(false);
   const {
     supported,
     listening,
@@ -35,7 +36,13 @@ export default function SituationForm({ value, onChange, onSubmit, speech, input
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        onSubmit(value);
+        const text = value.trim();
+        if (text.length < 4) {
+          setShowMinimumLengthError(true);
+          return;
+        }
+        setShowMinimumLengthError(false);
+        onSubmit(text);
       }}
       className="mt-8"
     >
@@ -68,9 +75,15 @@ export default function SituationForm({ value, onChange, onSubmit, speech, input
             ref={inputRef}
             type="text"
             value={value}
-            onChange={(event) => onChange(event.target.value)}
+            onChange={(event) => {
+              const text = event.target.value;
+              onChange(text);
+              if (text.trim().length >= 4) setShowMinimumLengthError(false);
+            }}
             placeholder={t('home.placeholder')}
             autoComplete="off"
+            aria-invalid={showMinimumLengthError}
+            aria-describedby={showMinimumLengthError ? 'situation-minimum-length-error' : undefined}
             className={`h-14 w-full min-w-0 rounded-control border border-line bg-paper-deep px-4 text-body text-ink placeholder:text-ink-soft focus-visible:outline-offset-0 ${
               locale === 'kn' ? 'kn' : ''
             }`}
@@ -90,6 +103,19 @@ export default function SituationForm({ value, onChange, onSubmit, speech, input
           </span>
         </button>
       </div>
+
+      {showMinimumLengthError ? (
+        <p
+          id="situation-minimum-length-error"
+          role="alert"
+          aria-live="assertive"
+          className="mt-2 text-meta text-kumkum"
+        >
+          <span lang={locale} className={locale === 'kn' ? 'kn' : ''}>
+            {t('home.minimumLength')}
+          </span>
+        </p>
+      ) : null}
 
       {/* Whole-site language switch replacing separate 'Speak in' toggle */}
       <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
